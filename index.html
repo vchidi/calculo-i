@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cálculo i</title>
+
+<style>
+body{
+  font-family:-apple-system,system-ui,Segoe UI,Arial;
+  margin:8px;
+  background:#f9f9f9;
+  font-size:15px;
+}
+
+.box{
+  background:white;
+  border-radius:10px;
+  padding:8px;
+  margin-bottom:8px;
+  box-shadow:0 1px 3px rgba(0,0,0,.1);
+}
+
+h3{
+  margin:4px 0 6px;
+  font-size:16px;
+}
+
+label{
+  font-weight:600;
+  font-size:14px;
+}
+
+input,select,button{
+  width:100%;
+  padding:6px;
+  margin-top:4px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:15px;
+}
+
+button{
+  background:#007aff;
+  color:white;
+  border:none;
+}
+
+.smallBtn{
+  background:#eee;
+  color:black;
+  margin-top:4px;
+}
+
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+}
+
+.big{
+  font-size:20px;
+  font-weight:700;
+}
+
+.gray{color:#666}
+.red{color:#c00;font-weight:600}
+
+pre{
+  background:#f3f3f3;
+  padding:6px;
+  border-radius:8px;
+  font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- COMIDA -->
+<div class="box">
+<h3>Comida</h3>
+
+<select id="meal"></select>
+
+<div class="big">t = <span id="tNow">—</span></div>
+</div>
+
+
+<!-- EDITAR T -->
+<div class="box">
+<h3>Editar t</h3>
+
+<div class="row">
+<input id="tEdit" inputmode="decimal" placeholder="Nuevo t">
+
+<div>
+<button id="saveT">Guardar</button>
+<button id="resetT" class="smallBtn">Reset</button>
+</div>
+</div>
+</div>
+
+
+<!-- DATOS -->
+<div class="box">
+<h3>Datos</h3>
+
+<label>Glucosa (g)</label>
+<input id="g" inputmode="decimal">
+
+<label>Raciones (h)</label>
+<input id="h" inputmode="decimal">
+
+<button id="calcI">Calcular i</button>
+
+<div id="err" class="red"></div>
+
+<div>
+<div class="gray">i sin redondear</div>
+<div class="big" id="iRaw">—</div>
+</div>
+
+<select id="round">
+<option value="half">0.5 en 0.5</option>
+</select>
+
+<button id="applyRound">Redondear</button>
+
+<div>
+<div class="gray">i final</div>
+<div class="big" id="iRound">—</div>
+</div>
+
+</div>
+
+
+<!-- OPERACIÓN -->
+<div class="box">
+<h3>Operación</h3>
+<pre id="op">Introduce datos</pre>
+</div>
+
+
+<!-- OTRA I -->
+<div class="box">
+<h3>Probar otra i</h3>
+
+<label>
+<input type="checkbox" id="tryOther"> Activar
+</label>
+
+<div id="otherBox" style="display:none">
+
+<input id="iSug" inputmode="decimal" placeholder="Mi i">
+
+<button id="calcT">Calcular t</button>
+
+<div>
+<div class="gray">t resultante</div>
+<div class="big" id="tSug">—</div>
+</div>
+
+</div>
+</div>
+
+
+<script>
+
+const defaults={
+  Desayuno:1.8,
+  Snack:1.6,
+  Lunch:1.35,
+  Merienda:1.35,
+  Cena:1.0
+};
+
+const meal=document.getElementById('meal');
+const tNow=document.getElementById('tNow');
+const tEdit=document.getElementById('tEdit');
+const saveT=document.getElementById('saveT');
+const resetT=document.getElementById('resetT');
+
+const gEl=document.getElementById('g');
+const hEl=document.getElementById('h');
+const calcI=document.getElementById('calcI');
+const err=document.getElementById('err');
+
+const iRawEl=document.getElementById('iRaw');
+const iRoundEl=document.getElementById('iRound');
+
+const applyRound=document.getElementById('applyRound');
+
+const op=document.getElementById('op');
+
+const tryOther=document.getElementById('tryOther');
+const otherBox=document.getElementById('otherBox');
+
+const iSug=document.getElementById('iSug');
+const calcT=document.getElementById('calcT');
+const tSugEl=document.getElementById('tSug');
+
+function num(v){
+  return Number(String(v).replace(',','.'));
+}
+
+function loadT(m){
+  return Number(localStorage.getItem('t_'+m))||defaults[m];
+}
+
+function saveTVal(m,v){
+  localStorage.setItem('t_'+m,v);
+}
+
+function resetTVal(m){
+  localStorage.removeItem('t_'+m);
+}
+
+function curMeal(){
+  return meal.value;
+}
+
+function updateUI(){
+  const t=loadT(curMeal());
+  tNow.textContent=t.toFixed(2);
+  tEdit.value=t.toFixed(2);
+  updateOp();
+}
+
+function updateOp(){
+  const g=num(gEl.value);
+  const h=num(hEl.value);
+  const t=loadT(curMeal());
+
+  if(!isFinite(g)||!isFinite(h)||h===0){
+    op.textContent="Introduce g y h";
+    return;
+  }
+
+  const corr=(g-100)/30;
+
+  op.textContent=
+`( i - ( ${g.toFixed(1)} - 100 ) /30 ) / ${h} = ${t}
+
+i = ${t} × ${h} + ${corr.toFixed(2)}
+i = ${(t*h).toFixed(2)} + ${corr.toFixed(2)}`;
+}
+
+
+// Cargar comidas
+Object.keys(defaults).forEach(m=>{
+  const o=document.createElement('option');
+  o.value=m;
+  o.textContent=m;
+  meal.appendChild(o);
+});
+
+meal.onchange=updateUI;
+
+
+// Guardar t
+saveT.onclick=()=>{
+  const v=num(tEdit.value);
+  if(!isFinite(v)){err.textContent="t inválido";return;}
+  saveTVal(curMeal(),v);
+  updateUI();
+};
+
+
+// Reset t
+resetT.onclick=()=>{
+  resetTVal(curMeal());
+  updateUI();
+};
+
+
+let lastI=NaN;
+
+
+// Calcular i
+calcI.onclick=()=>{
+  err.textContent="";
+
+  const g=num(gEl.value);
+  const h=num(hEl.value);
+  const t=loadT(curMeal());
+
+  if(!isFinite(g)||!isFinite(h)){
+    err.textContent="Datos inválidos";
+    return;
+  }
+
+  if(h===0){
+    err.textContent="h no puede ser 0";
+    return;
+  }
+
+  lastI=t*h+(g-100)/30;
+
+  iRawEl.textContent=lastI.toFixed(2);
+  iRoundEl.textContent="—";
+
+  updateOp();
+};
+
+
+// Redondear 0.5
+applyRound.onclick=()=>{
+  if(!isFinite(lastI))return;
+
+  const r=Math.round(lastI*2)/2;
+
+  iRoundEl.textContent=r.toFixed(1);
+};
+
+
+// Otra i
+tryOther.onchange=()=>{
+  otherBox.style.display=tryOther.checked?"block":"none";
+};
+
+
+calcT.onclick=()=>{
+  const g=num(gEl.value);
+  const h=num(hEl.value);
+  const i=num(iSug.value);
+
+  if(!isFinite(g)||!isFinite(h)||!isFinite(i)){
+    err.textContent="Datos inválidos";
+    return;
+  }
+
+  if(h===0){
+    err.textContent="h no puede ser 0";
+    return;
+  }
+
+  const corr=(g-100)/30;
+  const t=(i-corr)/h;
+
+  tSugEl.textContent=t.toFixed(2);
+};
+
+
+// Init
+updateUI();
+
+</script>
+
+</body>
+</html>
