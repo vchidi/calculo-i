@@ -4,58 +4,61 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Calculadoras</title>
+
 <style>
-  body{font-family:-apple-system,system-ui,Segoe UI,Arial;margin:8px;background:#f6f6f6;font-size:15px}
-  .box{background:#fff;border-radius:12px;padding:10px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.12)}
-  h2{margin:0 0 8px;font-size:18px}
-  label{font-weight:700;font-size:14px}
-  input,button{width:100%;padding:10px;border-radius:10px;border:1px solid #ccc;font-size:16px}
-  button{border:none;background:#007aff;color:#fff;margin-top:8px}
-  .small{background:#eee;color:#000}
-  .muted{color:#666;font-size:13px;margin-top:6px}
-  .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+body{font-family:-apple-system,system-ui,Segoe UI,Arial;margin:8px;background:#f6f6f6;font-size:15px}
+.box{background:#fff;border-radius:12px;padding:10px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+h2{margin:0 0 8px;font-size:18px}
+label{font-weight:700;font-size:14px}
+input,button{width:100%;padding:10px;border-radius:10px;border:1px solid #ccc;font-size:16px}
+button{border:none;background:#007aff;color:#fff;margin-top:8px}
+.small{background:#eee;color:#000}
+.muted{color:#666;font-size:13px;margin-top:6px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 </style>
 </head>
+
 <body>
 
 <div class="box">
   <h2>Glucosa objetivo</h2>
-  <label>Objetivo (GOAL)</label>
+  <label>GOAL</label>
   <input id="goal" inputmode="decimal" placeholder="Ej: 100">
+
   <div class="row">
     <button id="save">Guardar</button>
     <button id="reset" class="small">Reset 100</button>
   </div>
-  <div class="muted">Este GOAL se usa en ambos métodos.</div>
+
+  <div class="muted">Compartido entre Val e InPen</div>
 </div>
 
 <div class="box">
-  <h2>Elegir método</h2>
-  <button onclick="location.href='index1.html'">Mi Método</button>
-  <button class="small" onclick="location.href='index2.html'">Método 2 (hc/i + sensibilidad)</button>
+  <h2>Elegir calculadora</h2>
+
+  <button onclick="location.href='index1.html'">Val</button>
+  <button class="small" onclick="location.href='index2.html'">InPen</button>
 </div>
 
 <script>
-  const GOAL_KEY = "goal_glucose";
+const KEY="goal_glucose";
 
-  function num(v){ return Number(String(v ?? "").replace(",", ".")); }
-  function getGoal(){ return Number(localStorage.getItem(GOAL_KEY)) || 100; }
-  function setGoal(v){ localStorage.setItem(GOAL_KEY, String(v)); }
+function num(v){return Number(String(v??"").replace(",","."));}
+function get(){return Number(localStorage.getItem(KEY))||100;}
+function set(v){localStorage.setItem(KEY,String(v));}
 
-  const goal = document.getElementById("goal");
-  goal.value = String(getGoal());
+const g=document.getElementById("goal");
+g.value=String(get());
 
-  document.getElementById("save").onclick = () => {
-    const v = num(goal.value);
-    if(!isFinite(v)) return alert("GOAL inválido");
-    setGoal(v);
-    alert("Guardado ✅");
-  };
+document.getElementById("save").onclick=()=>{
+  const v=num(g.value);
+  if(!isFinite(v))return alert("Inválido");
+  set(v); alert("Guardado");
+};
 
-  document.getElementById("reset").onclick = () => {
-    setGoal(100);
-    goal.value = "100";
-  };
+document.getElementById("reset").onclick=()=>{
+  set(100); g.value="100";
+};
 </script>
 
 </body>

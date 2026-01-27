@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Cálculo i (t)</title>
+<title>Val</title>
 
 <style>
 body{font-family:-apple-system,system-ui,Segoe UI,Arial;margin:8px;background:#f9f9f9;font-size:15px}
@@ -12,200 +12,150 @@ h3{margin:4px 0 6px;font-size:16px}
 label{font-weight:600;font-size:14px}
 input,select,button{width:100%;padding:6px;margin-top:4px;border-radius:8px;border:1px solid #ccc;font-size:15px}
 button{background:#007aff;color:white;border:none}
-.smallBtn{background:#eee;color:black;margin-top:4px}
+.small{background:#eee;color:black}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .big{font-size:20px;font-weight:700}
 .gray{color:#666}
 .red{color:#c00;font-weight:600}
-pre{background:#f3f3f3;padding:6px;border-radius:8px;font-size:13px;white-space:pre-wrap;word-break:break-word}
-.topRow{display:flex;gap:6px}
-.topRow button{flex:1}
+pre{background:#f3f3f3;padding:6px;border-radius:8px;font-size:13px}
+.top{display:flex;gap:6px}
+.top button{flex:1}
 </style>
 </head>
 
 <body>
 
-<div class="box">
-  <div class="topRow">
-    <button class="smallBtn" onclick="location.href='index0.html'">⬅ Menú</button>
-    <button class="smallBtn" onclick="location.href='index2.html'">Método 2</button>
-  </div>
+<div class="box top">
+  <button class="small" onclick="location.href='index0.html'">Menú</button>
+  <button class="small" onclick="location.href='index2.html'">InPen</button>
 </div>
 
 <div class="box">
 <h3>Comida (t)</h3>
 <select id="meal"></select>
-<div class="big">t = <span id="tNow">—</span></div>
+<div class="big">t = <span id="tNow"></span></div>
 </div>
 
 <div class="box">
 <h3>Editar t</h3>
 <div class="row">
-  <input id="tEdit" inputmode="decimal" placeholder="Nuevo t">
-  <div>
-    <button id="saveT">Guardar</button>
-    <button id="resetT" class="smallBtn">Reset</button>
-  </div>
+<input id="tEdit">
+<button id="saveT">Guardar</button>
 </div>
 </div>
 
 <div class="box">
 <h3>Datos</h3>
 
-<label>Objetivo (GOAL)</label>
-<input id="goal" inputmode="decimal" placeholder="Ej: 100">
+<label>GOAL</label>
+<input id="goal">
 
-<label>Glucosa (g)</label>
-<input id="g" inputmode="decimal" placeholder="Ej: 130">
+<label>Glucosa</label>
+<input id="g">
 
-<label>Raciones (h)</label>
-<input id="h" inputmode="decimal" placeholder="Ej: 2.5">
+<label>Raciones</label>
+<input id="h">
 
-<button id="calcI">Calcular i</button>
+<button id="calc">Calcular</button>
 
-<div id="err" class="red" style="margin-top:6px;"></div>
+<div id="err" class="red"></div>
 
-<div style="margin-top:6px;">
-  <div class="gray">i sin redondear</div>
-  <div class="big" id="iRaw">—</div>
-</div>
+<div class="gray">i</div>
+<div class="big" id="iRaw">—</div>
 
-<button id="applyRound" style="margin-top:6px;">Redondear (0.5)</button>
+<button id="round">Redondear 0.5</button>
 
-<div style="margin-top:6px;">
-  <div class="gray">i final</div>
-  <div class="big" id="iRound">—</div>
-</div>
+<div class="gray">Final</div>
+<div class="big" id="iRound">—</div>
 </div>
 
 <div class="box">
 <h3>Operación</h3>
-<pre id="op">Introduce datos</pre>
-</div>
-
-<div class="box">
-<h3>Probar otra i</h3>
-<label><input type="checkbox" id="tryOther"> Activar</label>
-
-<div id="otherBox" style="display:none;margin-top:6px">
-  <input id="iSug" inputmode="decimal" placeholder="Mi i">
-  <button id="calcT">Calcular t</button>
-
-  <div style="margin-top:6px;">
-    <div class="gray">t resultante</div>
-    <div class="big" id="tSug">—</div>
-  </div>
-</div>
+<pre id="op"></pre>
 </div>
 
 <script>
-const GOAL_KEY = "goal_glucose";
+const GOAL="goal_glucose";
 
-const defaults = {
-  Desayuno: 1.80,
-  Snack: 1.60,
-  Lunch: 1.35,
-  Merienda: 1.35,
-  Cena: 1.00
+const def={Desayuno:1.8,Snack:1.6,Lunch:1.35,Merienda:1.35,Cena:1};
+
+const meal=document.getElementById("meal");
+const tNow=document.getElementById("tNow");
+const tEdit=document.getElementById("tEdit");
+const goal=document.getElementById("goal");
+const g=document.getElementById("g");
+const h=document.getElementById("h");
+const err=document.getElementById("err");
+const iRaw=document.getElementById("iRaw");
+const iRound=document.getElementById("iRound");
+const op=document.getElementById("op");
+
+function num(v){return Number(String(v??"").replace(",","."));}
+
+function getGoal(){return Number(localStorage.getItem(GOAL))||100;}
+
+function loadT(m){
+  return Number(localStorage.getItem("t_"+m))||def[m];
+}
+
+function saveT(m,v){
+  localStorage.setItem("t_"+m,v);
+}
+
+Object.keys(def).forEach(m=>{
+  const o=document.createElement("option");
+  o.value=m;o.textContent=m;meal.appendChild(o);
+});
+
+goal.value=getGoal();
+
+function refresh(){
+  const t=loadT(meal.value);
+  tNow.textContent=t.toFixed(2);
+  tEdit.value=t.toFixed(2);
+}
+
+meal.onchange=refresh;
+
+document.getElementById("saveT").onclick=()=>{
+  const v=num(tEdit.value);
+  if(!isFinite(v))return;
+  saveT(meal.value,v);
+  refresh();
 };
 
-const mealSel = document.getElementById('meal');
-const tNow = document.getElementById('tNow');
-const tEdit = document.getElementById('tEdit');
-const saveT = document.getElementById('saveT');
-const resetT = document.getElementById('resetT');
+let last=NaN;
 
-const goalEl = document.getElementById('goal');
-const gEl = document.getElementById('g');
-const hEl = document.getElementById('h');
+document.getElementById("calc").onclick=()=>{
+  err.textContent="";
+  const G=num(goal.value);
+  const gg=num(g.value);
+  const hh=num(h.value);
+  const t=loadT(meal.value);
 
-const calcI = document.getElementById('calcI');
-const err = document.getElementById('err');
-const iRawEl = document.getElementById('iRaw');
-const iRoundEl = document.getElementById('iRound');
-const applyRound = document.getElementById('applyRound');
-
-const op = document.getElementById('op');
-
-const tryOther = document.getElementById('tryOther');
-const otherBox = document.getElementById('otherBox');
-const iSug = document.getElementById('iSug');
-const calcT = document.getElementById('calcT');
-const tSugEl = document.getElementById('tSug');
-
-function num(v){ return Number(String(v ?? "").replace(",", ".")); }
-function getGoal(){ return Number(localStorage.getItem(GOAL_KEY)) || 100; }
-function setGoal(v){ localStorage.setItem(GOAL_KEY, String(v)); }
-
-function loadT(meal){
-  const key = 't_' + meal;
-  const saved = localStorage.getItem(key);
-  return saved ? Number(saved) : defaults[meal];
-}
-function saveTValue(meal, value){ localStorage.setItem('t_' + meal, String(value)); }
-function resetTValue(meal){ localStorage.removeItem('t_' + meal); }
-
-function currentMeal(){ return mealSel.value; }
-
-function updateTUI(){
-  const meal = currentMeal();
-  const t = loadT(meal);
-  tNow.textContent = t.toFixed(2);
-  tEdit.value = t.toFixed(2);
-  updateOperationText();
-}
-
-function updateOperationText(){
-  const goal = num(goalEl.value);
-  const g = num(gEl.value);
-  const h = num(hEl.value);
-  const t = loadT(currentMeal());
-
-  if(!isFinite(goal) || !isFinite(g) || !isFinite(h) || h === 0){
-    op.textContent = "Introduce GOAL, g y h (y h ≠ 0).";
-    return;
+  if(!isFinite(G)||!isFinite(gg)||!isFinite(hh)){
+    err.textContent="Datos inválidos";return;
   }
 
-  const corr = (g - goal) / 30;
-  const line1 = `( i - ( ${g.toFixed(2)} - ${goal.toFixed(2)} ) / 30 ) / ${h.toFixed(2)} = ${t.toFixed(2)}`;
-  const line2 = `i = ${t.toFixed(2)} × ${h.toFixed(2)} + ( ${g.toFixed(2)} - ${goal.toFixed(2)} ) / 30`;
-  const line3 = `i = ${(t*h).toFixed(4)} + ${corr.toFixed(4)}`;
+  localStorage.setItem(GOAL,G);
 
-  op.textContent = `Original:\n${line1}\n\nDespeje:\n${line2}\n${line3}`;
-}
+  last=t*hh+(gg-G)/30;
 
-// Populate meals
-Object.keys(defaults).forEach(m=>{
-  const opt = document.createElement('option');
-  opt.value = m;
-  opt.textContent = m;
-  mealSel.appendChild(opt);
-});
+  iRaw.textContent=last.toFixed(2);
+  iRound.textContent="—";
 
-// Init GOAL shared
-goalEl.value = String(getGoal());
+  op.textContent=
+`i = ${t}×${hh} + (${gg}-${G})/30
+i = ${last.toFixed(3)}`;
+};
 
-// Events
-mealSel.addEventListener('change', () => { err.textContent=""; updateTUI(); });
+document.getElementById("round").onclick=()=>{
+  if(!isFinite(last))return;
+  iRound.textContent=(Math.round(last*2)/2).toFixed(1);
+};
 
-saveT.addEventListener('click', () => {
-  err.textContent = '';
-  const tNew = num(tEdit.value);
-  if(!isFinite(tNew)){ err.textContent = "t inválido"; return; }
-  saveTValue(currentMeal(), tNew);
-  updateTUI();
-});
+refresh();
+</script>
 
-resetT.addEventListener('click', () => {
-  err.textContent = '';
-  resetTValue(currentMeal());
-  updateTUI();
-});
-
-goalEl.addEventListener('input', () => {
-  const v = num(goalEl.value);
-  if(isFinite(v)) setGoal(v);
-  updateOperationText();
-});
-
-gEl.addE
+</body>
+</html>

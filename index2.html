@@ -3,306 +3,174 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Cálculo i (hc/i)</title>
+<title>InPen</title>
+
 <style>
-  body{font-family:-apple-system,system-ui,Segoe UI,Arial;margin:8px;background:#f9f9f9;font-size:15px}
-  .box{background:#fff;border-radius:10px;padding:8px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-  h3{margin:4px 0 6px;font-size:16px}
-  label{font-weight:600;font-size:14px}
-  input,select,button{width:100%;padding:6px;margin-top:4px;border-radius:8px;border:1px solid #ccc;font-size:15px}
-  button{background:#007aff;color:#fff;border:none}
-  .smallBtn{background:#eee;color:#000;margin-top:4px}
-  .row{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-  .big{font-size:20px;font-weight:700}
-  .gray{color:#666}
-  .red{color:#c00;font-weight:600}
-  pre{background:#f3f3f3;padding:6px;border-radius:8px;font-size:13px;white-space:pre-wrap;word-break:break-word}
-  .topRow{display:flex;gap:6px}
-  .topRow button{flex:1}
+body{font-family:-apple-system,system-ui,Segoe UI,Arial;margin:8px;background:#f9f9f9;font-size:15px}
+.box{background:white;border-radius:10px;padding:8px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+h3{margin:4px 0 6px;font-size:16px}
+label{font-weight:600;font-size:14px}
+input,select,button{width:100%;padding:6px;margin-top:4px;border-radius:8px;border:1px solid #ccc;font-size:15px}
+button{background:#007aff;color:white;border:none}
+.small{background:#eee;color:black}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.big{font-size:20px;font-weight:700}
+.gray{color:#666}
+.red{color:#c00;font-weight:600}
+pre{background:#f3f3f3;padding:6px;border-radius:8px;font-size:13px}
+.top{display:flex;gap:6px}
+.top button{flex:1}
 </style>
 </head>
+
 <body>
 
-<div class="box">
-  <div class="topRow">
-    <button class="smallBtn" onclick="location.href='index0.html'">⬅ Menú</button>
-    <button class="smallBtn" onclick="location.href='index1.html'">Mi Método</button>
-  </div>
+<div class="box top">
+  <button class="small" onclick="location.href='index1.html'">Val</button>
+  <button class="small" onclick="location.href='index0.html'">Menú</button>
 </div>
 
 <div class="box">
-  <h3>Comida</h3>
-  <select id="meal"></select>
+<h3>Comida</h3>
+<select id="meal"></select>
 
-  <div class="row" style="margin-top:6px;">
-    <div>
-      <div class="gray">hc/i (raciones/u)</div>
-      <div class="big" id="ratioNow">—</div>
-    </div>
-    <div>
-      <div class="gray">Sensibilidad</div>
-      <div class="big" id="sensNow">—</div>
-    </div>
-  </div>
+<div class="row">
+<div>
+<div class="gray">hc/i</div>
+<div class="big" id="rNow"></div>
+</div>
+<div>
+<div class="gray">Sens</div>
+<div class="big" id="sNow"></div>
+</div>
+</div>
 </div>
 
 <div class="box">
-  <h3>Editar</h3>
-  <div class="row">
-    <div>
-      <label>hc/i</label>
-      <input id="ratioEdit" inputmode="decimal" placeholder="Ej: 3.8">
-    </div>
-    <div>
-      <label>Sensibilidad</label>
-      <input id="sensEdit" inputmode="decimal" placeholder="Ej: 17">
-    </div>
-  </div>
-
-  <div class="row" style="margin-top:6px;">
-    <button id="saveParams">Guardar</button>
-    <button id="resetParams" class="smallBtn">Reset</button>
-  </div>
+<h3>Editar</h3>
+<div class="row">
+<input id="rEdit">
+<input id="sEdit">
+</div>
+<button id="save">Guardar</button>
 </div>
 
 <div class="box">
-  <h3>Datos</h3>
+<h3>Datos</h3>
 
-  <label>Objetivo (GOAL)</label>
-  <input id="goal" inputmode="decimal" placeholder="Ej: 100">
+<label>GOAL</label>
+<input id="goal">
 
-  <label>Glucosa (g)</label>
-  <input id="g" inputmode="decimal" placeholder="Ej: 130">
+<label>Glucosa</label>
+<input id="g">
 
-  <label>Raciones (h)</label>
-  <input id="h" inputmode="decimal" placeholder="Ej: 2.5">
+<label>Raciones</label>
+<input id="h">
 
-  <button id="calcI">Calcular i</button>
+<button id="calc">Calcular</button>
 
-  <div id="err" class="red" style="margin-top:6px;"></div>
+<div id="err" class="red"></div>
 
-  <div style="margin-top:6px;">
-    <div class="gray">i sin redondear</div>
-    <div class="big" id="iRaw">—</div>
-  </div>
+<div class="gray">i</div>
+<div class="big" id="iRaw">—</div>
 
-  <button id="applyRound" style="margin-top:6px;">Redondear (0.5)</button>
+<button id="round">Redondear 0.5</button>
 
-  <div style="margin-top:6px;">
-    <div class="gray">i final</div>
-    <div class="big" id="iRound">—</div>
-  </div>
-</div>
-
-<div class="box">
-  <h3>Operación</h3>
-  <pre id="op">Introduce datos</pre>
-</div>
-
-<div class="box">
-  <h3>Probar otra i</h3>
-  <label><input type="checkbox" id="tryOther"> Activar</label>
-
-  <div id="otherBox" style="display:none;margin-top:6px;">
-    <input id="iSug" inputmode="decimal" placeholder="Mi i">
-    <button id="calcRatio">Calcular hc/i resultante</button>
-
-    <div style="margin-top:6px;">
-      <div class="gray">hc/i resultante</div>
-      <div class="big" id="ratioSug">—</div>
-    </div>
-  </div>
+<div class="gray">Final</div>
+<div class="big" id="iRound">—</div>
 </div>
 
 <script>
-const GOAL_KEY = "goal_glucose";
+const GOAL="goal_glucose";
 
-const defaults = {
-  "Desayuno": { ratio: 3.8, sens: 17.0 },
-  "Snack": { ratio: 4.5, sens: 20.5 },
-  "Lunch": { ratio: 6.9, sens: 31.0 },
-  "Merienda": { ratio: 8.0, sens: 36.0 },
-  "Cena": { ratio: 6.9, sens: 31.0 }
+const def={
+  Desayuno:{r:3.8,s:17},
+  Snack:{r:4.5,s:20.5},
+  Lunch:{r:6.9,s:31},
+  Merienda:{r:8,s:36},
+  Cena:{r:6.9,s:31}
 };
 
-const meal = document.getElementById("meal");
-const ratioNow = document.getElementById("ratioNow");
-const sensNow = document.getElementById("sensNow");
+const meal=document.getElementById("meal");
+const rNow=document.getElementById("rNow");
+const sNow=document.getElementById("sNow");
+const rEdit=document.getElementById("rEdit");
+const sEdit=document.getElementById("sEdit");
+const goal=document.getElementById("goal");
+const g=document.getElementById("g");
+const h=document.getElementById("h");
+const err=document.getElementById("err");
+const iRaw=document.getElementById("iRaw");
+const iRound=document.getElementById("iRound");
 
-const ratioEdit = document.getElementById("ratioEdit");
-const sensEdit = document.getElementById("sensEdit");
-const saveParams = document.getElementById("saveParams");
-const resetParams = document.getElementById("resetParams");
+function num(v){return Number(String(v??"").replace(",","."));}
 
-const goalEl = document.getElementById("goal");
-const gEl = document.getElementById("g");
-const hEl = document.getElementById("h");
+function getGoal(){return Number(localStorage.getItem(GOAL))||100;}
 
-const calcI = document.getElementById("calcI");
-const err = document.getElementById("err");
-const iRawEl = document.getElementById("iRaw");
-const iRoundEl = document.getElementById("iRound");
-const applyRound = document.getElementById("applyRound");
-const op = document.getElementById("op");
-
-const tryOther = document.getElementById("tryOther");
-const otherBox = document.getElementById("otherBox");
-const iSug = document.getElementById("iSug");
-const calcRatio = document.getElementById("calcRatio");
-const ratioSug = document.getElementById("ratioSug");
-
-function num(v){ return Number(String(v ?? "").replace(",", ".")); }
-function curMeal(){ return meal.value; }
-function getGoal(){ return Number(localStorage.getItem(GOAL_KEY)) || 100; }
-function setGoal(v){ localStorage.setItem(GOAL_KEY, String(v)); }
-
-function loadParams(m){
-  const r = localStorage.getItem("ratio_" + m);
-  const s = localStorage.getItem("sens_" + m);
+function load(m){
   return {
-    ratio: (r !== null) ? Number(r) : defaults[m].ratio,
-    sens:  (s !== null) ? Number(s) : defaults[m].sens
+    r:Number(localStorage.getItem("r_"+m))||def[m].r,
+    s:Number(localStorage.getItem("s_"+m))||def[m].s
   };
 }
 
-function saveParamsFor(m, ratio, sens){
-  localStorage.setItem("ratio_" + m, String(ratio));
-  localStorage.setItem("sens_" + m, String(sens));
+function save(m,r,s){
+  localStorage.setItem("r_"+m,r);
+  localStorage.setItem("s_"+m,s);
 }
 
-function resetParamsFor(m){
-  localStorage.removeItem("ratio_" + m);
-  localStorage.removeItem("sens_" + m);
+Object.keys(def).forEach(m=>{
+  const o=document.createElement("option");
+  o.value=m;o.textContent=m;meal.appendChild(o);
+});
+
+goal.value=getGoal();
+
+function refresh(){
+  const p=load(meal.value);
+  rNow.textContent=p.r.toFixed(2);
+  sNow.textContent=p.s.toFixed(1);
+  rEdit.value=p.r;
+  sEdit.value=p.s;
 }
 
-function updateUI(){
-  const p = loadParams(curMeal());
-  ratioNow.textContent = p.ratio.toFixed(2);
-  sensNow.textContent = p.sens.toFixed(1);
-  ratioEdit.value = p.ratio.toFixed(2);
-  sensEdit.value = p.sens.toFixed(1);
-  updateOp();
-}
+meal.onchange=refresh;
 
-function updateOp(){
-  const goal = num(goalEl.value);
-  const g = num(gEl.value);
-  const h = num(hEl.value);
-  const p = loadParams(curMeal());
+document.getElementById("save").onclick=()=>{
+  const r=num(rEdit.value);
+  const s=num(sEdit.value);
+  if(!isFinite(r)||!isFinite(s))return;
+  save(meal.value,r,s);
+  refresh();
+};
 
-  if(!isFinite(goal) || !isFinite(g) || !isFinite(h) || !isFinite(p.ratio) || !isFinite(p.sens) || p.ratio === 0 || p.sens === 0){
-    op.textContent = "Introduce GOAL, g y h (y que hc/i y sensibilidad no sean 0).";
-    return;
+let last=NaN;
+
+document.getElementById("calc").onclick=()=>{
+  err.textContent="";
+  const G=num(goal.value);
+  const gg=num(g.value);
+  const hh=num(h.value);
+  const p=load(meal.value);
+
+  if(!isFinite(G)||!isFinite(gg)||!isFinite(hh)){
+    err.textContent="Datos inválidos";return;
   }
 
-  const bolusComida = h / p.ratio;
-  const correccion = (g - goal) / p.sens;
-  const i = bolusComida + correccion;
+  localStorage.setItem(GOAL,G);
 
-  op.textContent =
-`i = h/(hc/i) + (g-GOAL)/sens
+  last=hh/p.r+(gg-G)/p.s;
 
-i = ${h} / ${p.ratio.toFixed(2)} + (${g.toFixed(1)} - ${goal.toFixed(1)}) / ${p.sens.toFixed(1)}
-i = ${bolusComida.toFixed(3)} + ${correccion.toFixed(3)}
-i = ${i.toFixed(3)}`;
-}
+  iRaw.textContent=last.toFixed(2);
+  iRound.textContent="—";
+};
 
-// Populate meals
-Object.keys(defaults).forEach(name => {
-  const o = document.createElement("option");
-  o.value = name;
-  o.textContent = name;
-  meal.appendChild(o);
-});
+document.getElementById("round").onclick=()=>{
+  if(!isFinite(last))return;
+  iRound.textContent=(Math.round(last*2)/2).toFixed(1);
+};
 
-// Init GOAL shared
-goalEl.value = String(getGoal());
-
-// Events
-meal.addEventListener("change", () => { err.textContent=""; updateUI(); });
-
-saveParams.addEventListener("click", () => {
-  err.textContent = "";
-  const m = curMeal();
-  const r = num(ratioEdit.value);
-  const s = num(sensEdit.value);
-  if(!isFinite(r) || r === 0){ err.textContent="hc/i inválido (0)"; return; }
-  if(!isFinite(s) || s === 0){ err.textContent="sensibilidad inválida (0)"; return; }
-  saveParamsFor(m, r, s);
-  updateUI();
-});
-
-resetParams.addEventListener("click", () => {
-  err.textContent = "";
-  resetParamsFor(curMeal());
-  updateUI();
-});
-
-goalEl.addEventListener("input", () => {
-  const v = num(goalEl.value);
-  if(isFinite(v)) setGoal(v);
-  updateOp();
-});
-
-gEl.addEventListener("input", updateOp);
-hEl.addEventListener("input", updateOp);
-
-let lastI = NaN;
-
-calcI.addEventListener("click", () => {
-  err.textContent = "";
-  ratioSug.textContent = "—";
-
-  const goal = num(goalEl.value);
-  const g = num(gEl.value);
-  const h = num(hEl.value);
-  const p = loadParams(curMeal());
-
-  if(!isFinite(goal) || !isFinite(g) || !isFinite(h)){ err.textContent="Datos inválidos"; return; }
-  if(!isFinite(p.ratio) || p.ratio === 0){ err.textContent="hc/i inválido (0)"; return; }
-  if(!isFinite(p.sens) || p.sens === 0){ err.textContent="sensibilidad inválida (0)"; return; }
-
-  lastI = (h / p.ratio) + ((g - goal) / p.sens);
-
-  iRawEl.textContent = lastI.toFixed(2);
-  iRoundEl.textContent = "—";
-  updateOp();
-});
-
-applyRound.addEventListener("click", () => {
-  if(!isFinite(lastI)) return;
-  const r = Math.round(lastI * 2) / 2;
-  iRoundEl.textContent = r.toFixed(1);
-});
-
-tryOther.addEventListener("change", () => {
-  otherBox.style.display = tryOther.checked ? "block" : "none";
-});
-
-// ratio resultante con i sugerida (manteniendo g, h, sens):
-// i = h/ratio + (g-goal)/sens  =>  ratio = h / ( i - (g-goal)/sens )
-calcRatio.addEventListener("click", () => {
-  err.textContent = "";
-  const goal = num(goalEl.value);
-  const g = num(gEl.value);
-  const h = num(hEl.value);
-  const i = num(iSug.value);
-  const p = loadParams(curMeal());
-
-  if(!isFinite(goal) || !isFinite(g) || !isFinite(h) || !isFinite(i)){ err.textContent="Datos inválidos"; return; }
-  if(!isFinite(p.sens) || p.sens === 0){ err.textContent="sensibilidad inválida (0)"; return; }
-
-  const correccion = (g - goal) / p.sens;
-  const denom = (i - correccion);
-  if(denom === 0){ err.textContent="Con esa i, denominador 0."; return; }
-
-  const ratio = h / denom;
-  ratioSug.textContent = ratio.toFixed(2);
-  updateOp();
-});
-
-// Init
-updateUI();
+refresh();
 </script>
 
 </body>
