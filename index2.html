@@ -3,174 +3,287 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>InPen</title>
-
+<title>Cálculo i (InPen + IOB)</title>
 <style>
-body{font-family:-apple-system,system-ui,Segoe UI,Arial;margin:8px;background:#f9f9f9;font-size:15px}
-.box{background:white;border-radius:10px;padding:8px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-h3{margin:4px 0 6px;font-size:16px}
-label{font-weight:600;font-size:14px}
-input,select,button{width:100%;padding:6px;margin-top:4px;border-radius:8px;border:1px solid #ccc;font-size:15px}
-button{background:#007aff;color:white;border:none}
-.small{background:#eee;color:black}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.big{font-size:20px;font-weight:700}
-.gray{color:#666}
-.red{color:#c00;font-weight:600}
-pre{background:#f3f3f3;padding:6px;border-radius:8px;font-size:13px}
-.top{display:flex;gap:6px}
-.top button{flex:1}
+  body{font-family:-apple-system,system-ui,Segoe UI,Arial;margin:8px;background:#f9f9f9;font-size:15px}
+  .box{background:#fff;border-radius:10px;padding:8px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+  h3{margin:4px 0 6px;font-size:16px}
+  label{font-weight:600;font-size:14px}
+  input,select,button{width:100%;padding:6px;margin-top:4px;border-radius:8px;border:1px solid #ccc;font-size:15px}
+  button{background:#007aff;color:#fff;border:none}
+  .smallBtn{background:#eee;color:#000;margin-top:4px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .big{font-size:20px;font-weight:700}
+  .gray{color:#666}
+  .red{color:#c00;font-weight:600}
+  pre{background:#f3f3f3;padding:6px;border-radius:8px;font-size:13px;white-space:pre-wrap;word-break:break-word}
+  .topRow{display:flex;gap:6px}
+  .topRow button{flex:1}
 </style>
 </head>
-
 <body>
 
-<div class="box top">
-  <button class="small" onclick="location.href='index1.html'">Val</button>
-  <button class="small" onclick="location.href='index0.html'">Menú</button>
+<div class="box">
+  <div class="topRow">
+    <button class="smallBtn" onclick="location.href='index0.html'">⬅ Menú</button>
+    <button class="smallBtn" onclick="location.href='index1.html'">Método 1</button>
+  </div>
 </div>
 
 <div class="box">
-<h3>Comida</h3>
-<select id="meal"></select>
+  <h3>Franja</h3>
+  <select id="meal"></select>
 
-<div class="row">
-<div>
-<div class="gray">hc/i</div>
-<div class="big" id="rNow"></div>
-</div>
-<div>
-<div class="gray">Sens</div>
-<div class="big" id="sNow"></div>
-</div>
-</div>
-</div>
-
-<div class="box">
-<h3>Editar</h3>
-<div class="row">
-<input id="rEdit">
-<input id="sEdit">
-</div>
-<button id="save">Guardar</button>
+  <div class="row" style="margin-top:6px;">
+    <div>
+      <div class="gray">HC/i (g/U)</div>
+      <div class="big" id="ratioNow">—</div>
+    </div>
+    <div>
+      <div class="gray">ISF</div>
+      <div class="big" id="isfNow">—</div>
+    </div>
+  </div>
 </div>
 
 <div class="box">
-<h3>Datos</h3>
+  <h3>Editar parámetros</h3>
+  <div class="row">
+    <div>
+      <label>HC/i (g/U)</label>
+      <input id="ratioEdit" inputmode="decimal" placeholder="Ej: 8.06">
+    </div>
+    <div>
+      <label>ISF</label>
+      <input id="isfEdit" inputmode="decimal" placeholder="Ej: 30">
+    </div>
+  </div>
+  <div class="row" style="margin-top:6px;">
+    <button id="saveParams">Guardar</button>
+    <button id="resetParams" class="smallBtn">Reset</button>
+  </div>
+</div>
 
-<label>GOAL</label>
-<input id="goal">
+<div class="box">
+  <h3>Datos</h3>
 
-<label>Glucosa</label>
-<input id="g">
+  <label>Objetivo (GOAL)</label>
+  <input id="goal" inputmode="decimal" placeholder="Ej: 100">
 
-<label>Raciones</label>
-<input id="h">
+  <label>Glucosa (BG)</label>
+  <input id="bg" inputmode="decimal" placeholder="Ej: 89">
 
-<button id="calc">Calcular</button>
+  <label>HC (gramos)</label>
+  <input id="hc" inputmode="decimal" placeholder="Ej: 20">
 
-<div id="err" class="red"></div>
+  <label>IOB (U)</label>
+  <input id="iob" inputmode="decimal" placeholder="Ej: 1">
 
-<div class="gray">i</div>
-<div class="big" id="iRaw">—</div>
+  <button id="calc">Calcular bolus</button>
 
-<button id="round">Redondear 0.5</button>
+  <div id="err" class="red" style="margin-top:6px;"></div>
 
-<div class="gray">Final</div>
-<div class="big" id="iRound">—</div>
+  <div style="margin-top:6px;">
+    <div class="gray">Bolus sin redondear</div>
+    <div class="big" id="bolusRaw">—</div>
+  </div>
+
+  <button id="roundBtn" style="margin-top:6px;">Redondear (0.5)</button>
+
+  <div style="margin-top:6px;">
+    <div class="gray">Bolus final</div>
+    <div class="big" id="bolusRound">—</div>
+  </div>
+</div>
+
+<div class="box">
+  <h3>Operación (CALC_INPEN)</h3>
+  <pre id="op">Introduce datos</pre>
+</div>
+
+<div class="box">
+  <div class="gray" style="font-size:12px;">
+    Nota: esto reproduce tu regla tipo InPen: <b>Bolus = HC/ratio + max(0, Corrección − IOB)</b>. Úsalo según tus pautas clínicas.
+  </div>
 </div>
 
 <script>
-const GOAL="goal_glucose";
+  const GOAL_KEY = "goal_glucose";
 
-const def={
-  Desayuno:{r:3.8,s:17},
-  Snack:{r:4.5,s:20.5},
-  Lunch:{r:6.9,s:31},
-  Merienda:{r:8,s:36},
-  Cena:{r:6.9,s:31}
-};
-
-const meal=document.getElementById("meal");
-const rNow=document.getElementById("rNow");
-const sNow=document.getElementById("sNow");
-const rEdit=document.getElementById("rEdit");
-const sEdit=document.getElementById("sEdit");
-const goal=document.getElementById("goal");
-const g=document.getElementById("g");
-const h=document.getElementById("h");
-const err=document.getElementById("err");
-const iRaw=document.getElementById("iRaw");
-const iRound=document.getElementById("iRound");
-
-function num(v){return Number(String(v??"").replace(",","."));}
-
-function getGoal(){return Number(localStorage.getItem(GOAL))||100;}
-
-function load(m){
-  return {
-    r:Number(localStorage.getItem("r_"+m))||def[m].r,
-    s:Number(localStorage.getItem("s_"+m))||def[m].s
+  // Parámetros por defecto (los de tu tabla)
+  const defaults = {
+    "Desayuno":      { ratio: 3.75, isf: 25 },
+    "Snack":         { ratio: 5.36, isf: 25 },
+    "Comida":        { ratio: 7.14, isf: 30 },
+    "Merienda cole": { ratio: 8.06, isf: 30 },
+    "Cena":          { ratio: 8.65, isf: 30 }
   };
-}
 
-function save(m,r,s){
-  localStorage.setItem("r_"+m,r);
-  localStorage.setItem("s_"+m,s);
-}
+  const meal = document.getElementById("meal");
+  const ratioNow = document.getElementById("ratioNow");
+  const isfNow = document.getElementById("isfNow");
 
-Object.keys(def).forEach(m=>{
-  const o=document.createElement("option");
-  o.value=m;o.textContent=m;meal.appendChild(o);
-});
+  const ratioEdit = document.getElementById("ratioEdit");
+  const isfEdit = document.getElementById("isfEdit");
+  const saveParams = document.getElementById("saveParams");
+  const resetParams = document.getElementById("resetParams");
 
-goal.value=getGoal();
+  const goalEl = document.getElementById("goal");
+  const bgEl = document.getElementById("bg");
+  const hcEl = document.getElementById("hc");
+  const iobEl = document.getElementById("iob");
 
-function refresh(){
-  const p=load(meal.value);
-  rNow.textContent=p.r.toFixed(2);
-  sNow.textContent=p.s.toFixed(1);
-  rEdit.value=p.r;
-  sEdit.value=p.s;
-}
+  const calcBtn = document.getElementById("calc");
+  const err = document.getElementById("err");
+  const bolusRawEl = document.getElementById("bolusRaw");
+  const bolusRoundEl = document.getElementById("bolusRound");
+  const roundBtn = document.getElementById("roundBtn");
+  const op = document.getElementById("op");
 
-meal.onchange=refresh;
+  function num(v){ return Number(String(v ?? "").replace(",", ".")); }
+  function curMeal(){ return meal.value; }
+  function getGoal(){ return Number(localStorage.getItem(GOAL_KEY)) || 100; }
+  function setGoal(v){ localStorage.setItem(GOAL_KEY, String(v)); }
 
-document.getElementById("save").onclick=()=>{
-  const r=num(rEdit.value);
-  const s=num(sEdit.value);
-  if(!isFinite(r)||!isFinite(s))return;
-  save(meal.value,r,s);
-  refresh();
-};
-
-let last=NaN;
-
-document.getElementById("calc").onclick=()=>{
-  err.textContent="";
-  const G=num(goal.value);
-  const gg=num(g.value);
-  const hh=num(h.value);
-  const p=load(meal.value);
-
-  if(!isFinite(G)||!isFinite(gg)||!isFinite(hh)){
-    err.textContent="Datos inválidos";return;
+  function loadParams(m){
+    const r = localStorage.getItem("ratio_" + m);
+    const s = localStorage.getItem("isf_" + m);
+    return {
+      ratio: (r !== null) ? Number(r) : defaults[m].ratio,
+      isf:   (s !== null) ? Number(s) : defaults[m].isf
+    };
+  }
+  function saveParamsFor(m, ratio, isf){
+    localStorage.setItem("ratio_" + m, String(ratio));
+    localStorage.setItem("isf_" + m, String(isf));
+  }
+  function resetParamsFor(m){
+    localStorage.removeItem("ratio_" + m);
+    localStorage.removeItem("isf_" + m);
   }
 
-  localStorage.setItem(GOAL,G);
+  function roundHalf(x){ return Math.round(x * 2) / 2; }
 
-  last=hh/p.r+(gg-G)/p.s;
+  // CALC_INPEN (tal cual tu regla)
+  function CALC_INPEN({bg, goal, hc, ratio, isf, iob}) {
+    const bolusHC = hc / ratio;
+    const corr = (bg - goal) / isf;
+    const corrEff = Math.max(0, corr - iob);
+    return { bolusHC, corr, corrEff, bolus: bolusHC + corrEff };
+  }
 
-  iRaw.textContent=last.toFixed(2);
-  iRound.textContent="—";
-};
+  function updateUI(){
+    const p = loadParams(curMeal());
+    ratioNow.textContent = p.ratio.toFixed(2);
+    isfNow.textContent = p.isf.toFixed(0);
+    ratioEdit.value = p.ratio.toFixed(2);
+    isfEdit.value = p.isf.toFixed(0);
+    updateOp();
+  }
 
-document.getElementById("round").onclick=()=>{
-  if(!isFinite(last))return;
-  iRound.textContent=(Math.round(last*2)/2).toFixed(1);
-};
+  function updateOp(){
+    const goal = num(goalEl.value);
+    const bg = num(bgEl.value);
+    const hc = num(hcEl.value);
+    const iob = num(iobEl.value || "0");
+    const p = loadParams(curMeal());
 
-refresh();
+    if(!isFinite(goal) || !isFinite(bg) || !isFinite(hc) || !isFinite(iob) || !isFinite(p.ratio) || !isFinite(p.isf) || p.ratio===0 || p.isf===0){
+      op.textContent = "Introduce GOAL, BG, HC, IOB (y que ratio/ISF no sean 0).";
+      return;
+    }
+
+    const res = CALC_INPEN({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
+
+    op.textContent =
+`BolusHC = HC / (HC/i)
+= ${hc} / ${p.ratio.toFixed(2)} = ${res.bolusHC.toFixed(2)} U
+
+Corrección = (BG - GOAL) / ISF
+= (${bg} - ${goal}) / ${p.isf} = ${res.corr.toFixed(2)} U
+
+Corrección efectiva = max(0, Corrección - IOB)
+= max(0, ${res.corr.toFixed(2)} - ${iob}) = ${res.corrEff.toFixed(2)} U
+
+Bolus = BolusHC + Corrección efectiva
+= ${res.bolusHC.toFixed(2)} + ${res.corrEff.toFixed(2)} = ${res.bolus.toFixed(2)} U`;
+  }
+
+  // Populate meals
+  Object.keys(defaults).forEach(name => {
+    const o = document.createElement("option");
+    o.value = name;
+    o.textContent = name;
+    meal.appendChild(o);
+  });
+
+  // Init GOAL shared
+  goalEl.value = String(getGoal());
+
+  // Events
+  meal.addEventListener("change", () => { err.textContent=""; updateUI(); });
+
+  saveParams.addEventListener("click", () => {
+    err.textContent = "";
+    const m = curMeal();
+    const r = num(ratioEdit.value);
+    const s = num(isfEdit.value);
+    if(!isFinite(r) || r === 0){ err.textContent="HC/i inválido (0)"; return; }
+    if(!isFinite(s) || s === 0){ err.textContent="ISF inválido (0)"; return; }
+    saveParamsFor(m, r, s);
+    updateUI();
+  });
+
+  resetParams.addEventListener("click", () => {
+    err.textContent = "";
+    resetParamsFor(curMeal());
+    updateUI();
+  });
+
+  goalEl.addEventListener("input", () => {
+    const v = num(goalEl.value);
+    if(isFinite(v)) setGoal(v);
+    updateOp();
+  });
+
+  [bgEl, hcEl, iobEl].forEach(el => el.addEventListener("input", updateOp));
+
+  let lastBolus = NaN;
+
+  calcBtn.addEventListener("click", () => {
+    err.textContent = "";
+
+    const goal = num(goalEl.value);
+    const bg = num(bgEl.value);
+    const hc = num(hcEl.value);
+    const iob = num(iobEl.value || "0");
+    const p = loadParams(curMeal());
+
+    if(!isFinite(goal) || !isFinite(bg) || !isFinite(hc) || !isFinite(iob)){
+      err.textContent = "Datos inválidos";
+      return;
+    }
+    if(p.ratio === 0 || p.isf === 0){
+      err.textContent = "Parámetros inválidos (0)";
+      return;
+    }
+
+    const res = CALC_INPEN({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
+    lastBolus = res.bolus;
+
+    bolusRawEl.textContent = lastBolus.toFixed(2);
+    bolusRoundEl.textContent = "—";
+    updateOp();
+  });
+
+  roundBtn.addEventListener("click", () => {
+    if(!isFinite(lastBolus)) return;
+    const r = roundHalf(lastBolus);
+    bolusRoundEl.textContent = r.toFixed(1);
+  });
+
+  // Init
+  updateUI();
 </script>
 
 </body>
