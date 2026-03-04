@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Yago • Insulina</title>
+<style>
+  :root{
+    --bg:#f4f7ff;
+    --card:#ffffff;
+    --txt:#111827;
+    --muted:#6b7280;
+    --border:#dbe3ff;
+    --shadow:0 10px 26px rgba(15, 23, 42, .10);
+
+    --blue:#2563eb;
+    --green:#16a34a;
+    --orange:#f59e0b;
+    --pink:#ec4899;
+    --violet:#7c3aed;
+
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  body{
+    font-family:-apple-system,system-ui,Segoe UI,Arial;
+    margin:10px;
+    background:linear-gradient(180deg,#eef2ff 0%, #f8fafc 70%);
+    color:var(--txt);
+    font-size:16px;
+  }
+  .topNav{display:flex; gap:8px; margin-bottom:10px;}
+  .topNav a{flex:1; text-decoration:none}
+  .navBtn{
+    width:100%;
+    border-radius:16px;
+    border:1px solid var(--border);
+    background:#fff;
+    padding:10px;
+    font-weight:1000;
+  }
+
+  .card{
+    background:var(--card);
+    border-radius:var(--radius);
+    padding:12px;
+    margin-bottom:12px;
+    box-shadow:var(--shadow);
+    border:1px solid rgba(219,227,255,.9);
+  }
+
+  .title{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    margin-bottom:8px;
+  }
+  .title h1{font-size:18px; margin:0; font-weight:1100; letter-spacing:.2px;}
+  .badge{
+    display:inline-flex; align-items:center; gap:8px;
+    background:#eef2ff;
+    border:1px solid var(--border);
+    padding:6px 10px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:1000;
+  }
+  .muted{color:var(--muted); font-size:13px}
+
+  .blockHeader{
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:10px;
+  }
+  .num{
+    width:34px; height:34px;
+    border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:1100; color:#fff;
+    background:var(--blue);
+    flex:0 0 auto;
+  }
+  .blockHeader h2{margin:0; font-size:16px; font-weight:1100}
+
+  label{font-weight:1000; font-size:13px}
+  input, select, button{
+    width:100%;
+    padding:12px;
+    margin-top:6px;
+    border-radius:16px;
+    border:1px solid var(--border);
+    font-size:16px;
+    background:#fff;
+  }
+  button{border:none; font-weight:1100; letter-spacing:.2px;}
+  .row{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+  .row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px}
+
+  .btnBlue{background:var(--blue); color:#fff}
+  .btnGreen{background:var(--green); color:#fff}
+  .btnGhost{background:#eef2ff; color:#111827; border:1px solid var(--border)}
+  .btnOrange{background:var(--orange); color:#111827}
+  .btnViolet{background:var(--violet); color:#fff}
+  .btnPink{background:var(--pink); color:#fff}
+
+  .pill{
+    border-radius:18px;
+    padding:10px;
+    border:1px solid var(--border);
+    background:linear-gradient(180deg,#ffffff 0%, #f8fbff 100%);
+  }
+  .pill .k{font-size:12px; color:var(--muted); font-weight:1000}
+  .pill .v{font-size:22px; font-weight:1200}
+
+  .err{color:#b00020; font-weight:1100; margin-top:8px}
+
+  /* Autocomplete */
+  .acWrap{position:relative}
+  .acList{
+    position:absolute; left:0; right:0; top:100%;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:0 16px 30px rgba(0,0,0,.12);
+    overflow:hidden; z-index:50; margin-top:8px;
+  }
+  .acItem{
+    padding:12px;
+    border-bottom:1px solid #f0f3ff;
+    display:flex; justify-content:space-between; gap:12px;
+  }
+  .acItem:last-child{border-bottom:none}
+  .acItem:hover{background:#f5f7ff; cursor:pointer}
+  .acItem b{font-weight:1200}
+  .acItem small{color:var(--muted); font-weight:900}
+  .acItem.active{
+    background:#eaf0ff;
+    outline:2px solid rgba(37,99,235,.25);
+  }
+  .acItem .emoji{
+    font-size:18px;
+    width:24px;
+    text-align:center;
+    flex:0 0 auto;
+  }
+
+  /* Selected foods */
+  .foodRow{
+    display:grid;
+    grid-template-columns:1fr auto auto;
+    gap:10px;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px dashed #e5e7ff;
+  }
+  .foodRow:last-child{border-bottom:none}
+  .xBtn{
+    width:auto;
+    padding:8px 12px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:#fff;
+    font-weight:1100;
+  }
+
+  pre{
+    background:#f3f6ff;
+    border:1px solid var(--border);
+    padding:12px;
+    border-radius:16px;
+    font-size:13px;
+    white-space:pre-wrap;
+    word-break:break-word;
+  }
+
+  details{
+    border:1px solid var(--border);
+    border-radius:18px;
+    overflow:hidden;
+    background:#fff;
+  }
+  summary{
+    list-style:none;
+    cursor:pointer;
+    padding:12px;
+    font-weight:1200;
+    background:linear-gradient(180deg,#ffffff 0%, #f4f7ff 100%);
+  }
+  summary::-webkit-details-marker{display:none}
+  .detailsBody{padding:12px}
+</style>
+</head>
+<body>
+
+<div class="topNav">
+  <a href="index0.html"><button class="navBtn">⬅ Menú</button></a>
+  <a href="index1.html"><button class="navBtn">Método 1</button></a>
+  <a href="index2.html"><button class="navBtn">InPen básico</button></a>
+</div>
+
+<div class="card">
+  <div class="title">
+    <h1>🧒 Yago • Insulina</h1>
+    <div class="badge">🟦 Bloque 1</div>
+  </div>
+  <div class="muted">Arriba: lo que rellena Yago. Abajo: controles para mamá/papá.</div>
+</div>
+
+<!-- BLOQUE 1 (YAGO) -->
+<div class="card">
+  <div class="blockHeader">
+    <div class="num">1</div>
+    <h2>Rellena aquí</h2>
+  </div>
+
+  <label>Franja</label>
+  <select id="meal"></select>
+
+  <div class="row" style="margin-top:10px">
+    <div>
+      <label>Glucosa inicial (BG)</label>
+      <input id="bg" inputmode="decimal" placeholder="Ej: 130" />
+    </div>
+    <div>
+      <label>HC del menú (g)</label>
+      <input id="hc" inputmode="decimal" placeholder="Se rellena solo" />
+      <div class="muted">Se calcula al elegir alimentos.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;">
+    <label>Elige lo que vas a comer 🍽️</label>
+    <div class="acWrap">
+      <input id="foodSearch" placeholder="Escribe… (ej: pa)" autocomplete="off" />
+      <div id="acList" class="acList" style="display:none;"></div>
+    </div>
+    <div class="muted">Ejemplo: “p” → pollo/patata/pasta · “pa” → patata/pasta</div>
+  </div>
+
+  <div class="row3" style="margin-top:12px">
+    <div class="pill">
+      <div class="k">R totales</div>
+      <div class="v" id="totalR">0.0</div>
+    </div>
+    <div class="pill">
+      <div class="k">HC totales (g)</div>
+      <div class="v" id="totalG">0</div>
+    </div>
+    <div class="pill">
+      <div class="k">Bolus final</div>
+      <div class="v" id="bolusRound">—</div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px">
+    <div class="muted" style="font-weight:1100; margin-bottom:6px;">Seleccionados</div>
+    <div id="selectedList" class="muted">Aún no has añadido alimentos.</div>
+  </div>
+
+  <div class="row" style="margin-top:12px">
+    <button id="calc" class="btnBlue">🧮 Calcular</button>
+    <button id="roundBtn" class="btnOrange">🎯 Redondear (0.5)</button>
+  </div>
+
+  <div class="row" style="margin-top:10px">
+    <button id="finishMenu" class="btnGhost">✅ Ya está el menú</button>
+    <button id="clearMenu" class="btnGhost">🧼 Vaciar</button>
+  </div>
+
+  <div id="err" class="err"></div>
+
+  <div class="row" style="margin-top:12px">
+    <div class="pill">
+      <div class="k">Bolus (sin redondeo)</div>
+      <div class="v" id="bolusRaw">—</div>
+    </div>
+    <div class="pill">
+      <div class="k">IOB usado</div>
+      <div class="v" id="iobShown">0.0</div>
+    </div>
+  </div>
+</div>
+
+<!-- BLOQUE PADRES -->
+<div class="card">
+  <details>
+    <summary>👩‍👧‍👦 Para mamá/papá (control y ajustes)</summary>
+    <div class="detailsBody">
+
+      <div class="row">
+        <div>
+          <label>Objetivo (GOAL)</label>
+          <input id="goal" inputmode="decimal" placeholder="Ej: 100" />
+          <div class="muted">Se comparte con otras pantallas.</div>
+        </div>
+        <div>
+          <label>IOB (U)</label>
+          <input id="iob" inputmode="decimal" placeholder="Ej: 1" />
+          <div class="muted">Si lo dejas vacío, se usa 0.</div>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px">
+        <div>
+          <label>HC/i (g/U)</label>
+          <input id="ratioEdit" inputmode="decimal" />
+        </div>
+        <div>
+          <label>ISF</label>
+          <input id="isfEdit" inputmode="decimal" />
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px">
+        <button id="saveParams" class="btnViolet">Guardar parámetros</button>
+        <button id="resetParams" class="btnGhost">Reset parámetros</button>
+      </div>
+
+      <div style="margin-top:12px">
+        <div class="row3">
+          <div class="pill">
+            <div class="k">HC/i actual</div>
+            <div class="v" id="ratioNow">—</div>
+          </div>
+          <div class="pill">
+            <div class="k">ISF actual</div>
+            <div class="v" id="isfNow">—</div>
+          </div>
+          <div class="pill">
+            <div class="k">1R</div>
+            <div class="v">10g</div>
+          </div>
+        </div>
+        <div class="muted" style="margin-top:6px">
+          (El detalle “1R = 10g” queda aquí, como pediste.)
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <h3 style="margin:10px 0 8px;">Operación (CALC_INPEN)</h3>
+        <pre id="op">Introduce datos</pre>
+      </div>
+
+      <div style="margin-top:12px">
+        <h3 style="margin:10px 0 8px;">Añadir alimento</h3>
+        <div class="row">
+          <div>
+            <label>Nombre</label>
+            <input id="newFoodName" placeholder="Ej: pasta" />
+          </div>
+          <div>
+            <label>Raciones (R)</label>
+            <input id="newFoodR" inputmode="decimal" placeholder="Ej: 2.0" />
+          </div>
+        </div>
+        <button id="addFood" class="btnGreen" style="margin-top:10px;">Añadir a mi tabla</button>
+        <div class="muted" style="margin-top:6px">Se guarda en el móvil (localStorage).</div>
+      </div>
+
+    </div>
+  </details>
+</div>
+
+<script>
+/* ========= CONFIG ========= */
+const GOAL_KEY = "goal_glucose";
+
+// Parámetros InPen por franja (tuyos)
+const DEFAULT_PARAMS = {
+  "Desayuno":      { ratio: 3.75, isf: 25 },
+  "Snack":         { ratio: 5.36, isf: 25 },
+  "Comida":        { ratio: 7.14, isf: 30 },
+  "Merienda cole": { ratio: 8.06, isf: 30 },
+  "Cena":          { ratio: 8.65, isf: 30 }
+};
+
+const GRAMS_PER_R = 10;
+
+// Foods list (del excel “Diccionario hidratos App In_Pen.xlsx”)
+const DEFAULT_FOODS = [
+  {"name":"arroz (80 gr)","r":2.0},
+  {"name":"rebanada de pan","r":1.3},
+  {"name":"pan caliente","r":2.5},
+  {"name":"pancito yago","r":1.5},
+  {"name":"1 galleta maría","r":0.5},
+  {"name":"1 galleta oceanix / dinosaurio","r":0.75},
+  {"name":"carne","r":0.0},
+  {"name":"carne rebozada","r":1.5},
+  {"name":"pescado","r":0.0},
+  {"name":"pescado rebozado","r":1.5},
+  {"name":"salchicha","r":0.0},
+  {"name":"butifarra","r":1.0},
+  {"name":"judías blancas o rojas","r":2.0},
+  {"name":"verduras","r":0.0},
+  {"name":"patatas al horno","r":2.5},
+  {"name":"pasta","r":2.5},
+  {"name":"patata","r":2.0},
+  {"name":"pollo","r":0.0},
+  {"name":"pollo rebozado","r":1.5},
+  {"name":"pan menu cole","r":1.0},
+  {"name":"leche (1 vaso)","r":1.0},
+  {"name":"mini oreo (bolsita)","r":2.5},
+  {"name":"crackers bolsita","r":2.7},
+  {"name":"chips ahoy bolsita","r":2.5},
+  {"name":"sopa de fideos/pasta","r":2.0},
+  {"name":"sopa de estrellas","r":2.0},
+  {"name":"tortilla de patatas","r":1.0},
+  {"name":"tortilla francesa","r":0.0},
+  {"name":"croissant chocolate","r":2.0},
+  {"name":"croissant jamón","r":2.0},
+  {"name":"hamburguesa","r":1.0},
+  {"name":"pizza 1 trozo","r":2.0},
+  {"name":"nuggets (4)","r":1.0},
+  {"name":"fish sticks (3)","r":1.0},
+  {"name":"patatas fritas (pequeñas)","r":2.0},
+  {"name":"yogur azucarado","r":1.0},
+  {"name":"fruta (1 pieza)","r":1.5},
+  {"name":"zumo (1 vaso)","r":1.5},
+  {"name":"galletas (4)","r":2.0},
+  {"name":"cereales (1 bol)","r":3.0},
+  {"name":"bocadillo pequeño","r":2.5},
+  {"name":"bocadillo grande","r":3.0}
+];
+
+/* ========= HELPERS ========= */
+const $ = (id) => document.getElementById(id);
+function num(v){ return Number(String(v ?? "").replace(",", ".")); }
+function norm(s){
+  return String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
+}
+function getGoal(){ return Number(localStorage.getItem(GOAL_KEY)) || 100; }
+function setGoal(v){ localStorage.setItem(GOAL_KEY, String(v)); }
+
+function loadParams(meal){
+  const r = localStorage.getItem("ratio_" + meal);
+  const s = localStorage.getItem("isf_" + meal);
+  return {
+    ratio: (r !== null) ? Number(r) : DEFAULT_PARAMS[meal].ratio,
+    isf:   (s !== null) ? Number(s) : DEFAULT_PARAMS[meal].isf
+  };
+}
+function saveParams(meal, ratio, isf){
+  localStorage.setItem("ratio_" + meal, String(ratio));
+  localStorage.setItem("isf_" + meal, String(isf));
+}
+function resetParams(meal){
+  localStorage.removeItem("ratio_" + meal);
+  localStorage.removeItem("isf_" + meal);
+}
+
+// Foods persistence
+const FOODS_KEY = "foods_custom_v1";
+function loadCustomFoods(){
+  try{
+    const raw = localStorage.getItem(FOODS_KEY);
+    if(!raw) return [];
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr : [];
+  }catch{ return []; }
+}
+function saveCustomFoods(arr){ localStorage.setItem(FOODS_KEY, JSON.stringify(arr)); }
+function getAllFoods(){
+  const custom = loadCustomFoods();
+  const map = new Map();
+  for(const f of DEFAULT_FOODS) map.set(norm(f.name), {name:f.name, r:Number(f.r)});
+  for(const f of custom){
+    if(!f || !f.name) continue;
+    map.set(norm(f.name), {name:String(f.name), r:Number(f.r)});
+  }
+  return Array.from(map.values()).sort((a,b)=>norm(a.name).localeCompare(norm(b.name)));
+}
+
+function foodEmoji(name){
+  const n = norm(name);
+  if(n.includes("pan") || n.includes("bocadillo") || n.includes("galleta") || n.includes("croissant") || n.includes("cereal")) return "🍞";
+  if(n.includes("pasta") || n.includes("fideos") || n.includes("arroz")) return "🍝";
+  if(n.includes("pizza")) return "🍕";
+  if(n.includes("patata")) return "🥔";
+  if(n.includes("zumo")) return "🧃";
+  if(n.includes("leche") || n.includes("yogur")) return "🥛";
+  if(n.includes("fruta")) return "🍎";
+  if(n.includes("pollo")) return "🍗";
+  if(n.includes("pescado") || n.includes("fish")) return "🐟";
+  if(n.includes("carne") || n.includes("hamburguesa")) return "🍔";
+  if(n.includes("verdura") || n.includes("verduras") || n.includes("judia")) return "🥦";
+  if(n.includes("chips") || n.includes("patatas fritas")) return "🍟";
+  if(n.includes("tortilla")) return "🍳";
+  return "🍽️";
+}
+
+/* ========= INPEN CALC =========
+ Bolus = HC/ratio + max(0, (BG-GOAL)/ISF - IOB)
+================================ */
+function calcInpen({bg, goal, hc, ratio, isf, iob}){
+  const bolusHC = hc / ratio;
+  const corr = (bg - goal) / isf;
+  const corrEff = Math.max(0, corr - iob);
+  return { bolusHC, corr, corrEff, bolus: bolusHC + corrEff };
+}
+function roundHalf(x){ return Math.round(x*2)/2; }
+
+/* ========= STATE ========= */
+let FOODS = getAllFoods();
+let selected = []; // {name,r}
+let lastBolus = NaN;
+
+// Autocomplete state
+let suggestions = [];
+let activeIndex = -1;
+
+/* ========= MENU TOTALS ========= */
+function totals(){
+  const totalR = selected.reduce((sum,it)=>sum + (Number(it.r)||0), 0);
+  const totalG = totalR * GRAMS_PER_R;
+  return { totalR, totalG };
+}
+
+function renderSelected(){
+  const box = $("selectedList");
+  if(selected.length === 0){
+    box.className = "muted";
+    box.innerHTML = "Aún no has añadido alimentos.";
+  }else{
+    box.className = "";
+    box.innerHTML = selected.map((it, idx)=>{
+      const g = (Number(it.r)||0)*GRAMS_PER_R;
+      return `
+        <div class="foodRow">
+          <div>
+            <b>${it.name}</b>
+            <div class="muted" style="font-size:12px">${it.r.toFixed(2)} R · ${g.toFixed(0)} g</div>
+          </div>
+          <div class="badge">${foodEmoji(it.name)}</div>
+          <button class="xBtn" data-i="${idx}">✕</button>
+        </div>
+      `;
+    }).join("");
+    box.querySelectorAll("button.xBtn").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const i = Number(btn.getAttribute("data-i"));
+        selected.splice(i,1);
+        syncMenuTotalsToUI();
+      });
+    });
+  }
+}
+
+function syncMenuTotalsToUI(){
+  const t = totals();
+  $("totalR").textContent = t.totalR.toFixed(1);
+  $("totalG").textContent = t.totalG.toFixed(0);
+
+  // Always auto-fill HC for Yago
+  $("hc").value = t.totalG.toFixed(0);
+  $("hc").setAttribute("disabled","disabled");
+
+  renderSelected();
+  updateOp();
+}
+
+/* ========= AUTOCOMPLETE (iPhone-like) ========= */
+function renderSuggestions(){
+  const list = $("acList");
+
+  if(suggestions.length === 0){
+    list.innerHTML = `<div class="acItem"><div><b>Sin resultados</b><div class="muted" style="font-size:12px">Prueba otra palabra</div></div><small></small></div>`;
+    list.style.display = "block";
+    return;
+  }
+
+  list.innerHTML = suggestions.map((f, idx)=>{
+    const g = (Number(f.r)||0)*GRAMS_PER_R;
+    const em = foodEmoji(f.name);
+    const activeClass = (idx === activeIndex) ? "active" : "";
+    return `
+      <div class="acItem ${activeClass}" data-idx="${idx}">
+        <div style="display:flex; gap:10px; align-items:flex-start;">
+          <div class="emoji">${em}</div>
+          <div>
+            <b>${f.name}</b>
+            <div class="muted" style="font-size:12px">${Number(f.r).toFixed(2)} R · ${g.toFixed(0)} g</div>
+          </div>
+        </div>
+        <small>➕</small>
+      </div>
+    `;
+  }).join("");
+
+  list.querySelectorAll(".acItem").forEach(item=>{
+    item.addEventListener("click", ()=>{
+      const idx = Number(item.getAttribute("data-idx"));
+      selectSuggestion(idx);
+    });
+  });
+
+  list.style.display = "block";
+}
+
+function selectSuggestion(idx){
+  const f = suggestions[idx];
+  if(!f) return;
+  selected.push({name: f.name, r: Number(f.r)});
+  $("foodSearch").value = "";
+  $("acList").style.display = "none";
+  suggestions = [];
+  activeIndex = -1;
+  syncMenuTotalsToUI();
+  $("foodSearch").focus();
+}
+
+function showSuggestions(q){
+  const list = $("acList");
+  const query = norm(q);
+
+  if(!query){
+    list.style.display="none";
+    list.innerHTML="";
+    suggestions = [];
+    activeIndex = -1;
+    return;
+  }
+
+  suggestions = FOODS
+    .filter(f => norm(f.name).startsWith(query))
+    .slice(0, 10);
+
+  activeIndex = suggestions.length ? 0 : -1;
+  renderSuggestions();
+}
+
+/* ========= INPEN UI ========= */
+function currentMeal(){ return $("meal").value; }
+
+function updateParamsUI(){
+  const p = loadParams(currentMeal());
+  $("ratioNow").textContent = p.ratio.toFixed(2);
+  $("isfNow").textContent = p.isf.toFixed(0);
+  $("ratioEdit").value = p.ratio.toFixed(2);
+  $("isfEdit").value = p.isf.toFixed(0);
+  updateOp();
+}
+
+function updateOp(){
+  $("err").textContent = "";
+
+  const goal = num($("goal").value);
+  const bg = num($("bg").value);
+  const hc = num($("hc").value);
+  const iob = num($("iob").value || "0");
+  const p = loadParams(currentMeal());
+
+  $("iobShown").textContent = iob.toFixed(1);
+
+  if(!isFinite(goal) || !isFinite(bg) || !isFinite(hc) || !isFinite(iob) || !isFinite(p.ratio) || !isFinite(p.isf) || p.ratio===0 || p.isf===0){
+    $("op").textContent = "Introduce GOAL, BG, HC, IOB (y que ratio/ISF no sean 0).";
+    return;
+  }
+
+  const res = calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
+
+  $("op").textContent =
+`BolusHC = HC / (HC/i)
+= ${hc} / ${p.ratio.toFixed(2)} = ${res.bolusHC.toFixed(2)} U
+
+Corrección = (BG - GOAL) / ISF
+= (${bg} - ${goal}) / ${p.isf} = ${res.corr.toFixed(2)} U
+
+Corrección efectiva = max(0, Corrección - IOB)
+= max(0, ${res.corr.toFixed(2)} - ${iob}) = ${res.corrEff.toFixed(2)} U
+
+Bolus = BolusHC + Corrección efectiva
+= ${res.bolusHC.toFixed(2)} + ${res.corrEff.toFixed(2)} = ${res.bolus.toFixed(2)} U`;
+}
+
+/* ========= INIT + EVENTS ========= */
+(function init(){
+  // meal options
+  Object.keys(DEFAULT_PARAMS).forEach(m=>{
+    const o = document.createElement("option");
+    o.value=m; o.textContent=m;
+    $("meal").appendChild(o);
+  });
+
+  // goal shared
+  $("goal").value = String(getGoal());
+
+  // defaults
+  $("iob").value = "0";
+  $("iobShown").textContent = "0.0";
+
+  updateParamsUI();
+  syncMenuTotalsToUI();
+
+  // autocomplete events
+  $("foodSearch").addEventListener("input",(e)=>showSuggestions(e.target.value));
+  $("foodSearch").addEventListener("focus",(e)=>showSuggestions(e.target.value));
+
+  $("foodSearch").addEventListener("keydown", (e) => {
+    const listOpen = $("acList").style.display === "block";
+
+    if(!listOpen && (e.key === "ArrowDown" || e.key === "ArrowUp")){
+      showSuggestions($("foodSearch").value);
+      return;
+    }
+
+    if(e.key === "ArrowDown"){
+      e.preventDefault();
+      if(suggestions.length === 0) return;
+      activeIndex = Math.min(activeIndex + 1, suggestions.length - 1);
+      renderSuggestions();
+    }
+
+    if(e.key === "ArrowUp"){
+      e.preventDefault();
+      if(suggestions.length === 0) return;
+      activeIndex = Math.max(activeIndex - 1, 0);
+      renderSuggestions();
+    }
+
+    if(e.key === "Enter"){
+      if(suggestions.length > 0){
+        e.preventDefault();
+        selectSuggestion(activeIndex >= 0 ? activeIndex : 0);
+      }
+    }
+
+    if(e.key === "Escape"){
+      $("acList").style.display = "none";
+      suggestions = [];
+      activeIndex = -1;
+    }
+  });
+
+  document.addEventListener("click",(e)=>{
+    if(!e.target.closest(".acWrap")) $("acList").style.display="none";
+  });
+
+  $("finishMenu").addEventListener("click", ()=>{ $("acList").style.display="none"; $("foodSearch").blur(); });
+  $("clearMenu").addEventListener("click", ()=>{ selected=[]; syncMenuTotalsToUI(); });
+
+  $("meal").addEventListener("change", ()=>{ updateParamsUI(); });
+
+  // Parent controls
+  $("goal").addEventListener("input", ()=>{
+    const v = num($("goal").value);
+    if(isFinite(v)) setGoal(v);
+    updateOp();
+  });
+
+  ["bg","iob"].forEach(id=>$(id).addEventListener("input", updateOp));
+
+  $("saveParams").addEventListener("click", ()=>{
+    const r = num($("ratioEdit").value);
+    const s = num($("isfEdit").value);
+    if(!isFinite(r)||r===0) return $("err").textContent="HC/i inválido (0)";
+    if(!isFinite(s)||s===0) return $("err").textContent="ISF inválido (0)";
+    saveParams(currentMeal(), r, s);
+    updateParamsUI();
+  });
+
+  $("resetParams").addEventListener("click", ()=>{
+    resetParams(currentMeal());
+    updateParamsUI();
+  });
+
+  $("calc").addEventListener("click", ()=>{
+    const goal = num($("goal").value);
+    const bg = num($("bg").value);
+    const hc = num($("hc").value);
+    const iob = num($("iob").value || "0");
+    const p = loadParams(currentMeal());
+
+    if(!isFinite(goal)||!isFinite(bg)||!isFinite(hc)||!isFinite(iob)){
+      $("err").textContent="Datos inválidos";
+      return;
+    }
+    const res = calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
+    lastBolus = res.bolus;
+    $("bolusRaw").textContent = lastBolus.toFixed(2);
+    $("bolusRound").textContent = "—";
+    updateOp();
+  });
+
+  $("roundBtn").addEventListener("click", ()=>{
+    if(!isFinite(lastBolus)) return;
+    $("bolusRound").textContent = roundHalf(lastBolus).toFixed(1);
+  });
+
+  // Add food
+  $("addFood").addEventListener("click", ()=>{
+    const name = String($("newFoodName").value||"").trim();
+    const r = num($("newFoodR").value);
+    if(!name) return alert("Escribe un nombre");
+    if(!isFinite(r)) return alert("Raciones inválidas");
+
+    const custom = loadCustomFoods();
+    custom.push({name, r});
+    saveCustomFoods(custom);
+
+    FOODS = getAllFoods();
+    $("newFoodName").value="";
+    $("newFoodR").value="";
+    alert("Añadido ✅");
+  });
+})();
+</script>
+
+</body>
+</html>
