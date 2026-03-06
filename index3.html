@@ -6,12 +6,23 @@
 <title>Yago • Insulina</title>
 <style>
   :root{
-    --bg:#f4f7ff; --card:#fff; --txt:#0f172a; --muted:#64748b;
-    --border:#dbe3ff; --shadow:0 10px 26px rgba(15,23,42,.10);
-    --blue:#2563eb; --green:#16a34a; --orange:#f59e0b; --violet:#7c3aed;
+    --bg:#f4f7ff;
+    --card:#fff;
+    --txt:#0f172a;
+    --muted:#64748b;
+    --border:#dbe3ff;
+    --shadow:0 10px 26px rgba(15,23,42,.10);
+    --blue:#2563eb;
+    --green:#16a34a;
+    --orange:#f59e0b;
+    --violet:#7c3aed;
+    --soft:#eef4ff;
+    --softBorder:#c7d6ff;
     --radius:16px;
   }
+
   *{box-sizing:border-box}
+
   body{
     font-family:-apple-system,system-ui,Segoe UI,Arial;
     margin:8px;
@@ -19,8 +30,18 @@
     color:var(--txt);
     font-size:15px;
   }
-  .topNav{display:flex; gap:6px; margin-bottom:8px;}
-  .topNav a{flex:1; text-decoration:none}
+
+  .topNav{
+    display:flex;
+    gap:6px;
+    margin-bottom:8px;
+  }
+
+  .topNav a{
+    flex:1;
+    text-decoration:none;
+  }
+
   .navBtn{
     width:100%;
     border-radius:14px;
@@ -39,17 +60,44 @@
     box-shadow:var(--shadow);
     border:1px solid rgba(219,227,255,.9);
   }
-  .title{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:4px;}
-  .title h1{font-size:16px; margin:0; font-weight:1100;}
-  .badge{
-    display:inline-flex; align-items:center;
-    background:#eef2ff; border:1px solid var(--border);
-    padding:4px 8px; border-radius:999px;
-    font-size:12px; font-weight:950; color:#1e293b;
-  }
-  .muted{color:var(--muted); font-size:12px; line-height:1.2}
 
-  label{font-weight:950; font-size:12px}
+  .title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:4px;
+  }
+
+  .title h1{
+    font-size:16px;
+    margin:0;
+    font-weight:1100;
+  }
+
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    background:#eef2ff;
+    border:1px solid var(--border);
+    padding:4px 8px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:950;
+    color:#1e293b;
+  }
+
+  .muted{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.2;
+  }
+
+  label{
+    font-weight:950;
+    font-size:12px;
+  }
+
   input, select, button{
     width:100%;
     padding:10px;
@@ -59,9 +107,28 @@
     font-size:15px;
     background:#fff;
   }
-  button{border:none; font-weight:1100;}
-  .row{display:grid; grid-template-columns:1fr 1fr; gap:8px}
-  .row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px}
+
+  .userField{
+    background:var(--soft);
+    border:1px solid var(--softBorder);
+  }
+
+  button{
+    border:none;
+    font-weight:1100;
+  }
+
+  .row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+
+  .row3{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:8px;
+  }
 
   .btnBlue{background:var(--blue); color:#fff}
   .btnGreen{background:var(--green); color:#fff}
@@ -75,18 +142,37 @@
     border:1px solid var(--border);
     background:linear-gradient(180deg,#ffffff 0%, #f7faff 100%);
   }
-  .pill .k{font-size:11px; color:var(--muted); font-weight:950}
-  .pill .v{font-size:18px; font-weight:1200}
 
-  .err{color:#b00020; font-weight:1100; margin-top:6px}
+  .pill .k{
+    font-size:11px;
+    color:var(--muted);
+    font-weight:950;
+  }
 
-  /* Category buttons */
+  .pill .v{
+    font-size:18px;
+    font-weight:1200;
+  }
+
+  .err{
+    color:#b00020;
+    font-weight:1100;
+    margin-top:6px;
+  }
+
+  .ok{
+    color:#166534;
+    font-weight:1100;
+    margin-top:6px;
+  }
+
   .catGrid{
     display:grid;
     grid-template-columns:repeat(4, 1fr);
     gap:6px;
     margin-top:8px;
   }
+
   .catBtn{
     border-radius:14px;
     border:1px solid var(--border);
@@ -97,39 +183,79 @@
     line-height:1.1;
     user-select:none;
   }
+
   .catBtn.active{
     background:#eaf0ff;
     border:1px solid #9bb7ff;
   }
-  .catBtn:active{transform:scale(.98)}
-  .catBtn .e{font-size:20px; display:block; margin-bottom:4px}
-  .catBtn .t{font-size:12px; color:#0f172a}
 
-  /* Autocomplete */
-  .acWrap{position:relative}
+  .catBtn:active{
+    transform:scale(.98);
+  }
+
+  .catBtn .e{
+    font-size:20px;
+    display:block;
+    margin-bottom:4px;
+  }
+
+  .catBtn .t{
+    font-size:12px;
+    color:#0f172a;
+  }
+
+  .acWrap{
+    position:relative;
+  }
+
   .acList{
-    position:absolute; left:0; right:0; top:100%;
+    position:absolute;
+    left:0;
+    right:0;
+    top:100%;
     background:#fff;
     border:1px solid var(--border);
     border-radius:14px;
     box-shadow:0 16px 30px rgba(0,0,0,.12);
-    overflow:hidden; z-index:50; margin-top:6px;
-    max-height:260px; overflow-y:auto;
+    overflow:hidden;
+    z-index:50;
+    margin-top:6px;
+    max-height:260px;
+    overflow-y:auto;
   }
+
   .acItem{
     padding:10px;
     border-bottom:1px solid #f0f3ff;
-    display:flex; justify-content:space-between; gap:10px;
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
     font-size:14px;
   }
-  .acItem:last-child{border-bottom:none}
-  .acItem:hover{background:#f5f7ff; cursor:pointer}
-  .acItem b{font-weight:1200}
-  .acItem small{color:var(--muted); font-weight:900}
+
+  .acItem:last-child{
+    border-bottom:none;
+  }
+
+  .acItem:hover{
+    background:#f5f7ff;
+    cursor:pointer;
+  }
+
+  .acItem b{
+    font-weight:1200;
+  }
+
+  .acItem small{
+    color:var(--muted);
+    font-weight:900;
+  }
+
   .acItem.active{
     background:#eaf0ff;
     outline:2px solid rgba(37,99,235,.18);
   }
+
   .emoji{
     font-size:18px;
     width:22px;
@@ -137,7 +263,6 @@
     flex:0 0 auto;
   }
 
-  /* Selected foods */
   .sel{
     margin-top:8px;
     border:1px dashed #e5e7ff;
@@ -145,49 +270,57 @@
     padding:8px;
     background:#fff;
   }
-  .tiny{font-size:12px}
 
-  .foodRow{
-    padding:8px 0;
-    border-bottom:1px dashed #eef2ff;
-  }
-  .foodRow:last-child{border-bottom:none}
-
-  .foodLine{
-    display:grid;
-    grid-template-columns:minmax(120px,1.6fr) minmax(80px,.8fr) minmax(80px,.8fr) auto auto;
-    gap:6px;
-    align-items:end;
+  .tiny{
+    font-size:12px;
   }
 
-  .foodName{
-    font-weight:1200;
-    font-size:14px;
-    line-height:1.15;
-  }
-
-  .foodBase{
-    color:var(--muted);
-    font-size:11px;
+  .foodTable{
+    width:100%;
+    border-collapse:collapse;
     margin-top:2px;
   }
 
-  .miniInput{
-    padding:8px;
-    border-radius:12px;
+  .foodTable td{
+    padding:6px 4px;
+    border-bottom:1px dashed #eef2ff;
+    vertical-align:middle;
     font-size:14px;
-    margin-top:4px;
   }
 
-  .xBtn, .undoBtn{
+  .foodTable tr:last-child td{
+    border-bottom:none;
+  }
+
+  .foodName{
+    font-weight:1000;
+  }
+
+  .rInline{
+    width:72px;
+    margin:0;
+    padding:6px 8px;
+    border-radius:10px;
+    font-size:13px;
+    text-align:center;
+  }
+
+  .gInline{
+    font-size:13px;
+    font-weight:900;
+    white-space:nowrap;
+    text-align:right;
+  }
+
+  .xBtn{
     width:auto;
-    padding:8px 10px;
-    border-radius:12px;
+    margin:0;
+    padding:6px 10px;
+    border-radius:10px;
     border:1px solid var(--border);
     background:#fff;
     font-weight:1100;
     font-size:13px;
-    margin-top:22px;
   }
 
   details{
@@ -196,6 +329,7 @@
     overflow:hidden;
     background:#fff;
   }
+
   summary{
     list-style:none;
     cursor:pointer;
@@ -203,8 +337,14 @@
     font-weight:1200;
     background:linear-gradient(180deg,#ffffff 0%, #f4f7ff 100%);
   }
-  summary::-webkit-details-marker{display:none}
-  .detailsBody{padding:10px}
+
+  summary::-webkit-details-marker{
+    display:none;
+  }
+
+  .detailsBody{
+    padding:10px;
+  }
 
   pre{
     background:#f3f6ff;
@@ -235,20 +375,18 @@
   <div class="muted">Puedes elegir por categoría, buscar el alimento exacto y corregir las raciones si hace falta.</div>
 </div>
 
-<!-- BLOQUE YAGO -->
 <div class="card">
   <label>Franja</label>
-  <select id="meal"></select>
+  <select id="meal" class="userField"></select>
 
   <div class="row" style="margin-top:6px">
     <div>
       <label>Glucosa (BG)</label>
-      <input id="bg" inputmode="decimal" placeholder="Ej: 130" />
+      <input id="bg" class="userField" inputmode="decimal" placeholder="Ej: 130" />
     </div>
     <div>
-      <label>HC (g)</label>
-      <input id="hc" inputmode="decimal" placeholder="Auto del menú" />
-      <button id="recalcHc" class="btnGhost" style="margin-top:6px;padding:9px;">♻️ HC automático</button>
+      <label>Glucosa objetivo</label>
+      <input id="goal" class="userField" inputmode="decimal" placeholder="100" />
     </div>
   </div>
 
@@ -260,7 +398,7 @@
   <div style="margin-top:8px">
     <label>Buscar alimento</label>
     <div class="acWrap">
-      <input id="foodSearch" placeholder="Escribe… (ej: pa)" autocomplete="off" />
+      <input id="foodSearch" class="userField" placeholder="Escribe… (ej: pa)" autocomplete="off" />
       <div id="acList" class="acList" style="display:none;"></div>
     </div>
 
@@ -277,6 +415,12 @@
         <div class="pill"><div class="k">HC (g)</div><div class="v" id="totalG">0</div></div>
         <div class="pill"><div class="k">Bolus</div><div class="v" id="bolusRound">—</div></div>
       </div>
+
+      <div style="margin-top:8px">
+        <label>HC totales (g)</label>
+        <input id="hc" inputmode="decimal" placeholder="Auto del menú" />
+        <button id="recalcHc" class="btnGhost" style="margin-top:6px;padding:9px;">♻️ HC automático</button>
+      </div>
     </div>
   </div>
 
@@ -286,6 +430,7 @@
   </div>
 
   <div id="err" class="err"></div>
+  <div id="ok" class="ok"></div>
 
   <div class="row" style="margin-top:8px">
     <div class="pill"><div class="k">Sin redondeo</div><div class="v" id="bolusRaw">—</div></div>
@@ -293,30 +438,29 @@
   </div>
 </div>
 
-<!-- CONTROL PADRES -->
 <div class="card">
   <details>
     <summary>👩 Para mamá</summary>
     <div class="detailsBody">
       <div class="row">
         <div>
-          <label>Objetivo (GOAL)</label>
-          <input id="goal" inputmode="decimal" placeholder="Ej: 100" />
-        </div>
-        <div>
           <label>IOB (U)</label>
           <input id="iob" inputmode="decimal" placeholder="Ej: 1" />
+        </div>
+        <div>
+          <label>HC/i (g/U)</label>
+          <input id="ratioEdit" inputmode="decimal" />
         </div>
       </div>
 
       <div class="row" style="margin-top:8px">
         <div>
-          <label>HC/i (g/U)</label>
-          <input id="ratioEdit" inputmode="decimal" />
-        </div>
-        <div>
           <label>ISF</label>
           <input id="isfEdit" inputmode="decimal" />
+        </div>
+        <div>
+          <label>Insulina puesta (U)</label>
+          <input id="insulinPut" inputmode="decimal" placeholder="Opcional" />
         </div>
       </div>
 
@@ -347,8 +491,8 @@
 </div>
 
 <script>
-/* ========= CONFIG ========= */
 const GOAL_KEY = "goal_glucose";
+
 const DEFAULT_PARAMS = {
   "Desayuno":      { ratio: 3.75, isf: 25 },
   "Snack":         { ratio: 5.36, isf: 25 },
@@ -356,12 +500,13 @@ const DEFAULT_PARAMS = {
   "Merienda cole": { ratio: 8.06, isf: 30 },
   "Cena":          { ratio: 8.65, isf: 30 }
 };
+
 const GRAMS_PER_R = 10;
 
 const DEFAULT_FOODS = [
   {"name":"pan rebanada tipo bimbo","r":1.3},
   {"name":"pan tostada grande (60gr)","r":3.0},
-  {"name":"bocadillito caliente","r":2.5},
+  {"name":"pan caliente","r":2.5},
   {"name":"pancito yago","r":1.5},
   {"name":"1 galleta maría","r":0.5},
   {"name":"1 galleta oceanix / dinosaurio","r":0.75},
@@ -370,46 +515,51 @@ const DEFAULT_FOODS = [
   {"name":"pescado","r":0.0},
   {"name":"pescado rebozado","r":1.5},
   {"name":"salchicha","r":0.0},
-  {"name":"butifarra","r":0.0},
+  {"name":"butifarra","r":1.0},
   {"name":"judías blancas o rojas","r":2.0},
   {"name":"verduras","r":0.0},
+  {"name":"patatas al horno","r":2.5},
   {"name":"patata","r":2.0},
-  {"name":"pasta","r":2.0},
+  {"name":"pasta","r":2.5},
   {"name":"arroz (80 gr)","r":2.0},
   {"name":"pollo","r":0.0},
   {"name":"pollo rebozado","r":1.5},
   {"name":"pan menu cole","r":1.0},
-  {"name":"leche (1 vaso 200ml)","r":1.0},
-  {"name":"yogur azucarado","r":1.5},
-  {"name":"yogur blanco","r":1.5},
+  {"name":"leche (1 vaso)","r":1.0},
+  {"name":"yogur azucarado","r":1.0},
+  {"name":"yogur blanco","r":0.7},
   {"name":"mini oreo (bolsita)","r":2.5},
-  {"name":"chips ahoy bolsita","r":2.5},
-  {"name":"mini príncipe bolsita","r":2.5},
   {"name":"crackers bolsita","r":2.7},
-  {"name":"patatas chips menú cole","r":1.0},
-  {"name":"bolsa peque patatas/doritos...","r":3.0},
+  {"name":"chips ahoy bolsita","r":2.5},
+  {"name":"patatas chips","r":1.0},
   {"name":"sopa de fideos/pasta","r":2.0},
+  {"name":"sopa de estrellas","r":2.0},
+  {"name":"tortilla de patatas","r":1.0},
   {"name":"tortilla francesa","r":0.0},
-  {"name":"croissant chocolate","r":4.0},
+  {"name":"croissant chocolate","r":2.0},
   {"name":"croissant jamón","r":2.0},
-  {"name":"hamburguesa con pan","r":4.0},
+  {"name":"hamburguesa","r":1.0},
   {"name":"pizza 1 trozo","r":2.0},
-  {"name":"bikini","r":2.6},
-  {"name":"nuggets (4 udes)","r":2.0},
-  {"name":"patatas fritas acompañamiento)","r":2.0},
-  {"name":"fruta normal","r":1.5},
-  {"name":"fruta pequeña (mandarina=)","r":1.0},
-  {"name":"cereales (1 bol)","r":4.0},
+  {"name":"bikini","r":2.0},
+  {"name":"nuggets (4)","r":1.0},
+  {"name":"fish sticks (3)","r":1.0},
+  {"name":"patatas fritas (pequeñas)","r":2.0},
+  {"name":"fruta mediana","r":1.5},
+  {"name":"fruta pequeña","r":1.0},
+  {"name":"zumo (1 vaso)","r":1.5},
+  {"name":"cereales (1 bol)","r":3.0},
+  {"name":"bocadillo pequeño","r":2.5},
+  {"name":"bocadillo grande","r":3.0},
   {"name":"lentejas","r":2.0},
   {"name":"garbanzos","r":2.0},
   {"name":"hummus de garbanzos","r":1.0},
   {"name":"guisantes","r":1.0},
   {"name":"crema de verduras","r":1.0},
-  {"name":"canelones","r":4.0},
-  {"name":"buñuelos de merluza","r":2.0},
-  {"name":"flan","r":2.0},
-  {"name":"gelatina","r":1.5},
-  {"name":"natillas","r":2.0},
+  {"name":"canelones","r":2.0},
+  {"name":"buñuelos de merluza","r":1.0},
+  {"name":"flan","r":1.5},
+  {"name":"gelatina","r":1.0},
+  {"name":"natillas","r":1.5},
   {"name":"helado tarrina","r":2.0},
   {"name":"helado cono","r":2.5}
 ];
@@ -429,35 +579,76 @@ const CATEGORIES = [
   { key:"dessert", label:"Postre", emoji:"🍨" }
 ];
 
-/* ========= HELPERS ========= */
 const $ = (id) => document.getElementById(id);
-function num(v){ return Number(String(v ?? "").replace(",", ".")); }
-function norm(s){ return String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim(); }
-function getGoal(){ return Number(localStorage.getItem(GOAL_KEY)) || 100; }
-function setGoal(v){ localStorage.setItem(GOAL_KEY, String(v)); }
+
+function num(v){
+  return Number(String(v ?? "").replace(",", "."));
+}
+
+function norm(s){
+  return String(s || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .toLowerCase()
+    .trim();
+}
+
+function getGoal(){
+  return Number(localStorage.getItem(GOAL_KEY)) || 100;
+}
+
+function setGoal(v){
+  localStorage.setItem(GOAL_KEY, String(v));
+}
 
 function loadParams(meal){
   const r = localStorage.getItem("ratio_" + meal);
   const s = localStorage.getItem("isf_" + meal);
-  return { ratio: (r!==null)?Number(r):DEFAULT_PARAMS[meal].ratio, isf:(s!==null)?Number(s):DEFAULT_PARAMS[meal].isf };
+  return {
+    ratio: (r !== null) ? Number(r) : DEFAULT_PARAMS[meal].ratio,
+    isf:   (s !== null) ? Number(s) : DEFAULT_PARAMS[meal].isf
+  };
 }
+
 function saveParams(meal, ratio, isf){
-  localStorage.setItem("ratio_"+meal, String(ratio));
-  localStorage.setItem("isf_"+meal, String(isf));
+  localStorage.setItem("ratio_" + meal, String(ratio));
+  localStorage.setItem("isf_" + meal, String(isf));
 }
+
 function resetParams(meal){
-  localStorage.removeItem("ratio_"+meal);
-  localStorage.removeItem("isf_"+meal);
+  localStorage.removeItem("ratio_" + meal);
+  localStorage.removeItem("isf_" + meal);
 }
 
 const FOODS_KEY = "foods_custom_v1";
-function loadCustomFoods(){ try{ const raw=localStorage.getItem(FOODS_KEY); return raw?JSON.parse(raw):[]; }catch{return []} }
-function saveCustomFoods(arr){ localStorage.setItem(FOODS_KEY, JSON.stringify(arr)); }
+
+function loadCustomFoods(){
+  try{
+    const raw = localStorage.getItem(FOODS_KEY);
+    return raw ? JSON.parse(raw) : [];
+  }catch{
+    return [];
+  }
+}
+
+function saveCustomFoods(arr){
+  localStorage.setItem(FOODS_KEY, JSON.stringify(arr));
+}
+
 function getAllFoods(){
-  const custom=loadCustomFoods();
-  const map=new Map();
-  for(const f of DEFAULT_FOODS) map.set(norm(f.name), {name:f.name, r:Number(f.r)});
-  for(const f of custom){ if(f?.name) map.set(norm(f.name), {name:String(f.name), r:Number(f.r)}); }
+  const custom = loadCustomFoods();
+  const map = new Map();
+
+  for(const f of DEFAULT_FOODS){
+    map.set(norm(f.name), {name:f.name, r:Number(f.r)});
+  }
+
+  for(const f of custom){
+    if(f?.name){
+      map.set(norm(f.name), {name:String(f.name), r:Number(f.r)});
+    }
+  }
+
   return Array.from(map.values()).sort((a,b)=>norm(a.name).localeCompare(norm(b.name)));
 }
 
@@ -498,94 +689,70 @@ function belongsToCategory(food, category){
   return true;
 }
 
-/* ========= INPEN ========= */
 function calcInpen({bg, goal, hc, ratio, isf, iob}){
   const bolusHC = hc / ratio;
   const corr = (bg - goal) / isf;
   const corrEff = Math.max(0, corr - iob);
   return { bolusHC, corr, corrEff, bolus: bolusHC + corrEff };
 }
-function roundHalf(x){ return Math.round(x*2)/2; }
 
-/* ========= STATE ========= */
+function roundHalf(x){
+  return Math.round(x * 2) / 2;
+}
+
 let FOODS = getAllFoods();
-let selected = []; // {name, baseR, r}
+let selected = [];
 let lastBolus = NaN;
 let suggestions = [];
 let activeIndex = -1;
 let hcWasManuallyEdited = false;
 let activeCategory = "all";
 
-/* ========= MENU ========= */
 function totals(){
   const totalR = selected.reduce((sum,it)=>sum + (Number(it.r)||0), 0);
   return { totalR, totalG: totalR * GRAMS_PER_R };
 }
 
-function addFoodByName(foodName){
-  const key = norm(foodName);
-  const f = FOODS.find(x => norm(x.name) === key);
-  if(!f){
-    $("err").textContent = `No encuentro: "${foodName}". Añádelo en Para mamá.`;
-    return;
-  }
-  const baseR = Number(f.r) || 0;
-  selected.push({name:f.name, baseR, r:baseR});
-  syncMenuTotalsToUI();
-}
-
 function renderSelected(){
   const box = $("selectedList");
-  if(selected.length===0){
-    box.className="muted tiny";
-    box.textContent="Aún no has añadido alimentos.";
+
+  if(selected.length === 0){
+    box.className = "muted tiny";
+    box.textContent = "Aún no has añadido alimentos.";
     return;
   }
 
-  box.className="";
-  box.innerHTML = selected.map((it, idx)=>{
-    const g = (Number(it.r)||0)*GRAMS_PER_R;
-    return `
-      <div class="foodRow">
-        <div class="foodLine">
-          <div>
-            <div class="foodName">${it.name}</div>
-            <div class="foodBase">Base ${it.baseR.toFixed(2)} R</div>
-          </div>
-
-          <div>
-            <label class="tiny">R</label>
-            <input class="miniInput rEdit" data-i="${idx}" inputmode="decimal" value="${Number(it.r).toFixed(2)}" />
-          </div>
-
-          <div>
-            <label class="tiny">HC (g)</label>
-            <input class="miniInput" value="${g.toFixed(0)}" disabled />
-          </div>
-
-          <button class="undoBtn" data-i="${idx}" title="Volver a la base">↩︎</button>
-          <button class="xBtn" data-i="${idx}" title="Quitar">✕</button>
-        </div>
-      </div>
-    `;
-  }).join("");
+  box.className = "";
+  box.innerHTML = `
+    <table class="foodTable">
+      <tbody>
+        ${selected.map((it, idx)=>{
+          const g = (Number(it.r)||0) * GRAMS_PER_R;
+          return `
+            <tr>
+              <td class="foodName">${it.name}</td>
+              <td style="width:82px;">
+                <input class="rInline" data-i="${idx}" inputmode="decimal" value="${Number(it.r).toFixed(2)}" />
+              </td>
+              <td class="gInline" style="width:56px;">${g.toFixed(0)}g</td>
+              <td style="width:42px; text-align:right;">
+                <button class="xBtn" data-i="${idx}">✕</button>
+              </td>
+            </tr>
+          `;
+        }).join("")}
+      </tbody>
+    </table>
+  `;
 
   box.querySelectorAll(".xBtn").forEach(btn=>{
     btn.addEventListener("click", ()=>{
-      selected.splice(Number(btn.dataset.i),1);
+      selected.splice(Number(btn.dataset.i), 1);
       syncMenuTotalsToUI();
     });
   });
 
-  box.querySelectorAll(".undoBtn").forEach(btn=>{
-    btn.addEventListener("click", ()=>{
-      const i = Number(btn.dataset.i);
-      selected[i].r = selected[i].baseR;
-      syncMenuTotalsToUI();
-    });
-  });
-
-  box.querySelectorAll(".rEdit").forEach(inp=>{
+  box.querySelectorAll(".rInline").forEach(inp=>{
     inp.addEventListener("input", ()=>{
       const i = Number(inp.dataset.i);
       const v = num(inp.value);
@@ -616,7 +783,6 @@ function recalcHcFromMenu(){
   updateOp();
 }
 
-/* ========= CATEGORIES ========= */
 function renderCategories(){
   const grid = $("catGrid");
   grid.innerHTML = CATEGORIES.map(cat => `
@@ -635,16 +801,17 @@ function renderCategories(){
   });
 }
 
-/* ========= AUTOCOMPLETE ========= */
 function renderSuggestions(){
   const list = $("acList");
-  if(suggestions.length===0){
+
+  if(suggestions.length === 0){
     list.innerHTML = `<div class="acItem"><div><b>Sin resultados</b></div><small></small></div>`;
-    list.style.display="block";
+    list.style.display = "block";
     return;
   }
+
   list.innerHTML = suggestions.map((f, idx)=>{
-    const g = (Number(f.r)||0)*GRAMS_PER_R;
+    const g = (Number(f.r)||0) * GRAMS_PER_R;
     const active = (idx===activeIndex) ? "active" : "";
     return `
       <div class="acItem ${active}" data-idx="${idx}">
@@ -661,9 +828,10 @@ function renderSuggestions(){
   }).join("");
 
   list.querySelectorAll(".acItem").forEach(item=>{
-    item.addEventListener("click", ()=> selectSuggestion(Number(item.dataset.idx)));
+    item.addEventListener("click", ()=>selectSuggestion(Number(item.dataset.idx)));
   });
-  list.style.display="block";
+
+  list.style.display = "block";
 }
 
 function selectSuggestion(idx){
@@ -671,9 +839,10 @@ function selectSuggestion(idx){
   if(!f) return;
   const baseR = Number(f.r) || 0;
   selected.push({name:f.name, baseR, r:baseR});
-  $("foodSearch").value="";
-  $("acList").style.display="none";
-  suggestions=[]; activeIndex=-1;
+  $("foodSearch").value = "";
+  $("acList").style.display = "none";
+  suggestions = [];
+  activeIndex = -1;
   syncMenuTotalsToUI();
   $("foodSearch").focus();
 }
@@ -681,31 +850,31 @@ function selectSuggestion(idx){
 function showSuggestions(q){
   const list = $("acList");
   const query = norm(q);
-
-  let pool = FOODS.filter(f => belongsToCategory(f, activeCategory));
+  const pool = FOODS.filter(f => belongsToCategory(f, activeCategory));
 
   if(!query){
     suggestions = pool.slice(0, 12);
     activeIndex = suggestions.length ? 0 : -1;
     if(suggestions.length){
       renderSuggestions();
-    } else {
-      list.style.display="none";
-      list.innerHTML="";
+    }else{
+      list.style.display = "none";
+      list.innerHTML = "";
     }
     return;
   }
 
   suggestions = pool
     .filter(f => norm(f.name).startsWith(query) || norm(f.name).includes(query))
-    .slice(0,10);
+    .slice(0, 10);
 
   activeIndex = suggestions.length ? 0 : -1;
   renderSuggestions();
 }
 
-/* ========= INPEN UI ========= */
-function currentMeal(){ return $("meal").value; }
+function currentMeal(){
+  return $("meal").value;
+}
 
 function updateParamsUI(){
   const p = loadParams(currentMeal());
@@ -717,20 +886,24 @@ function updateParamsUI(){
 }
 
 function updateOp(){
-  $("err").textContent="";
-  const goal=num($("goal").value);
-  const bg=num($("bg").value);
-  const hc=num($("hc").value);
-  const iob=num($("iob").value||"0");
-  const p=loadParams(currentMeal());
+  $("err").textContent = "";
+  $("ok").textContent = "";
+
+  const goal = num($("goal").value);
+  const bg = num($("bg").value);
+  const hc = num($("hc").value);
+  const iob = num($("iob").value || "0");
+  const p = loadParams(currentMeal());
+
   $("iobShown").textContent = iob.toFixed(1);
 
-  if(!isFinite(goal)||!isFinite(bg)||!isFinite(hc)||!isFinite(iob)||!isFinite(p.ratio)||!isFinite(p.isf)||p.ratio===0||p.isf===0){
-    $("op").textContent="Introduce GOAL, BG, HC, IOB (y que ratio/ISF no sean 0).";
+  if(!isFinite(goal) || !isFinite(bg) || !isFinite(hc) || !isFinite(iob) || !isFinite(p.ratio) || !isFinite(p.isf) || p.ratio===0 || p.isf===0){
+    $("op").textContent = "Introduce glucosa, objetivo, HC, IOB y que HC/i e ISF no sean 0.";
     return;
   }
 
-  const res=calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
+  const res = calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
+
   $("op").textContent =
 `BolusHC = ${hc} / ${p.ratio.toFixed(2)} = ${res.bolusHC.toFixed(2)} U
 Corrección = (${bg}-${goal})/${p.isf} = ${res.corr.toFixed(2)} U
@@ -738,11 +911,11 @@ Corr. efectiva = max(0, ${res.corr.toFixed(2)} - ${iob}) = ${res.corrEff.toFixed
 Bolus = ${res.bolus.toFixed(2)} U`;
 }
 
-/* ========= INIT ========= */
 (function init(){
   Object.keys(DEFAULT_PARAMS).forEach(m=>{
-    const o=document.createElement("option");
-    o.value=m; o.textContent=m;
+    const o = document.createElement("option");
+    o.value = m;
+    o.textContent = m;
     $("meal").appendChild(o);
   });
 
@@ -758,46 +931,52 @@ Bolus = ${res.bolus.toFixed(2)} U`;
   $("foodSearch").addEventListener("focus", ()=>showSuggestions($("foodSearch").value));
 
   $("foodSearch").addEventListener("keydown", (e)=>{
-    const open = $("acList").style.display==="block";
-    if(!open && (e.key==="ArrowDown"||e.key==="ArrowUp")){
+    const open = $("acList").style.display === "block";
+
+    if(!open && (e.key==="ArrowDown" || e.key==="ArrowUp")){
       showSuggestions($("foodSearch").value);
       return;
     }
+
     if(e.key==="ArrowDown"){
       e.preventDefault();
       if(!suggestions.length) return;
-      activeIndex = Math.min(activeIndex+1, suggestions.length-1);
+      activeIndex = Math.min(activeIndex + 1, suggestions.length - 1);
       renderSuggestions();
     }
+
     if(e.key==="ArrowUp"){
       e.preventDefault();
       if(!suggestions.length) return;
-      activeIndex = Math.max(activeIndex-1, 0);
+      activeIndex = Math.max(activeIndex - 1, 0);
       renderSuggestions();
     }
+
     if(e.key==="Enter"){
-      if(suggestions.length>0){
+      if(suggestions.length > 0){
         e.preventDefault();
-        selectSuggestion(activeIndex>=0?activeIndex:0);
+        selectSuggestion(activeIndex >= 0 ? activeIndex : 0);
       }
     }
+
     if(e.key==="Escape"){
-      $("acList").style.display="none";
-      suggestions=[]; activeIndex=-1;
+      $("acList").style.display = "none";
+      suggestions = [];
+      activeIndex = -1;
     }
   });
 
   document.addEventListener("click", (e)=>{
-    if(!e.target.closest(".acWrap")) $("acList").style.display="none";
+    if(!e.target.closest(".acWrap")) $("acList").style.display = "none";
   });
 
   $("finishMenu").addEventListener("click", ()=>{
-    $("acList").style.display="none";
+    $("acList").style.display = "none";
     $("foodSearch").blur();
   });
 
   $("clearMenu").addEventListener("click", ()=>{
-    selected=[];
+    selected = [];
     syncMenuTotalsToUI();
     recalcHcFromMenu();
   });
@@ -812,7 +991,7 @@ Bolus = ${res.bolus.toFixed(2)} U`;
   $("meal").addEventListener("change", updateParamsUI);
 
   $("goal").addEventListener("input", ()=>{
-    const v=num($("goal").value);
+    const v = num($("goal").value);
     if(isFinite(v)) setGoal(v);
     updateOp();
   });
@@ -820,30 +999,36 @@ Bolus = ${res.bolus.toFixed(2)} U`;
   ["bg","iob"].forEach(id=>$(id).addEventListener("input", updateOp));
 
   $("saveParams").addEventListener("click", ()=>{
-    const r=num($("ratioEdit").value);
-    const s=num($("isfEdit").value);
-    if(!isFinite(r)||r===0) return $("err").textContent="HC/i inválido (0)";
-    if(!isFinite(s)||s===0) return $("err").textContent="ISF inválido (0)";
+    const r = num($("ratioEdit").value);
+    const s = num($("isfEdit").value);
+
+    if(!isFinite(r) || r===0) return $("err").textContent = "HC/i inválido (0)";
+    if(!isFinite(s) || s===0) return $("err").textContent = "ISF inválido (0)";
+
     saveParams(currentMeal(), r, s);
     updateParamsUI();
+    $("ok").textContent = "Parámetros guardados ✅";
   });
 
   $("resetParams").addEventListener("click", ()=>{
     resetParams(currentMeal());
     updateParamsUI();
+    $("ok").textContent = "Parámetros reseteados ✅";
   });
 
   $("calc").addEventListener("click", ()=>{
-    const goal=num($("goal").value);
-    const bg=num($("bg").value);
-    const hc=num($("hc").value);
-    const iob=num($("iob").value||"0");
-    const p=loadParams(currentMeal());
-    if(!isFinite(goal)||!isFinite(bg)||!isFinite(hc)||!isFinite(iob)){
-      $("err").textContent="Datos inválidos";
+    const goal = num($("goal").value);
+    const bg = num($("bg").value);
+    const hc = num($("hc").value);
+    const iob = num($("iob").value || "0");
+    const p = loadParams(currentMeal());
+
+    if(!isFinite(goal) || !isFinite(bg) || !isFinite(hc) || !isFinite(iob)){
+      $("err").textContent = "Datos inválidos";
       return;
     }
-    const res=calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
+
+    const res = calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
     lastBolus = res.bolus;
     $("bolusRaw").textContent = lastBolus.toFixed(2);
     $("bolusRound").textContent = "—";
@@ -856,18 +1041,19 @@ Bolus = ${res.bolus.toFixed(2)} U`;
   });
 
   $("addFood").addEventListener("click", ()=>{
-    const name=String($("newFoodName").value||"").trim();
-    const r=num($("newFoodR").value);
+    const name = String($("newFoodName").value || "").trim();
+    const r = num($("newFoodR").value);
+
     if(!name) return alert("Escribe un nombre");
     if(!isFinite(r)) return alert("Raciones inválidas");
 
-    const custom=loadCustomFoods();
-    custom.push({name,r});
+    const custom = loadCustomFoods();
+    custom.push({name, r});
     saveCustomFoods(custom);
 
     FOODS = getAllFoods();
-    $("newFoodName").value="";
-    $("newFoodR").value="";
+    $("newFoodName").value = "";
+    $("newFoodR").value = "";
     alert("Añadido ✅");
   });
 })();

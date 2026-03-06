@@ -3,138 +3,438 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Calculadoras</title>
+<title>Revisión • Yago</title>
 <style>
+  :root{
+    --bg:#f4f7ff;
+    --card:#fff;
+    --txt:#0f172a;
+    --muted:#64748b;
+    --border:#dbe3ff;
+    --shadow:0 10px 26px rgba(15,23,42,.10);
+    --blue:#2563eb;
+    --green:#16a34a;
+    --orange:#f59e0b;
+    --radius:16px;
+  }
+
+  *{box-sizing:border-box}
+
   body{
     font-family:-apple-system,system-ui,Segoe UI,Arial;
     margin:8px;
-    background:#f6f6f6;
+    background:linear-gradient(180deg,#eef2ff 0%, #f8fafc 70%);
+    color:var(--txt);
     font-size:15px;
   }
-  .box{
+
+  .topNav{
+    display:flex;
+    gap:6px;
+    margin-bottom:8px;
+  }
+
+  .topNav a{
+    flex:1;
+    text-decoration:none;
+  }
+
+  .navBtn{
+    width:100%;
+    border-radius:14px;
+    border:1px solid var(--border);
     background:#fff;
-    border-radius:12px;
-    padding:10px;
-    margin-bottom:10px;
-    box-shadow:0 1px 3px rgba(0,0,0,.12);
-  }
-  h2{
-    margin:0 0 8px;
-    font-size:18px;
-  }
-  label{
-    font-weight:700;
+    padding:8px;
+    font-weight:950;
     font-size:14px;
   }
-  input,button{
+
+  .card{
+    background:var(--card);
+    border-radius:var(--radius);
+    padding:10px;
+    margin-bottom:8px;
+    box-shadow:var(--shadow);
+    border:1px solid rgba(219,227,255,.9);
+  }
+
+  h1{
+    margin:0;
+    font-size:17px;
+  }
+
+  h2{
+    margin:0;
+    font-size:15px;
+  }
+
+  .muted{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.25;
+  }
+
+  label{
+    font-weight:950;
+    font-size:12px;
+  }
+
+  input, textarea, button, select{
     width:100%;
     padding:10px;
-    border-radius:10px;
-    border:1px solid #ccc;
-    font-size:16px;
+    margin-top:6px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    font-size:15px;
+    background:#fff;
   }
+
+  textarea{
+    min-height:92px;
+    resize:vertical;
+  }
+
   button{
     border:none;
-    background:#007aff;
-    color:#fff;
-    margin-top:8px;
-    font-weight:700;
+    font-weight:1100;
   }
-  .small{
-    background:#eee;
-    color:#000;
-  }
-  .green{
-    background:#34c759;
-    color:#fff;
-  }
-  .orange{
-    background:#f59e0b;
-    color:#fff;
-  }
-  .violet{
-    background:#7c3aed;
-    color:#fff;
-  }
-  .muted{
-    color:#666;
-    font-size:13px;
-    margin-top:6px;
-  }
+
+  .btnBlue{background:var(--blue); color:#fff}
+  .btnGreen{background:var(--green); color:#fff}
+  .btnGhost{background:#eef2ff; color:#0f172a; border:1px solid var(--border)}
+  .btnOrange{background:var(--orange); color:#111827}
+
   .row{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:8px;
   }
+
+  .row3{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:8px;
+  }
+
+  .pill{
+    border-radius:16px;
+    padding:8px;
+    border:1px solid var(--border);
+    background:linear-gradient(180deg,#ffffff 0%, #f7faff 100%);
+  }
+
+  .pill .k{
+    font-size:11px;
+    color:var(--muted);
+    font-weight:950;
+  }
+
+  .pill .v{
+    font-size:18px;
+    font-weight:1200;
+  }
+
+  .tag{
+    display:inline-block;
+    padding:4px 8px;
+    border-radius:999px;
+    background:#eef2ff;
+    border:1px solid var(--border);
+    font-size:12px;
+    font-weight:1000;
+  }
+
+  .err{
+    color:#b00020;
+    font-weight:1100;
+    margin-top:6px;
+  }
+
+  .ok{
+    color:#166534;
+    font-weight:1100;
+    margin-top:6px;
+  }
 </style>
 </head>
 <body>
 
-<div class="box">
-  <h2>Glucosa objetivo</h2>
-  <label>Objetivo (GOAL)</label>
-  <input id="goal" inputmode="decimal" placeholder="Ej: 100">
-  <div class="row">
-    <button id="save">Guardar</button>
-    <button id="reset" class="small">Reset 100</button>
-  </div>
-  <div class="muted">Este GOAL se usa en todos los métodos.</div>
+<div class="topNav">
+  <a href="index0.html"><button class="navBtn">⬅ Menú</button></a>
+  <a href="index1.html"><button class="navBtn">Método Val</button></a>
+  <a href="index3.html"><button class="navBtn">App Yago</button></a>
+  <a href="index4.html"><button class="navBtn">Histórico</button></a>
 </div>
 
-<div class="box">
-  <h2>Elegir pantalla</h2>
+<div class="card">
+  <h1>📝 Revisión</h1>
+  <div class="muted">Esta pantalla revisa siempre la última entrada guardada.</div>
+</div>
 
-  <button onclick="location.href='index1.html'">
-    Método 1 (t)
-  </button>
+<div class="card" id="entryCard" style="display:none;">
+  <h2>Última entrada</h2>
 
-  <button class="small" onclick="location.href='index2.html'">
-    InPen básico
-  </button>
+  <div class="row" style="margin-top:8px;">
+    <div>
+      <div class="muted">Franja</div>
+      <div class="tag" id="showMeal">—</div>
+    </div>
+    <div>
+      <div class="muted">Fecha</div>
+      <div class="tag" id="showDate">—</div>
+    </div>
+  </div>
 
-  <button class="green" onclick="location.href='index3.html'">
-    App principal
-  </button>
+  <div class="row3" style="margin-top:8px;">
+    <div class="pill">
+      <div class="k">Glucosa inicial</div>
+      <div class="v" id="showBg">—</div>
+    </div>
+    <div class="pill">
+      <div class="k">HC comida</div>
+      <div class="v" id="showHc">—</div>
+    </div>
+    <div class="pill">
+      <div class="k">HC/i objetivo</div>
+      <div class="v" id="showRatio">—</div>
+    </div>
+  </div>
 
-  <button class="orange" onclick="location.href='index3_review.html'">
-    Revisión
-  </button>
+  <div class="row" style="margin-top:8px;">
+    <div class="pill">
+      <div class="k">Bolus sugerido</div>
+      <div class="v" id="showBolus">—</div>
+    </div>
+    <div class="pill">
+      <div class="k">Insulina puesta</div>
+      <div class="v" id="showInsulin">—</div>
+    </div>
+  </div>
 
-  <button class="violet" onclick="location.href='index4.html'">
-    Histórico
-  </button>
+  <div style="margin-top:8px;">
+    <div class="muted">Comida</div>
+    <div id="showMenu" style="font-weight:1000; margin-top:4px;">—</div>
+  </div>
+</div>
+
+<div class="card" id="editCard" style="display:none;">
+  <h2>Completar revisión</h2>
+
+  <div class="row" style="margin-top:8px;">
+    <div>
+      <label>HC/i puesto</label>
+      <input id="hciPut" disabled />
+    </div>
+    <div>
+      <label>i GOOD</label>
+      <input id="iGood" inputmode="decimal" placeholder="Ej: 7.0" />
+    </div>
+  </div>
+
+  <div class="row" style="margin-top:8px;">
+    <div>
+      <label>HC/i GOOD</label>
+      <input id="newHciGood" disabled />
+    </div>
+    <div>
+      <label>Fecha de la entrada</label>
+      <input id="entryDate" disabled />
+    </div>
+  </div>
+
+  <div style="margin-top:8px;">
+    <label>Resultado / notas</label>
+    <textarea id="notes" placeholder="Ej: Demasiado, quedó alto, hizo ejercicio, etc."></textarea>
+  </div>
+
+  <div class="row3" style="margin-top:10px;">
+    <div class="pill">
+      <div class="k">HC/i objetivo</div>
+      <div class="v" id="ratioTargetEnd">—</div>
+    </div>
+    <div class="pill">
+      <div class="k">HC/i puesto</div>
+      <div class="v" id="ratioPutEnd">—</div>
+    </div>
+    <div class="pill">
+      <div class="k">HC/i GOOD</div>
+      <div class="v" id="ratioGoodEnd">—</div>
+    </div>
+  </div>
+
+  <div style="margin-top:10px;">
+    <label>¿Quieres que HC/i GOOD se vuelva el nuevo HC/i objetivo?</label>
+    <select id="applyGoodRatio">
+      <option value="no">No</option>
+      <option value="yes">Sí</option>
+    </select>
+  </div>
+
+  <div class="row" style="margin-top:8px;">
+    <button id="saveReview" class="btnGreen">Guardar revisión</button>
+    <button id="reloadReview" class="btnGhost">Recargar</button>
+  </div>
+
+  <div id="msg" class="ok"></div>
+  <div id="err" class="err"></div>
+</div>
+
+<div class="card" id="emptyCard" style="display:none;">
+  <div class="muted">No hay ninguna entrada guardada para revisar.</div>
 </div>
 
 <script>
-  const GOAL_KEY = "goal_glucose";
+const ENTRIES_KEY = "inpen_entries_v1";
 
-  function num(v){
-    return Number(String(v ?? "").replace(",", "."));
+const DEFAULT_PARAMS = {
+  "Desayuno":      { ratio: 3.75, isf: 25 },
+  "Snack":         { ratio: 5.36, isf: 25 },
+  "Comida":        { ratio: 7.14, isf: 30 },
+  "Merienda cole": { ratio: 8.06, isf: 30 },
+  "Cena":          { ratio: 8.65, isf: 30 }
+};
+
+function loadEntries(){
+  try{
+    const raw = localStorage.getItem(ENTRIES_KEY);
+    const arr = raw ? JSON.parse(raw) : [];
+    return Array.isArray(arr) ? arr : [];
+  }catch{
+    return [];
+  }
+}
+
+function saveEntries(arr){
+  localStorage.setItem(ENTRIES_KEY, JSON.stringify(arr));
+}
+
+function num(v){
+  return Number(String(v ?? "").replace(",", "."));
+}
+
+function fmtDate(ts){
+  const d = new Date(ts);
+  const dd = String(d.getDate()).padStart(2,"0");
+  const mm = String(d.getMonth()+1).padStart(2,"0");
+  const yyyy = d.getFullYear();
+  const hh = String(d.getHours()).padStart(2,"0");
+  const mi = String(d.getMinutes()).padStart(2,"0");
+  return `${dd}/${mm}/${yyyy} ${hh}:${mi}`;
+}
+
+function loadCurrentRatio(meal){
+  const saved = localStorage.getItem("ratio_" + meal);
+  if(saved !== null) return Number(saved);
+  return DEFAULT_PARAMS[meal]?.ratio ?? null;
+}
+
+let currentEntry = null;
+
+function updateGood(){
+  if(!currentEntry) return;
+
+  const hc = Number(currentEntry.hc_g);
+  const put = Number(currentEntry.insulin_put);
+  const target = loadCurrentRatio(currentEntry.meal);
+  const iGood = num(document.getElementById("iGood").value);
+
+  const hciPut = (isFinite(hc) && isFinite(put) && put > 0) ? (hc / put) : null;
+  const hciGood = (isFinite(hc) && isFinite(iGood) && iGood > 0) ? (hc / iGood) : null;
+
+  document.getElementById("hciPut").value = hciPut !== null ? hciPut.toFixed(2) : "";
+  document.getElementById("newHciGood").value = hciGood !== null ? hciGood.toFixed(2) : "";
+
+  document.getElementById("ratioTargetEnd").textContent = isFinite(target) ? Number(target).toFixed(2) : "—";
+  document.getElementById("ratioPutEnd").textContent = hciPut !== null ? hciPut.toFixed(2) : "—";
+  document.getElementById("ratioGoodEnd").textContent = hciGood !== null ? hciGood.toFixed(2) : "—";
+}
+
+function render(){
+  document.getElementById("msg").textContent = "";
+  document.getElementById("err").textContent = "";
+
+  const entries = loadEntries().sort((a,b)=>b.ts - a.ts);
+  currentEntry = entries[0] || null;
+
+  if(!currentEntry){
+    document.getElementById("entryCard").style.display = "none";
+    document.getElementById("editCard").style.display = "none";
+    document.getElementById("emptyCard").style.display = "block";
+    return;
   }
 
-  function getGoal(){
-    return Number(localStorage.getItem(GOAL_KEY)) || 100;
+  document.getElementById("emptyCard").style.display = "none";
+  document.getElementById("entryCard").style.display = "block";
+  document.getElementById("editCard").style.display = "block";
+
+  const currentRatio = loadCurrentRatio(currentEntry.meal);
+
+  document.getElementById("showMeal").textContent = currentEntry.meal || "—";
+  document.getElementById("showDate").textContent = fmtDate(currentEntry.ts);
+  document.getElementById("showBg").textContent = isFinite(Number(currentEntry.bg)) ? Number(currentEntry.bg).toFixed(0) : "—";
+  document.getElementById("showHc").textContent = isFinite(Number(currentEntry.hc_g)) ? Number(currentEntry.hc_g).toFixed(0) : "—";
+  document.getElementById("showRatio").textContent = isFinite(currentRatio) ? Number(currentRatio).toFixed(2) : "—";
+  document.getElementById("showBolus").textContent = isFinite(Number(currentEntry.bolus_suggested)) ? Number(currentEntry.bolus_suggested).toFixed(2) : "—";
+  document.getElementById("showInsulin").textContent = isFinite(Number(currentEntry.insulin_put)) ? Number(currentEntry.insulin_put).toFixed(2) : "—";
+  document.getElementById("showMenu").textContent = currentEntry.menu_text || "—";
+
+  document.getElementById("iGood").value = isFinite(Number(currentEntry.i_good)) ? Number(currentEntry.i_good).toFixed(2) : "";
+  document.getElementById("notes").value = currentEntry.notes || "";
+  document.getElementById("entryDate").value = fmtDate(currentEntry.ts);
+  document.getElementById("applyGoodRatio").value = "no";
+
+  updateGood();
+}
+
+document.getElementById("iGood").addEventListener("input", updateGood);
+document.getElementById("reloadReview").addEventListener("click", render);
+
+document.getElementById("saveReview").addEventListener("click", ()=>{
+  document.getElementById("msg").textContent = "";
+  document.getElementById("err").textContent = "";
+
+  if(!currentEntry){
+    document.getElementById("err").textContent = "No hay entrada para revisar.";
+    return;
   }
 
-  function setGoal(v){
-    localStorage.setItem(GOAL_KEY, String(v));
+  const entries = loadEntries().sort((a,b)=>b.ts - a.ts);
+  const idx = entries.findIndex(e => e.ts === currentEntry.ts);
+
+  if(idx < 0){
+    document.getElementById("err").textContent = "No encontré esa entrada en el histórico.";
+    return;
   }
 
-  const goal = document.getElementById("goal");
-  goal.value = String(getGoal());
+  const iGood = num(document.getElementById("iGood").value);
+  const notes = String(document.getElementById("notes").value || "").trim();
+  const apply = document.getElementById("applyGoodRatio").value === "yes";
+  const hc = Number(currentEntry.hc_g);
 
-  document.getElementById("save").onclick = () => {
-    const v = num(goal.value);
-    if(!isFinite(v)) return alert("GOAL inválido");
-    setGoal(v);
-    alert("Guardado ✅");
-  };
+  entries[idx].notes = notes;
+  entries[idx].i_good = isFinite(iGood) ? iGood : null;
+  entries[idx].reviewed_at = Date.now();
 
-  document.getElementById("reset").onclick = () => {
-    setGoal(100);
-    goal.value = "100";
-  };
+  if(apply){
+    if(isFinite(hc) && isFinite(iGood) && iGood > 0){
+      const newRatio = hc / iGood;
+      localStorage.setItem("ratio_" + currentEntry.meal, String(newRatio));
+    } else {
+      document.getElementById("err").textContent = "Para actualizar el HC/i objetivo, i GOOD debe ser mayor que 0.";
+      return;
+    }
+  }
+
+  saveEntries(entries);
+
+  document.getElementById("msg").textContent = apply
+    ? "Revisión guardada ✅ y HC/i objetivo actualizado."
+    : "Revisión guardada ✅";
+
+  render();
+});
+
+render();
 </script>
-
 </body>
 </html>

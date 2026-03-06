@@ -3,13 +3,12 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Revisión • Yago</title>
+<title>Histórico • Index4</title>
 <style>
   :root{
     --bg:#f4f7ff; --card:#fff; --txt:#0f172a; --muted:#64748b;
     --border:#dbe3ff; --shadow:0 10px 26px rgba(15,23,42,.10);
-    --blue:#2563eb; --green:#16a34a; --orange:#f59e0b;
-    --radius:16px;
+    --blue:#2563eb; --radius:16px;
   }
   *{box-sizing:border-box}
   body{
@@ -17,7 +16,7 @@
     margin:8px;
     background:linear-gradient(180deg,#eef2ff 0%, #f8fafc 70%);
     color:var(--txt);
-    font-size:15px;
+    font-size:14px;
   }
   .topNav{display:flex; gap:6px; margin-bottom:8px;}
   .topNav a{flex:1; text-decoration:none}
@@ -38,364 +37,169 @@
     box-shadow:var(--shadow);
     border:1px solid rgba(219,227,255,.9);
   }
-  h1{margin:0; font-size:17px}
-  h2{margin:0; font-size:15px}
-  .muted{color:var(--muted); font-size:12px; line-height:1.25}
-  label{font-weight:950; font-size:12px}
-  input, textarea, button, select{
+  h1{margin:0; font-size:16px}
+  .muted{color:var(--muted); font-size:12px; margin-top:4px}
+
+  select, button{
     width:100%;
     padding:10px;
-    margin-top:6px;
     border-radius:14px;
     border:1px solid var(--border);
-    font-size:15px;
     background:#fff;
+    font-size:14px;
+    margin-top:6px;
   }
-  textarea{min-height:92px; resize:vertical}
-  button{border:none; font-weight:1100}
-  .btnBlue{background:var(--blue); color:#fff}
-  .btnGreen{background:var(--green); color:#fff}
-  .btnGhost{background:#eef2ff; color:#0f172a; border:1px solid var(--border)}
-  .btnOrange{background:var(--orange); color:#111827}
-  .row{display:grid; grid-template-columns:1fr 1fr; gap:8px}
-  .row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px}
-  .pill{
-    border-radius:16px;
-    padding:8px;
-    border:1px solid var(--border);
-    background:linear-gradient(180deg,#ffffff 0%, #f7faff 100%);
-  }
-  .pill .k{font-size:11px; color:var(--muted); font-weight:950}
-  .pill .v{font-size:18px; font-weight:1200}
-  .tag{
-    display:inline-block;
-    padding:4px 8px;
-    border-radius:999px;
-    background:#eef2ff;
-    border:1px solid var(--border);
-    font-size:12px;
-    font-weight:1000;
-  }
-  .err{color:#b00020; font-weight:1100; margin-top:6px}
-  .ok{color:#166534; font-weight:1100; margin-top:6px}
+  button{border:none; font-weight:1000; background:var(--blue); color:#fff;}
+  .row{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px}
+
+  table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border:1px solid var(--border); border-radius:14px; background:#fff;}
+  th, td{padding:8px; border-bottom:1px solid #eef2ff; vertical-align:top; font-size:12px}
+  th{background:#eaf0ff; text-align:left; font-weight:1100; position:sticky; top:0}
+  tr:last-child td{border-bottom:none}
+  .tag{display:inline-block; padding:2px 6px; border-radius:999px; background:#eef2ff; border:1px solid var(--border); font-weight:900; font-size:11px}
+  .small{font-size:11px; color:var(--muted)}
 </style>
 </head>
 <body>
 
 <div class="topNav">
-  <a href="index0.html"><button class="navBtn">⬅ Menú</button></a>
-  <a href="index3.html"><button class="navBtn">App</button></a>
-  <a href="index4.html"><button class="navBtn">Histórico</button></a>
+  <a href="index0.html"><button class="navBtn" style="background:#fff;color:#0f172a;border:1px solid var(--border)">⬅ Menú</button></a>
+  <a href="index3.html"><button class="navBtn" style="background:#fff;color:#0f172a;border:1px solid var(--border)">Volver a App</button></a>
+  <a href="index4.html"><button class="navBtn">Index4</button></a>
 </div>
 
 <div class="card">
-  <h1>📝 Revisión</h1>
-  <div class="muted">Aquí revisas la última entrada de la franja que toca por hora.</div>
-</div>
+  <h1>📚 Histórico (últimas 7 por franja)</h1>
+  <div class="muted">Datos guardados en el móvil (localStorage). Si cambias de iPhone, se pierde.</div>
 
-<div class="card">
   <div class="row">
     <div>
-      <div class="muted">Hora actual</div>
-      <div class="tag" id="currentTime">—</div>
+      <div class="small">Filtrar por franja</div>
+      <select id="mealFilter">
+        <option value="ALL">Todas</option>
+        <option value="Desayuno">Desayuno</option>
+        <option value="Snack">Snack</option>
+        <option value="Comida">Comida</option>
+        <option value="Merienda cole">Merienda cole</option>
+        <option value="Cena">Cena</option>
+      </select>
     </div>
     <div>
-      <div class="muted">Franja a revisar</div>
-      <div class="tag" id="reviewMeal">—</div>
+      <div class="small">Acciones</div>
+      <button id="clear">Borrar histórico</button>
     </div>
   </div>
 </div>
 
-<div class="card" id="entryCard" style="display:none;">
-  <h2>Última entrada</h2>
-
-  <div class="row3" style="margin-top:8px;">
-    <div class="pill">
-      <div class="k">Franja</div>
-      <div class="v" id="showMeal">—</div>
-    </div>
-    <div class="pill">
-      <div class="k">Glucosa inicial</div>
-      <div class="v" id="showBg">—</div>
-    </div>
-    <div class="pill">
-      <div class="k">HC comida</div>
-      <div class="v" id="showHc">—</div>
-    </div>
+<div class="card">
+  <div style="overflow:auto; max-height:72vh;">
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Franja</th>
+          <th>Comida</th>
+          <th>HC/i objetivo<br>(g/U)</th>
+          <th>Glucosa<br>inicial</th>
+          <th>Comida<br>HC (g)</th>
+          <th>Bolus corregido<br>x IOB (U)</th>
+          <th>Insulina<br>puesta (U)</th>
+          <th>HC/i<br>puesto</th>
+          <th>Resultado / notas</th>
+          <th>i GOOD</th>
+          <th>nvo HC/i GOOD</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr><td colspan="12" class="small">Sin datos todavía.</td></tr>
+      </tbody>
+    </table>
   </div>
-
-  <div class="row3" style="margin-top:8px;">
-    <div class="pill">
-      <div class="k">HC/i objetivo</div>
-      <div class="v" id="showRatio">—</div>
-    </div>
-    <div class="pill">
-      <div class="k">Bolus sugerido</div>
-      <div class="v" id="showBolus">—</div>
-    </div>
-    <div class="pill">
-      <div class="k">Insulina puesta</div>
-      <div class="v" id="showInsulin">—</div>
-    </div>
-  </div>
-
-  <div style="margin-top:8px;">
-    <div class="muted">Comida</div>
-    <div id="showMenu" style="font-weight:1000; margin-top:4px;">—</div>
-  </div>
-</div>
-
-<div class="card" id="editCard" style="display:none;">
-  <h2>Completar revisión</h2>
-
-  <div class="row" style="margin-top:8px;">
-    <div>
-      <label>HC/i puesto</label>
-      <input id="hciPut" disabled />
-    </div>
-    <div>
-      <label>i GOOD</label>
-      <input id="iGood" inputmode="decimal" placeholder="Ej: 7.0" />
-    </div>
-  </div>
-
-  <div class="row" style="margin-top:8px;">
-    <div>
-      <label>HC/i GOOD</label>
-      <input id="newHciGood" disabled />
-    </div>
-    <div>
-      <label>Fecha de esa entrada</label>
-      <input id="entryDate" disabled />
-    </div>
-  </div>
-
-  <div style="margin-top:8px;">
-    <label>Resultado / notas</label>
-    <textarea id="notes" placeholder="Ej: Demasiado, quedó alto, hizo ejercicio, etc."></textarea>
-  </div>
-
-  <div class="row3" style="margin-top:10px;">
-    <div class="pill">
-      <div class="k">HC/i objetivo</div>
-      <div class="v" id="ratioTargetEnd">—</div>
-    </div>
-    <div class="pill">
-      <div class="k">HC/i puesto</div>
-      <div class="v" id="ratioPutEnd">—</div>
-    </div>
-    <div class="pill">
-      <div class="k">HC/i GOOD</div>
-      <div class="v" id="ratioGoodEnd">—</div>
-    </div>
-  </div>
-
-  <div style="margin-top:10px;">
-    <label>¿Quieres que HC/i GOOD se vuelva el nuevo HC/i objetivo?</label>
-    <select id="applyGoodRatio">
-      <option value="no">No</option>
-      <option value="yes">Sí</option>
-    </select>
-  </div>
-
-  <div class="row" style="margin-top:8px;">
-    <button id="saveReview" class="btnGreen">Guardar revisión</button>
-    <button id="reloadReview" class="btnGhost">Recargar</button>
-  </div>
-
-  <div id="msg" class="ok"></div>
-  <div id="err" class="err"></div>
-</div>
-
-<div class="card" id="emptyCard" style="display:none;">
-  <div class="muted">No encontré ninguna entrada para revisar en esa franja.</div>
 </div>
 
 <script>
-const ENTRIES_KEY = "inpen_entries_v1";
-
-// mismos defaults que tu app
-const DEFAULT_PARAMS = {
-  "Desayuno":      { ratio: 3.75, isf: 25 },
-  "Snack":         { ratio: 5.36, isf: 25 },
-  "Comida":        { ratio: 7.14, isf: 30 },
-  "Merienda cole": { ratio: 8.06, isf: 30 },
-  "Cena":          { ratio: 8.65, isf: 30 }
-};
+const KEY = "inpen_entries_v1";
 
 function loadEntries(){
   try{
-    const raw = localStorage.getItem(ENTRIES_KEY);
+    const raw = localStorage.getItem(KEY);
     const arr = raw ? JSON.parse(raw) : [];
     return Array.isArray(arr) ? arr : [];
   }catch{ return []; }
-}
-
-function saveEntries(arr){
-  localStorage.setItem(ENTRIES_KEY, JSON.stringify(arr));
-}
-
-function num(v){
-  return Number(String(v ?? "").replace(",", "."));
 }
 
 function fmtDate(ts){
   const d = new Date(ts);
   const dd = String(d.getDate()).padStart(2,"0");
   const mm = String(d.getMonth()+1).padStart(2,"0");
-  const yyyy = d.getFullYear();
   const hh = String(d.getHours()).padStart(2,"0");
   const mi = String(d.getMinutes()).padStart(2,"0");
-  return `${dd}/${mm}/${yyyy} ${hh}:${mi}`;
+  return `${dd}/${mm} ${hh}:${mi}`;
 }
 
-function currentHHMM(){
-  const d = new Date();
-  const hh = String(d.getHours()).padStart(2,"0");
-  const mm = String(d.getMinutes()).padStart(2,"0");
-  return `${hh}:${mm}`;
-}
-
-function currentMinutes(){
-  const d = new Date();
-  return d.getHours()*60 + d.getMinutes();
-}
-
-function loadCurrentRatio(meal){
-  const saved = localStorage.getItem("ratio_" + meal);
-  if(saved !== null) return Number(saved);
-  return DEFAULT_PARAMS[meal]?.ratio ?? null;
-}
-
-// Franjas por hora
-const REVIEW_SCHEDULE = [
-  { meal:"Desayuno", minute: 10*60 + 30 },
-  { meal:"Snack", minute:    12*60 + 30 },
-  { meal:"Comida", minute:   15*60 + 45 },
-  { meal:"Merienda cole", minute: 18*60 + 30 },
-  { meal:"Cena", minute:     21*60 + 30 }
-];
-
-// Elige la última franja cuya hora ya haya pasado hoy.
-function mealToReviewNow(){
-  const now = currentMinutes();
-  let current = REVIEW_SCHEDULE[0].meal;
-  for(const slot of REVIEW_SCHEDULE){
-    if(now >= slot.minute) current = slot.meal;
-  }
-  return current;
-}
-
-let currentEntry = null;
-
-function updateGood(){
-  if(!currentEntry) return;
-
-  const hc = Number(currentEntry.hc_g);
-  const put = Number(currentEntry.insulin_put);
-  const target = loadCurrentRatio(currentEntry.meal);
-  const iGood = num(document.getElementById("iGood").value);
-
-  const hciPut = (isFinite(hc) && isFinite(put) && put > 0) ? (hc / put) : null;
-  const hciGood = (isFinite(hc) && isFinite(iGood) && iGood > 0) ? (hc / iGood) : null;
-
-  document.getElementById("hciPut").value = hciPut !== null ? hciPut.toFixed(2) : "";
-  document.getElementById("newHciGood").value = hciGood !== null ? hciGood.toFixed(2) : "";
-
-  document.getElementById("ratioTargetEnd").textContent = isFinite(target) ? Number(target).toFixed(2) : "—";
-  document.getElementById("ratioPutEnd").textContent = hciPut !== null ? hciPut.toFixed(2) : "—";
-  document.getElementById("ratioGoodEnd").textContent = hciGood !== null ? hciGood.toFixed(2) : "—";
+function n(x, digits=2){
+  return (x===null || x===undefined || !isFinite(Number(x))) ? "" : Number(x).toFixed(digits);
 }
 
 function render(){
-  document.getElementById("msg").textContent = "";
-  document.getElementById("err").textContent = "";
+  const meal = document.getElementById("mealFilter").value;
+  const all = loadEntries().sort((a,b)=>b.ts - a.ts);
 
-  document.getElementById("currentTime").textContent = currentHHMM();
+  // últimas 7 por franja
+  const buckets = {};
+  for(const e of all){
+    const m = e.meal || "—";
+    if(!buckets[m]) buckets[m] = [];
+    if(buckets[m].length < 7) buckets[m].push(e);
+  }
+  let list = [];
+  if(meal === "ALL"){
+    // juntar todas las franjas (ya limitadas a 7 cada una)
+    for(const k of Object.keys(buckets)) list = list.concat(buckets[k]);
+    list.sort((a,b)=>b.ts - a.ts);
+  }else{
+    list = buckets[meal] || [];
+  }
 
-  const meal = mealToReviewNow();
-  document.getElementById("reviewMeal").textContent = meal;
-
-  const entries = loadEntries().sort((a,b)=>b.ts - a.ts);
-  currentEntry = entries.find(e => e.meal === meal) || null;
-
-  if(!currentEntry){
-    document.getElementById("entryCard").style.display = "none";
-    document.getElementById("editCard").style.display = "none";
-    document.getElementById("emptyCard").style.display = "block";
+  const tb = document.getElementById("tbody");
+  if(list.length === 0){
+    tb.innerHTML = `<tr><td colspan="12" class="small">Sin datos para ese filtro.</td></tr>`;
     return;
   }
 
-  document.getElementById("emptyCard").style.display = "none";
-  document.getElementById("entryCard").style.display = "block";
-  document.getElementById("editCard").style.display = "block";
+  tb.innerHTML = list.map(e=>{
+    const hc = Number(e.hc_g);
+    const ins = Number(e.insulin_put);
+    const hci_put = (isFinite(hc) && isFinite(ins) && ins>0) ? (hc/ins) : null;
+    const iGood = Number(e.i_good);
+    const hci_good = (isFinite(hc) && isFinite(iGood) && iGood>0) ? (hc/iGood) : null;
 
-  const currentRatio = loadCurrentRatio(currentEntry.meal);
-
-  document.getElementById("showMeal").textContent = currentEntry.meal || "—";
-  document.getElementById("showBg").textContent = isFinite(Number(currentEntry.bg)) ? Number(currentEntry.bg).toFixed(0) : "—";
-  document.getElementById("showHc").textContent = isFinite(Number(currentEntry.hc_g)) ? Number(currentEntry.hc_g).toFixed(0) : "—";
-  document.getElementById("showRatio").textContent = isFinite(currentRatio) ? Number(currentRatio).toFixed(2) : "—";
-  document.getElementById("showBolus").textContent = isFinite(Number(currentEntry.bolus_suggested)) ? Number(currentEntry.bolus_suggested).toFixed(2) : "—";
-  document.getElementById("showInsulin").textContent = isFinite(Number(currentEntry.insulin_put)) ? Number(currentEntry.insulin_put).toFixed(2) : "—";
-  document.getElementById("showMenu").textContent = currentEntry.menu_text || "—";
-
-  document.getElementById("iGood").value = isFinite(Number(currentEntry.i_good)) ? Number(currentEntry.i_good).toFixed(2) : "";
-  document.getElementById("notes").value = currentEntry.notes || "";
-  document.getElementById("entryDate").value = fmtDate(currentEntry.ts);
-
-  document.getElementById("applyGoodRatio").value = "no";
-
-  updateGood();
+    return `
+      <tr>
+        <td>${fmtDate(e.ts)}</td>
+        <td><span class="tag">${e.meal || ""}</span></td>
+        <td>${(e.menu_text || "").replaceAll("<","&lt;")}</td>
+        <td>${n(e.ratio_target,2)}</td>
+        <td>${n(e.bg,0)}</td>
+        <td>${n(e.hc_g,0)}</td>
+        <td>${n(e.bolus_suggested,2)}</td>
+        <td>${n(e.insulin_put,2)}</td>
+        <td>${hci_put!==null ? n(hci_put,2) : ""}</td>
+        <td>${(e.notes || "").replaceAll("<","&lt;")}</td>
+        <td>${n(e.i_good,2)}</td>
+        <td>${hci_good!==null ? n(hci_good,2) : ""}</td>
+      </tr>
+    `;
+  }).join("");
 }
 
-document.getElementById("iGood").addEventListener("input", updateGood);
-document.getElementById("reloadReview").addEventListener("click", render);
+document.getElementById("mealFilter").addEventListener("change", render);
 
-document.getElementById("saveReview").addEventListener("click", ()=>{
-  document.getElementById("msg").textContent = "";
-  document.getElementById("err").textContent = "";
-
-  if(!currentEntry){
-    document.getElementById("err").textContent = "No hay entrada para revisar.";
-    return;
+document.getElementById("clear").addEventListener("click", ()=>{
+  if(confirm("¿Seguro que quieres borrar TODO el histórico?")){
+    localStorage.removeItem(KEY);
+    render();
   }
-
-  const entries = loadEntries().sort((a,b)=>b.ts - a.ts);
-  const idx = entries.findIndex(e => e.ts === currentEntry.ts && e.meal === currentEntry.meal);
-
-  if(idx < 0){
-    document.getElementById("err").textContent = "No encontré esa entrada en el histórico.";
-    return;
-  }
-
-  const iGood = num(document.getElementById("iGood").value);
-  const notes = String(document.getElementById("notes").value || "").trim();
-  const apply = document.getElementById("applyGoodRatio").value === "yes";
-  const hc = Number(currentEntry.hc_g);
-
-  entries[idx].notes = notes;
-  entries[idx].i_good = isFinite(iGood) ? iGood : null;
-  entries[idx].reviewed_at = Date.now();
-
-  // Si dice que sí, actualizamos el ratio objetivo de esa franja
-  if(apply){
-    if(isFinite(hc) && isFinite(iGood) && iGood > 0){
-      const newRatio = hc / iGood;
-      localStorage.setItem("ratio_" + currentEntry.meal, String(newRatio));
-    } else {
-      document.getElementById("err").textContent = "Para actualizar el HC/i objetivo, i GOOD debe ser mayor que 0.";
-      return;
-    }
-  }
-
-  saveEntries(entries);
-
-  document.getElementById("msg").textContent = apply
-    ? "Revisión guardada ✅ y HC/i objetivo actualizado."
-    : "Revisión guardada ✅";
-
-  render();
 });
 
 render();
