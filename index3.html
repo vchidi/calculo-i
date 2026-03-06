@@ -425,7 +425,7 @@
   </div>
 
   <div class="row" style="margin-top:8px">
-    <button id="calc" class="btnBlue">🧮 Calcular</button>
+    <button id="calc" class="btnBlue">🧮 Calcular y guardar</button>
     <button id="roundBtn" class="btnOrange">🎯 0.5</button>
   </div>
 
@@ -492,6 +492,7 @@
 
 <script>
 const GOAL_KEY = "goal_glucose";
+const ENTRIES_KEY = "inpen_entries_v1";
 
 const DEFAULT_PARAMS = {
   "Desayuno":      { ratio: 3.75, isf: 25 },
@@ -515,53 +516,50 @@ const DEFAULT_FOODS = [
   {"name":"pescado","r":0.0},
   {"name":"pescado rebozado","r":1.5},
   {"name":"salchicha","r":0.0},
-  {"name":"butifarra","r":1.0},
+  {"name":"butifarra","r":0.0},
   {"name":"judías blancas o rojas","r":2.0},
   {"name":"verduras","r":0.0},
-  {"name":"patatas al horno","r":2.5},
   {"name":"patata","r":2.0},
-  {"name":"pasta","r":2.5},
+  {"name":"pasta","r":2.0},
   {"name":"arroz (80 gr)","r":2.0},
   {"name":"pollo","r":0.0},
   {"name":"pollo rebozado","r":1.5},
   {"name":"pan menu cole","r":1.0},
-  {"name":"leche (1 vaso)","r":1.0},
-  {"name":"yogur azucarado","r":1.0},
-  {"name":"yogur blanco","r":0.7},
+  {"name":"leche (1 vaso 200ml)","r":1.0},
+  {"name":"yogur azucarado","r":1.5},
+  {"name":"yogur blanco","r":1.0},
   {"name":"mini oreo (bolsita)","r":2.5},
+  {"name":"mini príncipe (bolsita)","r":2.5},
   {"name":"crackers bolsita","r":2.7},
   {"name":"chips ahoy bolsita","r":2.5},
-  {"name":"patatas chips","r":1.0},
+  {"name":"patatas chips menú cole","r":0.5},
+  {"name":"patatas chips/ doritos bolsa pequeña","r":3.0},
   {"name":"sopa de fideos/pasta","r":2.0},
-  {"name":"sopa de estrellas","r":2.0},
-  {"name":"tortilla de patatas","r":1.0},
+  {"name":"tortilla de patatas","r":2.0},
   {"name":"tortilla francesa","r":0.0},
-  {"name":"croissant chocolate","r":2.0},
-  {"name":"croissant jamón","r":2.0},
-  {"name":"hamburguesa","r":1.0},
-  {"name":"pizza 1 trozo","r":2.0},
-  {"name":"bikini","r":2.0},
-  {"name":"nuggets (4)","r":1.0},
-  {"name":"fish sticks (3)","r":1.0},
-  {"name":"patatas fritas (pequeñas)","r":2.0},
-  {"name":"fruta mediana","r":1.5},
-  {"name":"fruta pequeña","r":1.0},
-  {"name":"zumo (1 vaso)","r":1.5},
+  {"name":"croissant chocolate","r":4.0},
+  {"name":"croissant jamón","r":3.0},
+  {"name":"hamburguesa con pan","r":4.0},
+  {"name":"pizza 1 trozo pequeño","r":2.0},
+  {"name":"bikini","r":2.6},
+  {"name":"nuggets (4 udes)","r":2.0},
+  {"name":"patatas fritas (pequeñas)","r":4.0},
+  {"name":"fruta normal","r":2.0},
+  {"name":"fruta pequeña (mandarina)","r":1.0},
   {"name":"cereales (1 bol)","r":3.0},
-  {"name":"bocadillo pequeño","r":2.5},
-  {"name":"bocadillo grande","r":3.0},
-  {"name":"lentejas","r":2.0},
-  {"name":"garbanzos","r":2.0},
+  {"name":"bocadillo pequeño","r":4.0},
+  {"name":"lentejas","r":1.5}0,
+  {"name":"garbanzos","r":1.5},
   {"name":"hummus de garbanzos","r":1.0},
-  {"name":"guisantes","r":1.0},
+  {"name":"guisantes","r":1.5},
   {"name":"crema de verduras","r":1.0},
-  {"name":"canelones","r":2.0},
-  {"name":"buñuelos de merluza","r":1.0},
-  {"name":"flan","r":1.5},
-  {"name":"gelatina","r":1.0},
-  {"name":"natillas","r":1.5},
+  {"name":"canelones","r":4.0},
+  {"name":"buñuelos de merluza","r":2.0},
+  {"name":"flan","r":2.0},
+  {"name":"gelatina","r":1.5},
+  {"name":"natillas","r":2.0},
   {"name":"helado tarrina","r":2.0},
-  {"name":"helado cono","r":2.5}
+  {"name":"helado cono","r":4.0}
 ];
 
 const CATEGORIES = [
@@ -618,6 +616,22 @@ function saveParams(meal, ratio, isf){
 function resetParams(meal){
   localStorage.removeItem("ratio_" + meal);
   localStorage.removeItem("isf_" + meal);
+}
+
+function loadEntries(){
+  try{
+    const raw = localStorage.getItem(ENTRIES_KEY);
+    const arr = raw ? JSON.parse(raw) : [];
+    return Array.isArray(arr) ? arr : [];
+  }catch{
+    return [];
+  }
+}
+
+function saveEntry(entry){
+  const arr = loadEntries();
+  arr.push(entry);
+  localStorage.setItem(ENTRIES_KEY, JSON.stringify(arr));
 }
 
 const FOODS_KEY = "foods_custom_v1";
@@ -1017,6 +1031,9 @@ Bolus = ${res.bolus.toFixed(2)} U`;
   });
 
   $("calc").addEventListener("click", ()=>{
+    $("err").textContent = "";
+    $("ok").textContent = "";
+
     const goal = num($("goal").value);
     const bg = num($("bg").value);
     const hc = num($("hc").value);
@@ -1032,7 +1049,25 @@ Bolus = ${res.bolus.toFixed(2)} U`;
     lastBolus = res.bolus;
     $("bolusRaw").textContent = lastBolus.toFixed(2);
     $("bolusRound").textContent = "—";
+
+    const menuText = selected.map(s => `${s.name} ${Number(s.r).toFixed(2)}R`).join(" + ");
+
+    saveEntry({
+      ts: Date.now(),
+      meal: currentMeal(),
+      menu_text: menuText,
+      ratio_target: p.ratio,
+      bg: bg,
+      hc_g: hc,
+      iob: iob,
+      bolus_suggested: res.bolus,
+      insulin_put: num($("insulinPut").value),
+      notes: "",
+      i_good: null
+    });
+
     updateOp();
+    $("ok").textContent = "Entrada guardada ✅";
   });
 
   $("roundBtn").addEventListener("click", ()=>{
