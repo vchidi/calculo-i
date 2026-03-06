@@ -6,110 +6,104 @@
 <title>Yago • Insulina</title>
 <style>
   :root{
-    --bg:#f4f7ff;
-    --card:#ffffff;
-    --txt:#111827;
-    --muted:#6b7280;
-    --border:#dbe3ff;
-    --shadow:0 10px 26px rgba(15, 23, 42, .10);
-
-    --blue:#2563eb;
-    --green:#16a34a;
-    --orange:#f59e0b;
-    --pink:#ec4899;
-    --violet:#7c3aed;
-
-    --radius:18px;
+    --bg:#f4f7ff; --card:#fff; --txt:#0f172a; --muted:#64748b;
+    --border:#dbe3ff; --shadow:0 10px 26px rgba(15,23,42,.10);
+    --blue:#2563eb; --green:#16a34a; --orange:#f59e0b; --violet:#7c3aed;
+    --radius:16px;
   }
   *{box-sizing:border-box}
   body{
     font-family:-apple-system,system-ui,Segoe UI,Arial;
-    margin:10px;
+    margin:8px;
     background:linear-gradient(180deg,#eef2ff 0%, #f8fafc 70%);
     color:var(--txt);
-    font-size:16px;
+    font-size:15px;
   }
-  .topNav{display:flex; gap:8px; margin-bottom:10px;}
+  .topNav{display:flex; gap:6px; margin-bottom:8px;}
   .topNav a{flex:1; text-decoration:none}
   .navBtn{
     width:100%;
-    border-radius:16px;
+    border-radius:14px;
     border:1px solid var(--border);
     background:#fff;
-    padding:10px;
-    font-weight:1000;
+    padding:8px;
+    font-weight:950;
+    font-size:14px;
   }
 
   .card{
     background:var(--card);
     border-radius:var(--radius);
-    padding:12px;
-    margin-bottom:12px;
+    padding:10px;
+    margin-bottom:8px;
     box-shadow:var(--shadow);
     border:1px solid rgba(219,227,255,.9);
   }
-
-  .title{
-    display:flex; align-items:center; justify-content:space-between; gap:10px;
-    margin-bottom:8px;
-  }
-  .title h1{font-size:18px; margin:0; font-weight:1100; letter-spacing:.2px;}
+  .title{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:4px;}
+  .title h1{font-size:16px; margin:0; font-weight:1100;}
   .badge{
-    display:inline-flex; align-items:center; gap:8px;
-    background:#eef2ff;
-    border:1px solid var(--border);
-    padding:6px 10px;
-    border-radius:999px;
-    font-size:13px;
-    font-weight:1000;
+    display:inline-flex; align-items:center;
+    background:#eef2ff; border:1px solid var(--border);
+    padding:4px 8px; border-radius:999px;
+    font-size:12px; font-weight:950; color:#1e293b;
   }
-  .muted{color:var(--muted); font-size:13px}
+  .muted{color:var(--muted); font-size:12px; line-height:1.2}
 
-  .blockHeader{
-    display:flex; align-items:center; gap:10px;
-    margin-bottom:10px;
-  }
-  .num{
-    width:34px; height:34px;
-    border-radius:12px;
-    display:flex; align-items:center; justify-content:center;
-    font-weight:1100; color:#fff;
-    background:var(--blue);
-    flex:0 0 auto;
-  }
-  .blockHeader h2{margin:0; font-size:16px; font-weight:1100}
-
-  label{font-weight:1000; font-size:13px}
+  label{font-weight:950; font-size:12px}
   input, select, button{
     width:100%;
-    padding:12px;
-    margin-top:6px;
-    border-radius:16px;
+    padding:10px;
+    margin-top:5px;
+    border-radius:14px;
     border:1px solid var(--border);
-    font-size:16px;
+    font-size:15px;
     background:#fff;
   }
-  button{border:none; font-weight:1100; letter-spacing:.2px;}
-  .row{display:grid; grid-template-columns:1fr 1fr; gap:10px}
-  .row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px}
+  button{border:none; font-weight:1100;}
+  .row{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+  .row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px}
 
   .btnBlue{background:var(--blue); color:#fff}
   .btnGreen{background:var(--green); color:#fff}
-  .btnGhost{background:#eef2ff; color:#111827; border:1px solid var(--border)}
-  .btnOrange{background:var(--orange); color:#111827}
+  .btnGhost{background:#eef2ff; color:#0f172a; border:1px solid var(--border)}
+  .btnOrange{background:var(--orange); color:#0f172a}
   .btnViolet{background:var(--violet); color:#fff}
-  .btnPink{background:var(--pink); color:#fff}
 
   .pill{
-    border-radius:18px;
-    padding:10px;
+    border-radius:16px;
+    padding:8px;
     border:1px solid var(--border);
-    background:linear-gradient(180deg,#ffffff 0%, #f8fbff 100%);
+    background:linear-gradient(180deg,#ffffff 0%, #f7faff 100%);
   }
-  .pill .k{font-size:12px; color:var(--muted); font-weight:1000}
-  .pill .v{font-size:22px; font-weight:1200}
+  .pill .k{font-size:11px; color:var(--muted); font-weight:950}
+  .pill .v{font-size:18px; font-weight:1200}
 
-  .err{color:#b00020; font-weight:1100; margin-top:8px}
+  .err{color:#b00020; font-weight:1100; margin-top:6px}
+
+  /* Category buttons */
+  .catGrid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:6px;
+    margin-top:8px;
+  }
+  .catBtn{
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:#fff;
+    padding:10px 8px;
+    font-weight:1100;
+    text-align:center;
+    line-height:1.1;
+    user-select:none;
+  }
+  .catBtn.active{
+    background:#eaf0ff;
+    border:1px solid #9bb7ff;
+  }
+  .catBtn:active{transform:scale(.98)}
+  .catBtn .e{font-size:20px; display:block; margin-bottom:4px}
+  .catBtn .t{font-size:12px; color:#0f172a}
 
   /* Autocomplete */
   .acWrap{position:relative}
@@ -117,14 +111,16 @@
     position:absolute; left:0; right:0; top:100%;
     background:#fff;
     border:1px solid var(--border);
-    border-radius:16px;
+    border-radius:14px;
     box-shadow:0 16px 30px rgba(0,0,0,.12);
-    overflow:hidden; z-index:50; margin-top:8px;
+    overflow:hidden; z-index:50; margin-top:6px;
+    max-height:260px; overflow-y:auto;
   }
   .acItem{
-    padding:12px;
+    padding:10px;
     border-bottom:1px solid #f0f3ff;
-    display:flex; justify-content:space-between; gap:12px;
+    display:flex; justify-content:space-between; gap:10px;
+    font-size:14px;
   }
   .acItem:last-child{border-bottom:none}
   .acItem:hover{background:#f5f7ff; cursor:pointer}
@@ -132,172 +128,188 @@
   .acItem small{color:var(--muted); font-weight:900}
   .acItem.active{
     background:#eaf0ff;
-    outline:2px solid rgba(37,99,235,.25);
+    outline:2px solid rgba(37,99,235,.18);
   }
-  .acItem .emoji{
+  .emoji{
     font-size:18px;
-    width:24px;
+    width:22px;
     text-align:center;
     flex:0 0 auto;
   }
 
   /* Selected foods */
+  .sel{
+    margin-top:8px;
+    border:1px dashed #e5e7ff;
+    border-radius:14px;
+    padding:8px;
+    background:#fff;
+  }
+  .tiny{font-size:12px}
+
   .foodRow{
-    display:grid;
-    grid-template-columns:1fr auto auto;
-    gap:10px;
-    align-items:center;
-    padding:10px 0;
-    border-bottom:1px dashed #e5e7ff;
+    padding:8px 0;
+    border-bottom:1px dashed #eef2ff;
   }
   .foodRow:last-child{border-bottom:none}
-  .xBtn{
+
+  .foodLine{
+    display:grid;
+    grid-template-columns:minmax(120px,1.6fr) minmax(80px,.8fr) minmax(80px,.8fr) auto auto;
+    gap:6px;
+    align-items:end;
+  }
+
+  .foodName{
+    font-weight:1200;
+    font-size:14px;
+    line-height:1.15;
+  }
+
+  .foodBase{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:2px;
+  }
+
+  .miniInput{
+    padding:8px;
+    border-radius:12px;
+    font-size:14px;
+    margin-top:4px;
+  }
+
+  .xBtn, .undoBtn{
     width:auto;
-    padding:8px 12px;
-    border-radius:14px;
+    padding:8px 10px;
+    border-radius:12px;
     border:1px solid var(--border);
     background:#fff;
     font-weight:1100;
-  }
-
-  pre{
-    background:#f3f6ff;
-    border:1px solid var(--border);
-    padding:12px;
-    border-radius:16px;
     font-size:13px;
-    white-space:pre-wrap;
-    word-break:break-word;
+    margin-top:22px;
   }
 
   details{
     border:1px solid var(--border);
-    border-radius:18px;
+    border-radius:16px;
     overflow:hidden;
     background:#fff;
   }
   summary{
     list-style:none;
     cursor:pointer;
-    padding:12px;
+    padding:10px;
     font-weight:1200;
     background:linear-gradient(180deg,#ffffff 0%, #f4f7ff 100%);
   }
   summary::-webkit-details-marker{display:none}
-  .detailsBody{padding:12px}
+  .detailsBody{padding:10px}
+
+  pre{
+    background:#f3f6ff;
+    border:1px solid var(--border);
+    padding:10px;
+    border-radius:14px;
+    font-size:12px;
+    white-space:pre-wrap;
+    word-break:break-word;
+    margin:8px 0 0;
+  }
 </style>
 </head>
 <body>
 
 <div class="topNav">
   <a href="index0.html"><button class="navBtn">⬅ Menú</button></a>
-  <a href="index1.html"><button class="navBtn">Método 1</button></a>
-  <a href="index2.html"><button class="navBtn">InPen básico</button></a>
+  <a href="index1.html"><button class="navBtn">Método Val</button></a>
+  <a href="index3_review.html"><button class="navBtn">Revisión</button></a>
+  <a href="index4.html"><button class="navBtn">Histórico</button></a>
 </div>
 
 <div class="card">
   <div class="title">
     <h1>🧒 Yago • Insulina</h1>
-    <div class="badge">🟦 Bloque 1</div>
+    <div class="badge">Categorías + buscador</div>
   </div>
-  <div class="muted">Arriba: lo que rellena Yago. Abajo: controles para mamá/papá.</div>
+  <div class="muted">Puedes elegir por categoría, buscar el alimento exacto y corregir las raciones si hace falta.</div>
 </div>
 
-<!-- BLOQUE 1 (YAGO) -->
+<!-- BLOQUE YAGO -->
 <div class="card">
-  <div class="blockHeader">
-    <div class="num">1</div>
-    <h2>Rellena aquí</h2>
-  </div>
-
   <label>Franja</label>
   <select id="meal"></select>
 
-  <div class="row" style="margin-top:10px">
+  <div class="row" style="margin-top:6px">
     <div>
-      <label>Glucosa inicial (BG)</label>
+      <label>Glucosa (BG)</label>
       <input id="bg" inputmode="decimal" placeholder="Ej: 130" />
     </div>
     <div>
-      <label>HC del menú (g)</label>
-      <input id="hc" inputmode="decimal" placeholder="Se rellena solo" />
-      <div class="muted">Se calcula al elegir alimentos.</div>
+      <label>HC (g)</label>
+      <input id="hc" inputmode="decimal" placeholder="Auto del menú" />
+      <button id="recalcHc" class="btnGhost" style="margin-top:6px;padding:9px;">♻️ HC automático</button>
     </div>
   </div>
 
-  <div style="margin-top:12px;">
-    <label>Elige lo que vas a comer 🍽️</label>
+  <div style="margin-top:8px">
+    <label>Categorías</label>
+    <div class="catGrid" id="catGrid"></div>
+  </div>
+
+  <div style="margin-top:8px">
+    <label>Buscar alimento</label>
     <div class="acWrap">
       <input id="foodSearch" placeholder="Escribe… (ej: pa)" autocomplete="off" />
       <div id="acList" class="acList" style="display:none;"></div>
     </div>
-    <div class="muted">Ejemplo: “p” → pollo/patata/pasta · “pa” → patata/pasta</div>
+
+    <div class="row" style="margin-top:8px">
+      <button id="finishMenu" class="btnGhost">✅ Listo</button>
+      <button id="clearMenu" class="btnGhost">🧼 Vaciar</button>
+    </div>
+
+    <div class="sel">
+      <div id="selectedList" class="muted tiny">Aún no has añadido alimentos.</div>
+
+      <div class="row3" style="margin-top:10px">
+        <div class="pill"><div class="k">R</div><div class="v" id="totalR">0.0</div></div>
+        <div class="pill"><div class="k">HC (g)</div><div class="v" id="totalG">0</div></div>
+        <div class="pill"><div class="k">Bolus</div><div class="v" id="bolusRound">—</div></div>
+      </div>
+    </div>
   </div>
 
-  <div class="row3" style="margin-top:12px">
-    <div class="pill">
-      <div class="k">R totales</div>
-      <div class="v" id="totalR">0.0</div>
-    </div>
-    <div class="pill">
-      <div class="k">HC totales (g)</div>
-      <div class="v" id="totalG">0</div>
-    </div>
-    <div class="pill">
-      <div class="k">Bolus final</div>
-      <div class="v" id="bolusRound">—</div>
-    </div>
-  </div>
-
-  <div style="margin-top:12px">
-    <div class="muted" style="font-weight:1100; margin-bottom:6px;">Seleccionados</div>
-    <div id="selectedList" class="muted">Aún no has añadido alimentos.</div>
-  </div>
-
-  <div class="row" style="margin-top:12px">
+  <div class="row" style="margin-top:8px">
     <button id="calc" class="btnBlue">🧮 Calcular</button>
-    <button id="roundBtn" class="btnOrange">🎯 Redondear (0.5)</button>
-  </div>
-
-  <div class="row" style="margin-top:10px">
-    <button id="finishMenu" class="btnGhost">✅ Ya está el menú</button>
-    <button id="clearMenu" class="btnGhost">🧼 Vaciar</button>
+    <button id="roundBtn" class="btnOrange">🎯 0.5</button>
   </div>
 
   <div id="err" class="err"></div>
 
-  <div class="row" style="margin-top:12px">
-    <div class="pill">
-      <div class="k">Bolus (sin redondeo)</div>
-      <div class="v" id="bolusRaw">—</div>
-    </div>
-    <div class="pill">
-      <div class="k">IOB usado</div>
-      <div class="v" id="iobShown">0.0</div>
-    </div>
+  <div class="row" style="margin-top:8px">
+    <div class="pill"><div class="k">Sin redondeo</div><div class="v" id="bolusRaw">—</div></div>
+    <div class="pill"><div class="k">IOB usado</div><div class="v" id="iobShown">0.0</div></div>
   </div>
 </div>
 
-<!-- BLOQUE PADRES -->
+<!-- CONTROL PADRES -->
 <div class="card">
   <details>
-    <summary>👩‍👧‍👦 Para mamá/papá (control y ajustes)</summary>
+    <summary>👩 Para mamá</summary>
     <div class="detailsBody">
-
       <div class="row">
         <div>
           <label>Objetivo (GOAL)</label>
           <input id="goal" inputmode="decimal" placeholder="Ej: 100" />
-          <div class="muted">Se comparte con otras pantallas.</div>
         </div>
         <div>
           <label>IOB (U)</label>
           <input id="iob" inputmode="decimal" placeholder="Ej: 1" />
-          <div class="muted">Si lo dejas vacío, se usa 0.</div>
         </div>
       </div>
 
-      <div class="row" style="margin-top:10px">
+      <div class="row" style="margin-top:8px">
         <div>
           <label>HC/i (g/U)</label>
           <input id="ratioEdit" inputmode="decimal" />
@@ -308,52 +320,28 @@
         </div>
       </div>
 
-      <div class="row" style="margin-top:10px">
-        <button id="saveParams" class="btnViolet">Guardar parámetros</button>
-        <button id="resetParams" class="btnGhost">Reset parámetros</button>
+      <div class="row" style="margin-top:8px">
+        <button id="saveParams" class="btnViolet">Guardar</button>
+        <button id="resetParams" class="btnGhost">Reset</button>
       </div>
 
-      <div style="margin-top:12px">
-        <div class="row3">
-          <div class="pill">
-            <div class="k">HC/i actual</div>
-            <div class="v" id="ratioNow">—</div>
-          </div>
-          <div class="pill">
-            <div class="k">ISF actual</div>
-            <div class="v" id="isfNow">—</div>
-          </div>
-          <div class="pill">
-            <div class="k">1R</div>
-            <div class="v">10g</div>
-          </div>
-        </div>
-        <div class="muted" style="margin-top:6px">
-          (El detalle “1R = 10g” queda aquí, como pediste.)
-        </div>
+      <div class="row3" style="margin-top:8px">
+        <div class="pill"><div class="k">HC/i actual</div><div class="v" id="ratioNow">—</div></div>
+        <div class="pill"><div class="k">ISF actual</div><div class="v" id="isfNow">—</div></div>
+        <div class="pill"><div class="k">1R</div><div class="v">10g</div></div>
       </div>
 
-      <div style="margin-top:12px">
-        <h3 style="margin:10px 0 8px;">Operación (CALC_INPEN)</h3>
-        <pre id="op">Introduce datos</pre>
-      </div>
+      <pre id="op">Introduce datos</pre>
 
-      <div style="margin-top:12px">
-        <h3 style="margin:10px 0 8px;">Añadir alimento</h3>
+      <div style="margin-top:10px">
+        <label>Añadir alimento</label>
         <div class="row">
-          <div>
-            <label>Nombre</label>
-            <input id="newFoodName" placeholder="Ej: pasta" />
-          </div>
-          <div>
-            <label>Raciones (R)</label>
-            <input id="newFoodR" inputmode="decimal" placeholder="Ej: 2.0" />
-          </div>
+          <input id="newFoodName" placeholder="Nombre (como se verá)" />
+          <input id="newFoodR" inputmode="decimal" placeholder="Raciones (R)" />
         </div>
-        <button id="addFood" class="btnGreen" style="margin-top:10px;">Añadir a mi tabla</button>
+        <button id="addFood" class="btnGreen" style="margin-top:8px">Añadir</button>
         <div class="muted" style="margin-top:6px">Se guarda en el móvil (localStorage).</div>
       </div>
-
     </div>
   </details>
 </div>
@@ -361,8 +349,6 @@
 <script>
 /* ========= CONFIG ========= */
 const GOAL_KEY = "goal_glucose";
-
-// Parámetros InPen por franja (tuyos)
 const DEFAULT_PARAMS = {
   "Desayuno":      { ratio: 3.75, isf: 25 },
   "Snack":         { ratio: 5.36, isf: 25 },
@@ -370,14 +356,12 @@ const DEFAULT_PARAMS = {
   "Merienda cole": { ratio: 8.06, isf: 30 },
   "Cena":          { ratio: 8.65, isf: 30 }
 };
-
 const GRAMS_PER_R = 10;
 
-// Foods list (del excel “Diccionario hidratos App In_Pen.xlsx”)
 const DEFAULT_FOODS = [
-  {"name":"arroz (80 gr)","r":2.0},
-  {"name":"rebanada de pan","r":1.3},
-  {"name":"pan caliente","r":2.5},
+  {"name":"pan rebanada tipo bimbo","r":1.3},
+  {"name":"pan tostada grande (60gr)","r":3.0},
+  {"name":"bocadillito caliente","r":2.5},
   {"name":"pancito yago","r":1.5},
   {"name":"1 galleta maría","r":0.5},
   {"name":"1 galleta oceanix / dinosaurio","r":0.75},
@@ -386,108 +370,135 @@ const DEFAULT_FOODS = [
   {"name":"pescado","r":0.0},
   {"name":"pescado rebozado","r":1.5},
   {"name":"salchicha","r":0.0},
-  {"name":"butifarra","r":1.0},
+  {"name":"butifarra","r":0.0},
   {"name":"judías blancas o rojas","r":2.0},
   {"name":"verduras","r":0.0},
-  {"name":"patatas al horno","r":2.5},
-  {"name":"pasta","r":2.5},
   {"name":"patata","r":2.0},
+  {"name":"pasta","r":2.0},
+  {"name":"arroz (80 gr)","r":2.0},
   {"name":"pollo","r":0.0},
   {"name":"pollo rebozado","r":1.5},
   {"name":"pan menu cole","r":1.0},
-  {"name":"leche (1 vaso)","r":1.0},
+  {"name":"leche (1 vaso 200ml)","r":1.0},
+  {"name":"yogur azucarado","r":1.5},
+  {"name":"yogur blanco","r":1.5},
   {"name":"mini oreo (bolsita)","r":2.5},
-  {"name":"crackers bolsita","r":2.7},
   {"name":"chips ahoy bolsita","r":2.5},
+  {"name":"mini príncipe bolsita","r":2.5},
+  {"name":"crackers bolsita","r":2.7},
+  {"name":"patatas chips menú cole","r":1.0},
+  {"name":"bolsa peque patatas/doritos...","r":3.0},
   {"name":"sopa de fideos/pasta","r":2.0},
-  {"name":"sopa de estrellas","r":2.0},
-  {"name":"tortilla de patatas","r":1.0},
   {"name":"tortilla francesa","r":0.0},
-  {"name":"croissant chocolate","r":2.0},
+  {"name":"croissant chocolate","r":4.0},
   {"name":"croissant jamón","r":2.0},
-  {"name":"hamburguesa","r":1.0},
+  {"name":"hamburguesa con pan","r":4.0},
   {"name":"pizza 1 trozo","r":2.0},
-  {"name":"nuggets (4)","r":1.0},
-  {"name":"fish sticks (3)","r":1.0},
-  {"name":"patatas fritas (pequeñas)","r":2.0},
-  {"name":"yogur azucarado","r":1.0},
-  {"name":"fruta (1 pieza)","r":1.5},
-  {"name":"zumo (1 vaso)","r":1.5},
-  {"name":"galletas (4)","r":2.0},
-  {"name":"cereales (1 bol)","r":3.0},
-  {"name":"bocadillo pequeño","r":2.5},
-  {"name":"bocadillo grande","r":3.0}
+  {"name":"bikini","r":2.6},
+  {"name":"nuggets (4 udes)","r":2.0},
+  {"name":"patatas fritas acompañamiento)","r":2.0},
+  {"name":"fruta normal","r":1.5},
+  {"name":"fruta pequeña (mandarina=)","r":1.0},
+  {"name":"cereales (1 bol)","r":4.0},
+  {"name":"lentejas","r":2.0},
+  {"name":"garbanzos","r":2.0},
+  {"name":"hummus de garbanzos","r":1.0},
+  {"name":"guisantes","r":1.0},
+  {"name":"crema de verduras","r":1.0},
+  {"name":"canelones","r":4.0},
+  {"name":"buñuelos de merluza","r":2.0},
+  {"name":"flan","r":2.0},
+  {"name":"gelatina","r":1.5},
+  {"name":"natillas","r":2.0},
+  {"name":"helado tarrina","r":2.0},
+  {"name":"helado cono","r":2.5}
+];
+
+const CATEGORIES = [
+  { key:"all", label:"Todo", emoji:"✨" },
+  { key:"bread", label:"Pan", emoji:"🍞" },
+  { key:"pasta", label:"Pasta", emoji:"🍝" },
+  { key:"potato", label:"Patata", emoji:"🥔" },
+  { key:"fruit", label:"Fruta", emoji:"🍎" },
+  { key:"dairy", label:"Lácteos", emoji:"🥛" },
+  { key:"cookies", label:"Galletas", emoji:"🍪" },
+  { key:"fastfood", label:"Pizza", emoji:"🍕" },
+  { key:"protein", label:"Proteína", emoji:"🍗" },
+  { key:"soup", label:"Sopa", emoji:"🥣" },
+  { key:"veg", label:"Verduras", emoji:"🥦" },
+  { key:"dessert", label:"Postre", emoji:"🍨" }
 ];
 
 /* ========= HELPERS ========= */
 const $ = (id) => document.getElementById(id);
 function num(v){ return Number(String(v ?? "").replace(",", ".")); }
-function norm(s){
-  return String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
-}
+function norm(s){ return String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim(); }
 function getGoal(){ return Number(localStorage.getItem(GOAL_KEY)) || 100; }
 function setGoal(v){ localStorage.setItem(GOAL_KEY, String(v)); }
 
 function loadParams(meal){
   const r = localStorage.getItem("ratio_" + meal);
   const s = localStorage.getItem("isf_" + meal);
-  return {
-    ratio: (r !== null) ? Number(r) : DEFAULT_PARAMS[meal].ratio,
-    isf:   (s !== null) ? Number(s) : DEFAULT_PARAMS[meal].isf
-  };
+  return { ratio: (r!==null)?Number(r):DEFAULT_PARAMS[meal].ratio, isf:(s!==null)?Number(s):DEFAULT_PARAMS[meal].isf };
 }
 function saveParams(meal, ratio, isf){
-  localStorage.setItem("ratio_" + meal, String(ratio));
-  localStorage.setItem("isf_" + meal, String(isf));
+  localStorage.setItem("ratio_"+meal, String(ratio));
+  localStorage.setItem("isf_"+meal, String(isf));
 }
 function resetParams(meal){
-  localStorage.removeItem("ratio_" + meal);
-  localStorage.removeItem("isf_" + meal);
+  localStorage.removeItem("ratio_"+meal);
+  localStorage.removeItem("isf_"+meal);
 }
 
-// Foods persistence
 const FOODS_KEY = "foods_custom_v1";
-function loadCustomFoods(){
-  try{
-    const raw = localStorage.getItem(FOODS_KEY);
-    if(!raw) return [];
-    const arr = JSON.parse(raw);
-    return Array.isArray(arr) ? arr : [];
-  }catch{ return []; }
-}
+function loadCustomFoods(){ try{ const raw=localStorage.getItem(FOODS_KEY); return raw?JSON.parse(raw):[]; }catch{return []} }
 function saveCustomFoods(arr){ localStorage.setItem(FOODS_KEY, JSON.stringify(arr)); }
 function getAllFoods(){
-  const custom = loadCustomFoods();
-  const map = new Map();
+  const custom=loadCustomFoods();
+  const map=new Map();
   for(const f of DEFAULT_FOODS) map.set(norm(f.name), {name:f.name, r:Number(f.r)});
-  for(const f of custom){
-    if(!f || !f.name) continue;
-    map.set(norm(f.name), {name:String(f.name), r:Number(f.r)});
-  }
+  for(const f of custom){ if(f?.name) map.set(norm(f.name), {name:String(f.name), r:Number(f.r)}); }
   return Array.from(map.values()).sort((a,b)=>norm(a.name).localeCompare(norm(b.name)));
 }
 
 function foodEmoji(name){
   const n = norm(name);
-  if(n.includes("pan") || n.includes("bocadillo") || n.includes("galleta") || n.includes("croissant") || n.includes("cereal")) return "🍞";
-  if(n.includes("pasta") || n.includes("fideos") || n.includes("arroz")) return "🍝";
+  if(n.includes("pan")||n.includes("bocadillo")||n.includes("galleta")||n.includes("croissant")||n.includes("cereal")||n.includes("bikini")) return "🍞";
+  if(n.includes("pasta")||n.includes("fideos")||n.includes("arroz")||n.includes("canelones")) return "🍝";
   if(n.includes("pizza")) return "🍕";
   if(n.includes("patata")) return "🥔";
   if(n.includes("zumo")) return "🧃";
-  if(n.includes("leche") || n.includes("yogur")) return "🥛";
+  if(n.includes("leche")||n.includes("yogur")) return "🥛";
   if(n.includes("fruta")) return "🍎";
   if(n.includes("pollo")) return "🍗";
-  if(n.includes("pescado") || n.includes("fish")) return "🐟";
-  if(n.includes("carne") || n.includes("hamburguesa")) return "🍔";
-  if(n.includes("verdura") || n.includes("verduras") || n.includes("judia")) return "🥦";
-  if(n.includes("chips") || n.includes("patatas fritas")) return "🍟";
+  if(n.includes("pescado")||n.includes("fish")||n.includes("merluza")) return "🐟";
+  if(n.includes("carne")||n.includes("hamburguesa")) return "🍔";
+  if(n.includes("verdura")||n.includes("verduras")||n.includes("judia")||n.includes("guisantes")) return "🥦";
+  if(n.includes("chips")||n.includes("patatas fritas")) return "🍟";
   if(n.includes("tortilla")) return "🍳";
+  if(n.includes("helado")||n.includes("flan")||n.includes("gelatina")||n.includes("natillas")) return "🍨";
+  if(n.includes("sopa")) return "🥣";
   return "🍽️";
 }
 
-/* ========= INPEN CALC =========
- Bolus = HC/ratio + max(0, (BG-GOAL)/ISF - IOB)
-================================ */
+function belongsToCategory(food, category){
+  const n = norm(food.name);
+  if(category === "all") return true;
+  if(category === "bread") return n.includes("pan") || n.includes("bocadillo") || n.includes("croissant") || n.includes("bikini");
+  if(category === "pasta") return n.includes("pasta") || n.includes("arroz") || n.includes("fideos") || n.includes("canelones");
+  if(category === "potato") return n.includes("patata") || n.includes("chips");
+  if(category === "fruit") return n.includes("fruta") || n.includes("zumo");
+  if(category === "dairy") return n.includes("leche") || n.includes("yogur");
+  if(category === "cookies") return n.includes("galleta") || n.includes("oreo") || n.includes("crackers") || n.includes("chips ahoy");
+  if(category === "fastfood") return n.includes("pizza") || n.includes("hamburguesa") || n.includes("bikini");
+  if(category === "protein") return n.includes("pollo") || n.includes("carne") || n.includes("pescado") || n.includes("salchicha") || n.includes("butifarra") || n.includes("nuggets") || n.includes("fish sticks") || n.includes("merluza");
+  if(category === "soup") return n.includes("sopa") || n.includes("crema");
+  if(category === "veg") return n.includes("verduras") || n.includes("verdura") || n.includes("judias") || n.includes("judías") || n.includes("garbanzos") || n.includes("lentejas") || n.includes("hummus") || n.includes("guisantes");
+  if(category === "dessert") return n.includes("helado") || n.includes("flan") || n.includes("gelatina") || n.includes("natillas");
+  return true;
+}
+
+/* ========= INPEN ========= */
 function calcInpen({bg, goal, hc, ratio, isf, iob}){
   const bolusHC = hc / ratio;
   const corr = (bg - goal) / isf;
@@ -498,48 +509,91 @@ function roundHalf(x){ return Math.round(x*2)/2; }
 
 /* ========= STATE ========= */
 let FOODS = getAllFoods();
-let selected = []; // {name,r}
+let selected = []; // {name, baseR, r}
 let lastBolus = NaN;
-
-// Autocomplete state
 let suggestions = [];
 let activeIndex = -1;
+let hcWasManuallyEdited = false;
+let activeCategory = "all";
 
-/* ========= MENU TOTALS ========= */
+/* ========= MENU ========= */
 function totals(){
   const totalR = selected.reduce((sum,it)=>sum + (Number(it.r)||0), 0);
-  const totalG = totalR * GRAMS_PER_R;
-  return { totalR, totalG };
+  return { totalR, totalG: totalR * GRAMS_PER_R };
+}
+
+function addFoodByName(foodName){
+  const key = norm(foodName);
+  const f = FOODS.find(x => norm(x.name) === key);
+  if(!f){
+    $("err").textContent = `No encuentro: "${foodName}". Añádelo en Para mamá.`;
+    return;
+  }
+  const baseR = Number(f.r) || 0;
+  selected.push({name:f.name, baseR, r:baseR});
+  syncMenuTotalsToUI();
 }
 
 function renderSelected(){
   const box = $("selectedList");
-  if(selected.length === 0){
-    box.className = "muted";
-    box.innerHTML = "Aún no has añadido alimentos.";
-  }else{
-    box.className = "";
-    box.innerHTML = selected.map((it, idx)=>{
-      const g = (Number(it.r)||0)*GRAMS_PER_R;
-      return `
-        <div class="foodRow">
-          <div>
-            <b>${it.name}</b>
-            <div class="muted" style="font-size:12px">${it.r.toFixed(2)} R · ${g.toFixed(0)} g</div>
-          </div>
-          <div class="badge">${foodEmoji(it.name)}</div>
-          <button class="xBtn" data-i="${idx}">✕</button>
-        </div>
-      `;
-    }).join("");
-    box.querySelectorAll("button.xBtn").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        const i = Number(btn.getAttribute("data-i"));
-        selected.splice(i,1);
-        syncMenuTotalsToUI();
-      });
-    });
+  if(selected.length===0){
+    box.className="muted tiny";
+    box.textContent="Aún no has añadido alimentos.";
+    return;
   }
+
+  box.className="";
+  box.innerHTML = selected.map((it, idx)=>{
+    const g = (Number(it.r)||0)*GRAMS_PER_R;
+    return `
+      <div class="foodRow">
+        <div class="foodLine">
+          <div>
+            <div class="foodName">${it.name}</div>
+            <div class="foodBase">Base ${it.baseR.toFixed(2)} R</div>
+          </div>
+
+          <div>
+            <label class="tiny">R</label>
+            <input class="miniInput rEdit" data-i="${idx}" inputmode="decimal" value="${Number(it.r).toFixed(2)}" />
+          </div>
+
+          <div>
+            <label class="tiny">HC (g)</label>
+            <input class="miniInput" value="${g.toFixed(0)}" disabled />
+          </div>
+
+          <button class="undoBtn" data-i="${idx}" title="Volver a la base">↩︎</button>
+          <button class="xBtn" data-i="${idx}" title="Quitar">✕</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  box.querySelectorAll(".xBtn").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      selected.splice(Number(btn.dataset.i),1);
+      syncMenuTotalsToUI();
+    });
+  });
+
+  box.querySelectorAll(".undoBtn").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const i = Number(btn.dataset.i);
+      selected[i].r = selected[i].baseR;
+      syncMenuTotalsToUI();
+    });
+  });
+
+  box.querySelectorAll(".rEdit").forEach(inp=>{
+    inp.addEventListener("input", ()=>{
+      const i = Number(inp.dataset.i);
+      const v = num(inp.value);
+      if(!isFinite(v)) return;
+      selected[i].r = Math.max(0, v);
+      syncMenuTotalsToUI();
+    });
+  });
 }
 
 function syncMenuTotalsToUI(){
@@ -547,35 +601,58 @@ function syncMenuTotalsToUI(){
   $("totalR").textContent = t.totalR.toFixed(1);
   $("totalG").textContent = t.totalG.toFixed(0);
 
-  // Always auto-fill HC for Yago
-  $("hc").value = t.totalG.toFixed(0);
-  $("hc").setAttribute("disabled","disabled");
+  if(!hcWasManuallyEdited){
+    $("hc").value = t.totalG.toFixed(0);
+  }
 
   renderSelected();
   updateOp();
 }
 
-/* ========= AUTOCOMPLETE (iPhone-like) ========= */
+function recalcHcFromMenu(){
+  const t = totals();
+  $("hc").value = t.totalG.toFixed(0);
+  hcWasManuallyEdited = false;
+  updateOp();
+}
+
+/* ========= CATEGORIES ========= */
+function renderCategories(){
+  const grid = $("catGrid");
+  grid.innerHTML = CATEGORIES.map(cat => `
+    <div class="catBtn ${cat.key===activeCategory ? "active" : ""}" data-key="${cat.key}">
+      <span class="e">${cat.emoji}</span>
+      <span class="t">${cat.label}</span>
+    </div>
+  `).join("");
+
+  grid.querySelectorAll(".catBtn").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      activeCategory = btn.dataset.key;
+      renderCategories();
+      showSuggestions($("foodSearch").value);
+    });
+  });
+}
+
+/* ========= AUTOCOMPLETE ========= */
 function renderSuggestions(){
   const list = $("acList");
-
-  if(suggestions.length === 0){
-    list.innerHTML = `<div class="acItem"><div><b>Sin resultados</b><div class="muted" style="font-size:12px">Prueba otra palabra</div></div><small></small></div>`;
-    list.style.display = "block";
+  if(suggestions.length===0){
+    list.innerHTML = `<div class="acItem"><div><b>Sin resultados</b></div><small></small></div>`;
+    list.style.display="block";
     return;
   }
-
   list.innerHTML = suggestions.map((f, idx)=>{
     const g = (Number(f.r)||0)*GRAMS_PER_R;
-    const em = foodEmoji(f.name);
-    const activeClass = (idx === activeIndex) ? "active" : "";
+    const active = (idx===activeIndex) ? "active" : "";
     return `
-      <div class="acItem ${activeClass}" data-idx="${idx}">
-        <div style="display:flex; gap:10px; align-items:flex-start;">
-          <div class="emoji">${em}</div>
+      <div class="acItem ${active}" data-idx="${idx}">
+        <div style="display:flex; gap:8px;">
+          <div class="emoji">${foodEmoji(f.name)}</div>
           <div>
             <b>${f.name}</b>
-            <div class="muted" style="font-size:12px">${Number(f.r).toFixed(2)} R · ${g.toFixed(0)} g</div>
+            <div class="muted tiny">${Number(f.r).toFixed(2)} R · ${g.toFixed(0)} g</div>
           </div>
         </div>
         <small>➕</small>
@@ -584,23 +661,19 @@ function renderSuggestions(){
   }).join("");
 
   list.querySelectorAll(".acItem").forEach(item=>{
-    item.addEventListener("click", ()=>{
-      const idx = Number(item.getAttribute("data-idx"));
-      selectSuggestion(idx);
-    });
+    item.addEventListener("click", ()=> selectSuggestion(Number(item.dataset.idx)));
   });
-
-  list.style.display = "block";
+  list.style.display="block";
 }
 
 function selectSuggestion(idx){
   const f = suggestions[idx];
   if(!f) return;
-  selected.push({name: f.name, r: Number(f.r)});
-  $("foodSearch").value = "";
-  $("acList").style.display = "none";
-  suggestions = [];
-  activeIndex = -1;
+  const baseR = Number(f.r) || 0;
+  selected.push({name:f.name, baseR, r:baseR});
+  $("foodSearch").value="";
+  $("acList").style.display="none";
+  suggestions=[]; activeIndex=-1;
   syncMenuTotalsToUI();
   $("foodSearch").focus();
 }
@@ -609,17 +682,23 @@ function showSuggestions(q){
   const list = $("acList");
   const query = norm(q);
 
+  let pool = FOODS.filter(f => belongsToCategory(f, activeCategory));
+
   if(!query){
-    list.style.display="none";
-    list.innerHTML="";
-    suggestions = [];
-    activeIndex = -1;
+    suggestions = pool.slice(0, 12);
+    activeIndex = suggestions.length ? 0 : -1;
+    if(suggestions.length){
+      renderSuggestions();
+    } else {
+      list.style.display="none";
+      list.innerHTML="";
+    }
     return;
   }
 
-  suggestions = FOODS
-    .filter(f => norm(f.name).startsWith(query))
-    .slice(0, 10);
+  suggestions = pool
+    .filter(f => norm(f.name).startsWith(query) || norm(f.name).includes(query))
+    .slice(0,10);
 
   activeIndex = suggestions.length ? 0 : -1;
   renderSuggestions();
@@ -638,108 +717,102 @@ function updateParamsUI(){
 }
 
 function updateOp(){
-  $("err").textContent = "";
-
-  const goal = num($("goal").value);
-  const bg = num($("bg").value);
-  const hc = num($("hc").value);
-  const iob = num($("iob").value || "0");
-  const p = loadParams(currentMeal());
-
+  $("err").textContent="";
+  const goal=num($("goal").value);
+  const bg=num($("bg").value);
+  const hc=num($("hc").value);
+  const iob=num($("iob").value||"0");
+  const p=loadParams(currentMeal());
   $("iobShown").textContent = iob.toFixed(1);
 
-  if(!isFinite(goal) || !isFinite(bg) || !isFinite(hc) || !isFinite(iob) || !isFinite(p.ratio) || !isFinite(p.isf) || p.ratio===0 || p.isf===0){
-    $("op").textContent = "Introduce GOAL, BG, HC, IOB (y que ratio/ISF no sean 0).";
+  if(!isFinite(goal)||!isFinite(bg)||!isFinite(hc)||!isFinite(iob)||!isFinite(p.ratio)||!isFinite(p.isf)||p.ratio===0||p.isf===0){
+    $("op").textContent="Introduce GOAL, BG, HC, IOB (y que ratio/ISF no sean 0).";
     return;
   }
 
-  const res = calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
-
+  const res=calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
   $("op").textContent =
-`BolusHC = HC / (HC/i)
-= ${hc} / ${p.ratio.toFixed(2)} = ${res.bolusHC.toFixed(2)} U
-
-Corrección = (BG - GOAL) / ISF
-= (${bg} - ${goal}) / ${p.isf} = ${res.corr.toFixed(2)} U
-
-Corrección efectiva = max(0, Corrección - IOB)
-= max(0, ${res.corr.toFixed(2)} - ${iob}) = ${res.corrEff.toFixed(2)} U
-
-Bolus = BolusHC + Corrección efectiva
-= ${res.bolusHC.toFixed(2)} + ${res.corrEff.toFixed(2)} = ${res.bolus.toFixed(2)} U`;
+`BolusHC = ${hc} / ${p.ratio.toFixed(2)} = ${res.bolusHC.toFixed(2)} U
+Corrección = (${bg}-${goal})/${p.isf} = ${res.corr.toFixed(2)} U
+Corr. efectiva = max(0, ${res.corr.toFixed(2)} - ${iob}) = ${res.corrEff.toFixed(2)} U
+Bolus = ${res.bolus.toFixed(2)} U`;
 }
 
-/* ========= INIT + EVENTS ========= */
+/* ========= INIT ========= */
 (function init(){
-  // meal options
   Object.keys(DEFAULT_PARAMS).forEach(m=>{
-    const o = document.createElement("option");
+    const o=document.createElement("option");
     o.value=m; o.textContent=m;
     $("meal").appendChild(o);
   });
 
-  // goal shared
   $("goal").value = String(getGoal());
-
-  // defaults
   $("iob").value = "0";
   $("iobShown").textContent = "0.0";
 
+  renderCategories();
   updateParamsUI();
   syncMenuTotalsToUI();
 
-  // autocomplete events
-  $("foodSearch").addEventListener("input",(e)=>showSuggestions(e.target.value));
-  $("foodSearch").addEventListener("focus",(e)=>showSuggestions(e.target.value));
+  $("foodSearch").addEventListener("input", (e)=>showSuggestions(e.target.value));
+  $("foodSearch").addEventListener("focus", ()=>showSuggestions($("foodSearch").value));
 
-  $("foodSearch").addEventListener("keydown", (e) => {
-    const listOpen = $("acList").style.display === "block";
-
-    if(!listOpen && (e.key === "ArrowDown" || e.key === "ArrowUp")){
+  $("foodSearch").addEventListener("keydown", (e)=>{
+    const open = $("acList").style.display==="block";
+    if(!open && (e.key==="ArrowDown"||e.key==="ArrowUp")){
       showSuggestions($("foodSearch").value);
       return;
     }
-
-    if(e.key === "ArrowDown"){
+    if(e.key==="ArrowDown"){
       e.preventDefault();
-      if(suggestions.length === 0) return;
-      activeIndex = Math.min(activeIndex + 1, suggestions.length - 1);
+      if(!suggestions.length) return;
+      activeIndex = Math.min(activeIndex+1, suggestions.length-1);
       renderSuggestions();
     }
-
-    if(e.key === "ArrowUp"){
+    if(e.key==="ArrowUp"){
       e.preventDefault();
-      if(suggestions.length === 0) return;
-      activeIndex = Math.max(activeIndex - 1, 0);
+      if(!suggestions.length) return;
+      activeIndex = Math.max(activeIndex-1, 0);
       renderSuggestions();
     }
-
-    if(e.key === "Enter"){
-      if(suggestions.length > 0){
+    if(e.key==="Enter"){
+      if(suggestions.length>0){
         e.preventDefault();
-        selectSuggestion(activeIndex >= 0 ? activeIndex : 0);
+        selectSuggestion(activeIndex>=0?activeIndex:0);
       }
     }
-
-    if(e.key === "Escape"){
-      $("acList").style.display = "none";
-      suggestions = [];
-      activeIndex = -1;
+    if(e.key==="Escape"){
+      $("acList").style.display="none";
+      suggestions=[]; activeIndex=-1;
     }
   });
 
-  document.addEventListener("click",(e)=>{
+  document.addEventListener("click", (e)=>{
     if(!e.target.closest(".acWrap")) $("acList").style.display="none";
   });
 
-  $("finishMenu").addEventListener("click", ()=>{ $("acList").style.display="none"; $("foodSearch").blur(); });
-  $("clearMenu").addEventListener("click", ()=>{ selected=[]; syncMenuTotalsToUI(); });
+  $("finishMenu").addEventListener("click", ()=>{
+    $("acList").style.display="none";
+    $("foodSearch").blur();
+  });
 
-  $("meal").addEventListener("change", ()=>{ updateParamsUI(); });
+  $("clearMenu").addEventListener("click", ()=>{
+    selected=[];
+    syncMenuTotalsToUI();
+    recalcHcFromMenu();
+  });
 
-  // Parent controls
+  $("recalcHc").addEventListener("click", recalcHcFromMenu);
+
+  $("hc").addEventListener("input", ()=>{
+    hcWasManuallyEdited = true;
+    updateOp();
+  });
+
+  $("meal").addEventListener("change", updateParamsUI);
+
   $("goal").addEventListener("input", ()=>{
-    const v = num($("goal").value);
+    const v=num($("goal").value);
     if(isFinite(v)) setGoal(v);
     updateOp();
   });
@@ -747,8 +820,8 @@ Bolus = BolusHC + Corrección efectiva
   ["bg","iob"].forEach(id=>$(id).addEventListener("input", updateOp));
 
   $("saveParams").addEventListener("click", ()=>{
-    const r = num($("ratioEdit").value);
-    const s = num($("isfEdit").value);
+    const r=num($("ratioEdit").value);
+    const s=num($("isfEdit").value);
     if(!isFinite(r)||r===0) return $("err").textContent="HC/i inválido (0)";
     if(!isFinite(s)||s===0) return $("err").textContent="ISF inválido (0)";
     saveParams(currentMeal(), r, s);
@@ -761,17 +834,16 @@ Bolus = BolusHC + Corrección efectiva
   });
 
   $("calc").addEventListener("click", ()=>{
-    const goal = num($("goal").value);
-    const bg = num($("bg").value);
-    const hc = num($("hc").value);
-    const iob = num($("iob").value || "0");
-    const p = loadParams(currentMeal());
-
+    const goal=num($("goal").value);
+    const bg=num($("bg").value);
+    const hc=num($("hc").value);
+    const iob=num($("iob").value||"0");
+    const p=loadParams(currentMeal());
     if(!isFinite(goal)||!isFinite(bg)||!isFinite(hc)||!isFinite(iob)){
       $("err").textContent="Datos inválidos";
       return;
     }
-    const res = calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
+    const res=calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
     lastBolus = res.bolus;
     $("bolusRaw").textContent = lastBolus.toFixed(2);
     $("bolusRound").textContent = "—";
@@ -783,15 +855,14 @@ Bolus = BolusHC + Corrección efectiva
     $("bolusRound").textContent = roundHalf(lastBolus).toFixed(1);
   });
 
-  // Add food
   $("addFood").addEventListener("click", ()=>{
-    const name = String($("newFoodName").value||"").trim();
-    const r = num($("newFoodR").value);
+    const name=String($("newFoodName").value||"").trim();
+    const r=num($("newFoodR").value);
     if(!name) return alert("Escribe un nombre");
     if(!isFinite(r)) return alert("Raciones inválidas");
 
-    const custom = loadCustomFoods();
-    custom.push({name, r});
+    const custom=loadCustomFoods();
+    custom.push({name,r});
     saveCustomFoods(custom);
 
     FOODS = getAllFoods();
@@ -801,6 +872,5 @@ Bolus = BolusHC + Corrección efectiva
   });
 })();
 </script>
-
 </body>
 </html>
