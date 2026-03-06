@@ -3,72 +3,71 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Calculadoras</title>
-
+<title>Menú</title>
 <style>
-body{font-family:-apple-system,system-ui,Segoe UI,Arial;margin:8px;background:#f6f6f6;font-size:15px}
-.box{background:#fff;border-radius:12px;padding:10px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.12)}
-h2{margin:0 0 8px;font-size:18px}
-label{font-weight:700;font-size:14px}
-input,button{width:100%;padding:10px;border-radius:10px;border:1px solid #ccc;font-size:16px}
-button{border:none;background:#007aff;color:#fff;margin-top:8px}
-.small{background:#eee;color:#000}
-.muted{color:#666;font-size:13px;margin-top:6px}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  body{
+    font-family:-apple-system,system-ui,Segoe UI,Arial;
+    margin:8px;
+    background:#f6f6f6;
+    font-size:15px;
+  }
+  .box{
+    background:#fff;
+    border-radius:12px;
+    padding:10px;
+    margin-bottom:10px;
+    box-shadow:0 1px 3px rgba(0,0,0,.12);
+  }
+  h2{
+    margin:0 0 8px;
+    font-size:18px;
+  }
+  button{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    font-size:16px;
+    margin-top:8px;
+    font-weight:700;
+    color:#fff;
+  }
+  .green{ background:#34c759; }
+  .blue{ background:#007aff; }
+  .orange{ background:#f59e0b; }
+  .violet{ background:#7c3aed; }
+  .muted{
+    color:#666;
+    font-size:13px;
+    margin-top:6px;
+  }
 </style>
 </head>
-
 <body>
 
 <div class="box">
-  <h2>Glucosa objetivo</h2>
-  <label>GOAL</label>
-  <input id="goal" inputmode="decimal" placeholder="Ej: 100">
+  <h2>Elegir pantalla</h2>
 
-  <div class="row">
-    <button id="save">Guardar</button>
-    <button id="reset" class="small">Reset 100</button>
+  <button class="green" onclick="location.href='index3.html'">
+    App Yago
+  </button>
+
+  <button class="blue" onclick="location.href='index1.html'">
+    Método Val
+  </button>
+
+  <button class="orange" onclick="location.href='index3_review.html'">
+    Revisión
+  </button>
+
+  <button class="violet" onclick="location.href='index4.html'">
+    Histórico
+  </button>
+
+  <div class="muted">
+    Menú principal de la app.
   </div>
-
-  <div class="muted">Compartido entre Val e InPen</div>
 </div>
-
-<div class="box">
-  <h2>Elegir calculadora</h2>
-
-  <button onclick="location.href='index1.html'">
-    Val multiplicador
-  </button>
-
-  <button class="small" onclick="location.href='index2.html'">
-    InPen básico
-  </button>
-
-  <button style="background:#34c759;margin-top:8px;" onclick="location.href='index3.html'">
-    InPen + menú alimentos
-  </button>
-
-
-<script>
-const KEY="goal_glucose";
-
-function num(v){return Number(String(v??"").replace(",","."));}
-function get(){return Number(localStorage.getItem(KEY))||100;}
-function set(v){localStorage.setItem(KEY,String(v));}
-
-const g=document.getElementById("goal");
-g.value=String(get());
-
-document.getElementById("save").onclick=()=>{
-  const v=num(g.value);
-  if(!isFinite(v))return alert("Inválido");
-  set(v); alert("Guardado");
-};
-
-document.getElementById("reset").onclick=()=>{
-  set(100); g.value="100";
-};
-</script>
 
 </body>
 </html>
