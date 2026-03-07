@@ -189,10 +189,6 @@
     border:1px solid #9bb7ff;
   }
 
-  .catBtn:active{
-    transform:scale(.98);
-  }
-
   .catBtn .e{
     font-size:20px;
     display:block;
@@ -231,29 +227,16 @@
     justify-content:space-between;
     gap:10px;
     font-size:14px;
+    cursor:pointer;
   }
 
   .acItem:last-child{
     border-bottom:none;
   }
 
-  .acItem:hover{
-    background:#f5f7ff;
-    cursor:pointer;
-  }
-
-  .acItem b{
-    font-weight:1200;
-  }
-
-  .acItem small{
-    color:var(--muted);
-    font-weight:900;
-  }
-
+  .acItem:hover,
   .acItem.active{
     background:#eaf0ff;
-    outline:2px solid rgba(37,99,235,.18);
   }
 
   .emoji{
@@ -434,7 +417,10 @@
 
   <div class="row" style="margin-top:8px">
     <div class="pill"><div class="k">Sin redondeo</div><div class="v" id="bolusRaw">—</div></div>
-    <div class="pill"><div class="k">IOB usado</div><div class="v" id="iobShown">0.0</div></div>
+    <div>
+      <label>Insulina puesta (U)</label>
+      <input id="insulinPut" class="userField" inputmode="decimal" placeholder="Ej: 2.5" />
+    </div>
   </div>
 </div>
 
@@ -459,8 +445,8 @@
           <input id="isfEdit" inputmode="decimal" />
         </div>
         <div>
-          <label>Insulina puesta (U)</label>
-          <input id="insulinPut" inputmode="decimal" placeholder="Opcional" />
+          <label>Stock / control</label>
+          <input disabled placeholder="Parámetros técnicos" />
         </div>
       </div>
 
@@ -548,7 +534,7 @@ const DEFAULT_FOODS = [
   {"name":"fruta pequeña (mandarina)","r":1.0},
   {"name":"cereales (1 bol)","r":3.0},
   {"name":"bocadillo pequeño","r":4.0},
-  {"name":"lentejas","r":1.5}0,
+  {"name":"lentejas","r":1.5},
   {"name":"garbanzos","r":1.5},
   {"name":"hummus de garbanzos","r":1.0},
   {"name":"guisantes","r":1.5},
@@ -678,8 +664,8 @@ function foodEmoji(name){
   if(n.includes("pollo")) return "🍗";
   if(n.includes("pescado")||n.includes("fish")||n.includes("merluza")) return "🐟";
   if(n.includes("carne")||n.includes("hamburguesa")) return "🍔";
-  if(n.includes("verdura")||n.includes("verduras")||n.includes("judia")||n.includes("guisantes")) return "🥦";
-  if(n.includes("chips")||n.includes("patatas fritas")) return "🍟";
+  if(n.includes("verdura")||n.includes("verduras")||n.includes("judia")||n.includes("guisantes")||n.includes("lentejas")||n.includes("garbanzos")||n.includes("hummus")) return "🥦";
+  if(n.includes("chips")||n.includes("patatas fritas")||n.includes("doritos")) return "🍟";
   if(n.includes("tortilla")) return "🍳";
   if(n.includes("helado")||n.includes("flan")||n.includes("gelatina")||n.includes("natillas")) return "🍨";
   if(n.includes("sopa")) return "🥣";
@@ -691,14 +677,14 @@ function belongsToCategory(food, category){
   if(category === "all") return true;
   if(category === "bread") return n.includes("pan") || n.includes("bocadillo") || n.includes("croissant") || n.includes("bikini");
   if(category === "pasta") return n.includes("pasta") || n.includes("arroz") || n.includes("fideos") || n.includes("canelones");
-  if(category === "potato") return n.includes("patata") || n.includes("chips");
+  if(category === "potato") return n.includes("patata") || n.includes("chips") || n.includes("doritos");
   if(category === "fruit") return n.includes("fruta") || n.includes("zumo");
   if(category === "dairy") return n.includes("leche") || n.includes("yogur");
-  if(category === "cookies") return n.includes("galleta") || n.includes("oreo") || n.includes("crackers") || n.includes("chips ahoy");
+  if(category === "cookies") return n.includes("galleta") || n.includes("oreo") || n.includes("principe") || n.includes("príncipe") || n.includes("crackers") || n.includes("chips ahoy");
   if(category === "fastfood") return n.includes("pizza") || n.includes("hamburguesa") || n.includes("bikini");
-  if(category === "protein") return n.includes("pollo") || n.includes("carne") || n.includes("pescado") || n.includes("salchicha") || n.includes("butifarra") || n.includes("nuggets") || n.includes("fish sticks") || n.includes("merluza");
+  if(category === "protein") return n.includes("pollo") || n.includes("carne") || n.includes("pescado") || n.includes("salchicha") || n.includes("butifarra") || n.includes("nuggets") || n.includes("merluza");
   if(category === "soup") return n.includes("sopa") || n.includes("crema");
-  if(category === "veg") return n.includes("verduras") || n.includes("verdura") || n.includes("judias") || n.includes("judías") || n.includes("garbanzos") || n.includes("lentejas") || n.includes("hummus") || n.includes("guisantes");
+  if(category === "veg") return n.includes("verduras") || n.includes("verdura") || n.includes("judia") || n.includes("judías") || n.includes("garbanzos") || n.includes("lentejas") || n.includes("hummus") || n.includes("guisantes");
   if(category === "dessert") return n.includes("helado") || n.includes("flan") || n.includes("gelatina") || n.includes("natillas");
   return true;
 }
@@ -909,8 +895,6 @@ function updateOp(){
   const iob = num($("iob").value || "0");
   const p = loadParams(currentMeal());
 
-  $("iobShown").textContent = iob.toFixed(1);
-
   if(!isFinite(goal) || !isFinite(bg) || !isFinite(hc) || !isFinite(iob) || !isFinite(p.ratio) || !isFinite(p.isf) || p.ratio===0 || p.isf===0){
     $("op").textContent = "Introduce glucosa, objetivo, HC, IOB y que HC/i e ISF no sean 0.";
     return;
@@ -934,9 +918,6 @@ Bolus = ${res.bolus.toFixed(2)} U`;
   });
 
   $("goal").value = String(getGoal());
-  $("iob").value = "0";
-  $("iobShown").textContent = "0.0";
-
   renderCategories();
   updateParamsUI();
   syncMenuTotalsToUI();
@@ -1010,7 +991,7 @@ Bolus = ${res.bolus.toFixed(2)} U`;
     updateOp();
   });
 
-  ["bg","iob"].forEach(id=>$(id).addEventListener("input", updateOp));
+  ["bg","iob","insulinPut"].forEach(id=>$(id).addEventListener("input", updateOp));
 
   $("saveParams").addEventListener("click", ()=>{
     const r = num($("ratioEdit").value);
