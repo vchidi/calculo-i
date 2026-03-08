@@ -22,6 +22,7 @@
   }
 
   *{box-sizing:border-box}
+
   body{
     font-family:-apple-system,system-ui,Segoe UI,Arial;
     margin:8px;
@@ -30,8 +31,17 @@
     font-size:15px;
   }
 
-  .topNav{display:flex; gap:6px; margin-bottom:8px;}
-  .topNav a{flex:1; text-decoration:none}
+  .topNav{
+    display:flex;
+    gap:6px;
+    margin-bottom:8px;
+  }
+
+  .topNav a{
+    flex:1;
+    text-decoration:none;
+  }
+
   .navBtn{
     width:100%;
     border-radius:14px;
@@ -98,18 +108,47 @@
     background:#fff;
   }
 
-  .userField{
-    background:var(--soft);
-    border:1px solid var(--softBorder);
-  }
-
   button{
     border:none;
     font-weight:1100;
   }
 
-  .row{display:grid; grid-template-columns:1fr 1fr; gap:8px}
-  .row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px}
+  .userField{
+    background:var(--soft);
+    border:1px solid var(--softBorder);
+  }
+
+  .pickerField{
+    background:var(--soft);
+    border:1px solid var(--softBorder);
+    padding:10px;
+    margin-top:5px;
+    border-radius:14px;
+    min-height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:700;
+  }
+
+  .pickerField .hint{
+    color:var(--muted);
+    font-weight:600;
+  }
+
+  .row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+
+  .row3{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:8px;
+  }
 
   .btnBlue{background:var(--blue); color:#fff}
   .btnGreen{background:var(--green); color:#fff}
@@ -123,11 +162,29 @@
     border:1px solid var(--border);
     background:linear-gradient(180deg,#ffffff 0%, #f7faff 100%);
   }
-  .pill .k{font-size:11px; color:var(--muted); font-weight:950}
-  .pill .v{font-size:18px; font-weight:1200}
 
-  .err{color:#b00020; font-weight:1100; margin-top:6px}
-  .ok{color:#166534; font-weight:1100; margin-top:6px}
+  .pill .k{
+    font-size:11px;
+    color:var(--muted);
+    font-weight:950;
+  }
+
+  .pill .v{
+    font-size:18px;
+    font-weight:1200;
+  }
+
+  .err{
+    color:#b00020;
+    font-weight:1100;
+    margin-top:6px;
+  }
+
+  .ok{
+    color:#166534;
+    font-weight:1100;
+    margin-top:6px;
+  }
 
   .catGrid{
     display:grid;
@@ -147,24 +204,32 @@
     user-select:none;
     cursor:pointer;
   }
+
   .catBtn.active{
     background:#eaf0ff;
     border:1px solid #9bb7ff;
   }
+
   .catBtn .e{
     font-size:20px;
     display:block;
     margin-bottom:4px;
   }
+
   .catBtn .t{
     font-size:12px;
     color:#0f172a;
   }
 
-  .acWrap{position:relative}
+  .acWrap{
+    position:relative;
+  }
+
   .acList{
     position:absolute;
-    left:0; right:0; top:100%;
+    left:0;
+    right:0;
+    top:100%;
     background:#fff;
     border:1px solid var(--border);
     border-radius:14px;
@@ -175,6 +240,7 @@
     max-height:260px;
     overflow-y:auto;
   }
+
   .acItem{
     padding:10px;
     border-bottom:1px solid #f0f3ff;
@@ -184,8 +250,16 @@
     font-size:14px;
     cursor:pointer;
   }
-  .acItem:last-child{border-bottom:none}
-  .acItem:hover,.acItem.active{background:#eaf0ff}
+
+  .acItem:last-child{
+    border-bottom:none;
+  }
+
+  .acItem:hover,
+  .acItem.active{
+    background:#eaf0ff;
+  }
+
   .emoji{
     font-size:18px;
     width:22px;
@@ -206,14 +280,22 @@
     border-collapse:collapse;
     margin-top:2px;
   }
+
   .foodTable td{
     padding:6px 4px;
     border-bottom:1px dashed #eef2ff;
     vertical-align:middle;
     font-size:14px;
   }
-  .foodTable tr:last-child td{border-bottom:none}
-  .foodName{font-weight:1000}
+
+  .foodTable tr:last-child td{
+    border-bottom:none;
+  }
+
+  .foodName{
+    font-weight:1000;
+  }
+
   .rInline{
     width:72px;
     margin:0;
@@ -222,12 +304,14 @@
     font-size:13px;
     text-align:center;
   }
+
   .gInline{
     font-size:13px;
     font-weight:900;
     white-space:nowrap;
     text-align:right;
   }
+
   .xBtn{
     width:auto;
     margin:0;
@@ -245,6 +329,7 @@
     overflow:hidden;
     background:#fff;
   }
+
   summary{
     list-style:none;
     cursor:pointer;
@@ -252,21 +337,32 @@
     font-weight:1200;
     background:linear-gradient(180deg,#ffffff 0%, #f4f7ff 100%);
   }
-  summary::-webkit-details-marker{display:none}
-  .detailsBody{padding:10px}
+
+  summary::-webkit-details-marker{
+    display:none;
+  }
+
+  .detailsBody{
+    padding:10px;
+  }
 
   .miniTable{
     width:100%;
     border-collapse:collapse;
     margin-top:8px;
   }
+
   .miniTable td{
     padding:6px 4px;
     border-bottom:1px dashed #eef2ff;
     vertical-align:middle;
     font-size:13px;
   }
-  .miniTable tr:last-child td{border-bottom:none}
+
+  .miniTable tr:last-child td{
+    border-bottom:none;
+  }
+
   .miniBtn{
     width:auto;
     padding:6px 10px;
@@ -288,6 +384,93 @@
     word-break:break-word;
     margin:8px 0 0;
   }
+
+  .pickerOverlay{
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.32);
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    z-index:9999;
+  }
+
+  .pickerSheet{
+    width:100%;
+    max-width:520px;
+    background:#fff;
+    border-radius:22px 22px 0 0;
+    padding:10px 10px 18px;
+    box-shadow:0 -10px 30px rgba(0,0,0,.18);
+  }
+
+  .pickerTop{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:8px;
+    margin-bottom:8px;
+  }
+
+  .pickerTitle{
+    font-weight:1100;
+    font-size:16px;
+  }
+
+  .pickerTopBtn{
+    width:auto;
+    padding:8px 12px;
+    margin:0;
+    border-radius:12px;
+    font-size:14px;
+  }
+
+  .wheelWrap{
+    position:relative;
+    height:240px;
+    overflow:hidden;
+    border-radius:18px;
+    background:linear-gradient(180deg,#f8fbff 0%, #ffffff 18%, #ffffff 82%, #f8fbff 100%);
+    border:1px solid var(--border);
+  }
+
+  .wheelHighlight{
+    position:absolute;
+    left:0;
+    right:0;
+    top:98px;
+    height:44px;
+    border-top:1px solid #cfe0ff;
+    border-bottom:1px solid #cfe0ff;
+    background:rgba(37,99,235,.05);
+    pointer-events:none;
+  }
+
+  .wheel{
+    height:240px;
+    overflow-y:auto;
+    scroll-snap-type:y mandatory;
+    -webkit-overflow-scrolling:touch;
+    padding:98px 0;
+  }
+
+  .wheelItem{
+    height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    scroll-snap-align:center;
+    font-size:24px;
+    font-weight:800;
+    color:#334155;
+  }
+
+  .wheelSub{
+    font-size:12px;
+    color:var(--muted);
+    text-align:center;
+    margin-top:8px;
+  }
 </style>
 </head>
 <body>
@@ -304,7 +487,7 @@
     <h1>🧒 Yago • Insulina</h1>
     <div class="badge">Categorías editables</div>
   </div>
-  <div class="muted">Puedes elegir por categoría, buscar el alimento exacto y corregir las raciones si hace falta.</div>
+  <div class="muted">Los números principales usan selector tipo rueda.</div>
 </div>
 
 <div class="card">
@@ -314,11 +497,17 @@
   <div class="row" style="margin-top:6px">
     <div>
       <label>Glucosa (BG)</label>
-      <input id="bg" class="userField" inputmode="decimal" placeholder="Ej: 130" />
+      <div id="bgPickerBtn" class="pickerField">
+        <span id="bgDisplay">130</span>
+        <span class="hint">▾</span>
+      </div>
     </div>
     <div>
       <label>Glucosa objetivo</label>
-      <input id="goal" class="userField" inputmode="decimal" placeholder="100" />
+      <div id="goalPickerBtn" class="pickerField">
+        <span id="goalDisplay">100</span>
+        <span class="hint">▾</span>
+      </div>
     </div>
   </div>
 
@@ -368,7 +557,10 @@
     <div class="pill"><div class="k">Sin redondeo</div><div class="v" id="bolusRaw">—</div></div>
     <div>
       <label>Insulina puesta (U)</label>
-      <input id="insulinPut" class="userField" inputmode="decimal" placeholder="Ej: 2.5" />
+      <div id="insulinPickerBtn" class="pickerField">
+        <span id="insulinDisplay">0.0</span>
+        <span class="hint">▾</span>
+      </div>
     </div>
   </div>
 </div>
@@ -381,7 +573,10 @@
       <div class="row">
         <div>
           <label>IOB (U)</label>
-          <input id="iob" inputmode="decimal" placeholder="Ej: 1" />
+          <div id="iobPickerBtn" class="pickerField">
+            <span id="iobDisplay">0.0</span>
+            <span class="hint">▾</span>
+          </div>
         </div>
         <div>
           <label>HC/i (g/U)</label>
@@ -395,7 +590,7 @@
           <input id="isfEdit" inputmode="decimal" />
         </div>
         <div>
-          <label>Categoria al añadir alimento</label>
+          <label>Categoría al añadir alimento</label>
           <select id="newFoodCat"></select>
         </div>
       </div>
@@ -429,12 +624,26 @@
           <input id="newCatEmoji" placeholder="Emoji" />
         </div>
         <button id="addCat" class="btnGreen" style="margin-top:8px">Añadir categoría</button>
-
         <table class="miniTable" id="catTable"></table>
       </div>
 
     </div>
   </details>
+</div>
+
+<div id="pickerOverlay" class="pickerOverlay">
+  <div class="pickerSheet">
+    <div class="pickerTop">
+      <button id="pickerCancel" class="pickerTopBtn btnGhost">Cancelar</button>
+      <div id="pickerTitle" class="pickerTitle">Selecciona</div>
+      <button id="pickerDone" class="pickerTopBtn btnBlue">Aceptar</button>
+    </div>
+    <div class="wheelWrap">
+      <div class="wheelHighlight"></div>
+      <div id="pickerWheel" class="wheel"></div>
+    </div>
+    <div id="pickerSub" class="wheelSub"></div>
+  </div>
 </div>
 
 <script>
@@ -645,10 +854,25 @@ function saveCustomFood(food){
 function getCategoryById(id){
   return CATEGORIES.find(c => c.id === id);
 }
-
 function foodEmoji(food){
   const cat = getCategoryById(food.cat);
   return cat?.emoji || "🍽️";
+}
+
+const pickerState = {
+  target: null,
+  values: [],
+  formatter: (v)=>String(v),
+  selected: null
+};
+
+function buildRange(start, end, step){
+  const out = [];
+  const factor = Math.round(1 / step);
+  for(let i = Math.round(start * factor); i <= Math.round(end * factor); i++){
+    out.push(i / factor);
+  }
+  return out;
 }
 
 let CATEGORIES = loadCategories();
@@ -660,6 +884,57 @@ let suggestions = [];
 let activeIndex = -1;
 let hcWasManuallyEdited = false;
 let activeCategory = "all";
+
+let formState = {
+  bg: 130,
+  goal: getGoal(),
+  iob: 0.0,
+  insulinPut: 0.0
+};
+
+function renderNumberDisplays(){
+  $("bgDisplay").textContent = Math.round(formState.bg);
+  $("goalDisplay").textContent = Math.round(formState.goal);
+  $("iobDisplay").textContent = Number(formState.iob).toFixed(1);
+  $("insulinDisplay").textContent = Number(formState.insulinPut).toFixed(1);
+}
+
+function openPicker({title, values, current, formatter, target, sub=""}){
+  pickerState.target = target;
+  pickerState.values = values;
+  pickerState.formatter = formatter;
+  pickerState.selected = current;
+
+  $("pickerTitle").textContent = title;
+  $("pickerSub").textContent = sub || "";
+
+  const wheel = $("pickerWheel");
+  wheel.innerHTML = values.map(v => `<div class="wheelItem">${formatter(v)}</div>`).join("");
+
+  $("pickerOverlay").style.display = "flex";
+
+  requestAnimationFrame(()=>{
+    const index = Math.max(0, values.findIndex(v => Number(v) === Number(current)));
+    wheel.scrollTop = index * 44;
+    syncPickerSelection();
+  });
+}
+
+function closePicker(){
+  $("pickerOverlay").style.display = "none";
+}
+
+function syncPickerSelection(){
+  const wheel = $("pickerWheel");
+  const index = Math.round(wheel.scrollTop / 44);
+  const safeIndex = Math.max(0, Math.min(index, pickerState.values.length - 1));
+  pickerState.selected = pickerState.values[safeIndex];
+
+  wheel.querySelectorAll(".wheelItem").forEach((el, i)=>{
+    el.style.opacity = (i === safeIndex) ? "1" : "0.45";
+    el.style.transform = (i === safeIndex) ? "scale(1.05)" : "scale(0.96)";
+  });
+}
 
 function totals(){
   const totalR = selected.reduce((sum,it)=>sum + (Number(it.r)||0), 0);
@@ -752,8 +1027,10 @@ function renderCategories(){
     });
   });
 
-  const sel = $("newFoodCat");
-  sel.innerHTML = CATEGORIES.filter(c=>c.id!=="all").map(c=>`<option value="${c.id}">${c.emoji} ${c.name}</option>`).join("");
+  $("newFoodCat").innerHTML = CATEGORIES
+    .filter(c=>c.id!=="all")
+    .map(c=>`<option value="${c.id}">${c.emoji} ${c.name}</option>`)
+    .join("");
 }
 
 function renderCategoryTable(){
@@ -874,14 +1151,25 @@ function updateParamsUI(){
   updateOp();
 }
 
+function calcInpen({bg, goal, hc, ratio, isf, iob}){
+  const bolusHC = hc / ratio;
+  const corr = (bg - goal) / isf;
+  const corrEff = Math.max(0, corr - iob);
+  return { bolusHC, corr, corrEff, bolus: bolusHC + corrEff };
+}
+
+function roundHalf(x){
+  return Math.round(x * 2) / 2;
+}
+
 function updateOp(){
   $("err").textContent = "";
   $("ok").textContent = "";
 
-  const goal = num($("goal").value);
-  const bg = num($("bg").value);
+  const goal = Number(formState.goal);
+  const bg = Number(formState.bg);
   const hc = num($("hc").value);
-  const iob = num($("iob").value || "0");
+  const iob = Number(formState.iob);
   const p = loadParams(currentMeal());
 
   if(!isFinite(goal) || !isFinite(bg) || !isFinite(hc) || !isFinite(iob) || !isFinite(p.ratio) || !isFinite(p.isf) || p.ratio===0 || p.isf===0){
@@ -894,7 +1182,7 @@ function updateOp(){
   $("op").textContent =
 `BolusHC = ${hc} / ${p.ratio.toFixed(2)} = ${res.bolusHC.toFixed(2)} U
 Corrección = (${bg}-${goal})/${p.isf} = ${res.corr.toFixed(2)} U
-Corr. efectiva = max(0, ${res.corr.toFixed(2)} - ${iob}) = ${res.corrEff.toFixed(2)} U
+Corr. efectiva = max(0, ${res.corr.toFixed(2)} - ${iob.toFixed(1)}) = ${res.corrEff.toFixed(2)} U
 Bolus = ${res.bolus.toFixed(2)} U`;
 }
 
@@ -906,11 +1194,74 @@ Bolus = ${res.bolus.toFixed(2)} U`;
     $("meal").appendChild(o);
   });
 
-  $("goal").value = String(getGoal());
+  renderNumberDisplays();
   renderCategories();
   renderCategoryTable();
   updateParamsUI();
   syncMenuTotalsToUI();
+
+  $("bgPickerBtn").addEventListener("click", ()=>{
+    openPicker({
+      title:"Glucosa inicial",
+      values: buildRange(40, 400, 1),
+      current: formState.bg,
+      formatter: (v)=>String(Math.round(v)),
+      target:"bg",
+      sub:"Desliza hasta el valor deseado"
+    });
+  });
+
+  $("goalPickerBtn").addEventListener("click", ()=>{
+    openPicker({
+      title:"Glucosa objetivo",
+      values: buildRange(70, 180, 1),
+      current: formState.goal,
+      formatter: (v)=>String(Math.round(v)),
+      target:"goal",
+      sub:"Valor por defecto: 100"
+    });
+  });
+
+  $("iobPickerBtn").addEventListener("click", ()=>{
+    openPicker({
+      title:"IOB",
+      values: buildRange(0, 10, 0.1),
+      current: formState.iob,
+      formatter: (v)=>Number(v).toFixed(1),
+      target:"iob",
+      sub:"Pasos de 0.1 U"
+    });
+  });
+
+  $("insulinPickerBtn").addEventListener("click", ()=>{
+    openPicker({
+      title:"Insulina puesta",
+      values: buildRange(0, 20, 0.1),
+      current: formState.insulinPut,
+      formatter: (v)=>Number(v).toFixed(1),
+      target:"insulinPut",
+      sub:"Pasos de 0.1 U"
+    });
+  });
+
+  $("pickerWheel").addEventListener("scroll", syncPickerSelection);
+  $("pickerCancel").addEventListener("click", closePicker);
+
+  $("pickerDone").addEventListener("click", ()=>{
+    if(pickerState.target){
+      formState[pickerState.target] = pickerState.selected;
+      if(pickerState.target === "goal"){
+        setGoal(formState.goal);
+      }
+      renderNumberDisplays();
+      updateOp();
+    }
+    closePicker();
+  });
+
+  $("pickerOverlay").addEventListener("click", (e)=>{
+    if(e.target.id === "pickerOverlay") closePicker();
+  });
 
   $("foodSearch").addEventListener("input", (e)=>showSuggestions(e.target.value));
   $("foodSearch").addEventListener("focus", ()=>showSuggestions($("foodSearch").value));
@@ -975,14 +1326,6 @@ Bolus = ${res.bolus.toFixed(2)} U`;
 
   $("meal").addEventListener("change", updateParamsUI);
 
-  $("goal").addEventListener("input", ()=>{
-    const v = num($("goal").value);
-    if(isFinite(v)) setGoal(v);
-    updateOp();
-  });
-
-  ["bg","iob","insulinPut"].forEach(id=>$(id).addEventListener("input", updateOp));
-
   $("saveParams").addEventListener("click", ()=>{
     const r = num($("ratioEdit").value);
     const s = num($("isfEdit").value);
@@ -1005,10 +1348,10 @@ Bolus = ${res.bolus.toFixed(2)} U`;
     $("err").textContent = "";
     $("ok").textContent = "";
 
-    const goal = num($("goal").value);
-    const bg = num($("bg").value);
+    const goal = Number(formState.goal);
+    const bg = Number(formState.bg);
     const hc = num($("hc").value);
-    const iob = num($("iob").value || "0");
+    const iob = Number(formState.iob);
     const p = loadParams(currentMeal());
 
     if(!isFinite(goal) || !isFinite(bg) || !isFinite(hc) || !isFinite(iob)){
@@ -1032,7 +1375,7 @@ Bolus = ${res.bolus.toFixed(2)} U`;
       hc_g: hc,
       iob: iob,
       bolus_suggested: res.bolus,
-      insulin_put: num($("insulinPut").value),
+      insulin_put: Number(formState.insulinPut),
       notes: "",
       i_good: null
     });
