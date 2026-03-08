@@ -22,7 +22,6 @@
   }
 
   *{box-sizing:border-box}
-
   body{
     font-family:-apple-system,system-ui,Segoe UI,Arial;
     margin:8px;
@@ -31,17 +30,8 @@
     font-size:15px;
   }
 
-  .topNav{
-    display:flex;
-    gap:6px;
-    margin-bottom:8px;
-  }
-
-  .topNav a{
-    flex:1;
-    text-decoration:none;
-  }
-
+  .topNav{display:flex; gap:6px; margin-bottom:8px;}
+  .topNav a{flex:1; text-decoration:none}
   .navBtn{
     width:100%;
     border-radius:14px;
@@ -118,17 +108,8 @@
     font-weight:1100;
   }
 
-  .row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-  }
-
-  .row3{
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr;
-    gap:8px;
-  }
+  .row{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+  .row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px}
 
   .btnBlue{background:var(--blue); color:#fff}
   .btnGreen{background:var(--green); color:#fff}
@@ -142,29 +123,11 @@
     border:1px solid var(--border);
     background:linear-gradient(180deg,#ffffff 0%, #f7faff 100%);
   }
+  .pill .k{font-size:11px; color:var(--muted); font-weight:950}
+  .pill .v{font-size:18px; font-weight:1200}
 
-  .pill .k{
-    font-size:11px;
-    color:var(--muted);
-    font-weight:950;
-  }
-
-  .pill .v{
-    font-size:18px;
-    font-weight:1200;
-  }
-
-  .err{
-    color:#b00020;
-    font-weight:1100;
-    margin-top:6px;
-  }
-
-  .ok{
-    color:#166534;
-    font-weight:1100;
-    margin-top:6px;
-  }
+  .err{color:#b00020; font-weight:1100; margin-top:6px}
+  .ok{color:#166534; font-weight:1100; margin-top:6px}
 
   .catGrid{
     display:grid;
@@ -182,33 +145,26 @@
     text-align:center;
     line-height:1.1;
     user-select:none;
+    cursor:pointer;
   }
-
   .catBtn.active{
     background:#eaf0ff;
     border:1px solid #9bb7ff;
   }
-
   .catBtn .e{
     font-size:20px;
     display:block;
     margin-bottom:4px;
   }
-
   .catBtn .t{
     font-size:12px;
     color:#0f172a;
   }
 
-  .acWrap{
-    position:relative;
-  }
-
+  .acWrap{position:relative}
   .acList{
     position:absolute;
-    left:0;
-    right:0;
-    top:100%;
+    left:0; right:0; top:100%;
     background:#fff;
     border:1px solid var(--border);
     border-radius:14px;
@@ -219,7 +175,6 @@
     max-height:260px;
     overflow-y:auto;
   }
-
   .acItem{
     padding:10px;
     border-bottom:1px solid #f0f3ff;
@@ -229,16 +184,8 @@
     font-size:14px;
     cursor:pointer;
   }
-
-  .acItem:last-child{
-    border-bottom:none;
-  }
-
-  .acItem:hover,
-  .acItem.active{
-    background:#eaf0ff;
-  }
-
+  .acItem:last-child{border-bottom:none}
+  .acItem:hover,.acItem.active{background:#eaf0ff}
   .emoji{
     font-size:18px;
     width:22px;
@@ -254,31 +201,19 @@
     background:#fff;
   }
 
-  .tiny{
-    font-size:12px;
-  }
-
   .foodTable{
     width:100%;
     border-collapse:collapse;
     margin-top:2px;
   }
-
   .foodTable td{
     padding:6px 4px;
     border-bottom:1px dashed #eef2ff;
     vertical-align:middle;
     font-size:14px;
   }
-
-  .foodTable tr:last-child td{
-    border-bottom:none;
-  }
-
-  .foodName{
-    font-weight:1000;
-  }
-
+  .foodTable tr:last-child td{border-bottom:none}
+  .foodName{font-weight:1000}
   .rInline{
     width:72px;
     margin:0;
@@ -287,14 +222,12 @@
     font-size:13px;
     text-align:center;
   }
-
   .gInline{
     font-size:13px;
     font-weight:900;
     white-space:nowrap;
     text-align:right;
   }
-
   .xBtn{
     width:auto;
     margin:0;
@@ -312,7 +245,6 @@
     overflow:hidden;
     background:#fff;
   }
-
   summary{
     list-style:none;
     cursor:pointer;
@@ -320,13 +252,30 @@
     font-weight:1200;
     background:linear-gradient(180deg,#ffffff 0%, #f4f7ff 100%);
   }
+  summary::-webkit-details-marker{display:none}
+  .detailsBody{padding:10px}
 
-  summary::-webkit-details-marker{
-    display:none;
+  .miniTable{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:8px;
   }
-
-  .detailsBody{
-    padding:10px;
+  .miniTable td{
+    padding:6px 4px;
+    border-bottom:1px dashed #eef2ff;
+    vertical-align:middle;
+    font-size:13px;
+  }
+  .miniTable tr:last-child td{border-bottom:none}
+  .miniBtn{
+    width:auto;
+    padding:6px 10px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:#fff;
+    font-size:12px;
+    font-weight:1000;
+    margin:0;
   }
 
   pre{
@@ -353,7 +302,7 @@
 <div class="card">
   <div class="title">
     <h1>🧒 Yago • Insulina</h1>
-    <div class="badge">Categorías + buscador</div>
+    <div class="badge">Categorías editables</div>
   </div>
   <div class="muted">Puedes elegir por categoría, buscar el alimento exacto y corregir las raciones si hace falta.</div>
 </div>
@@ -391,7 +340,7 @@
     </div>
 
     <div class="sel">
-      <div id="selectedList" class="muted tiny">Aún no has añadido alimentos.</div>
+      <div id="selectedList" class="muted">Aún no has añadido alimentos.</div>
 
       <div class="row3" style="margin-top:10px">
         <div class="pill"><div class="k">R</div><div class="v" id="totalR">0.0</div></div>
@@ -428,6 +377,7 @@
   <details>
     <summary>👩 Para mamá</summary>
     <div class="detailsBody">
+
       <div class="row">
         <div>
           <label>IOB (U)</label>
@@ -445,8 +395,8 @@
           <input id="isfEdit" inputmode="decimal" />
         </div>
         <div>
-          <label>Stock / control</label>
-          <input disabled placeholder="Parámetros técnicos" />
+          <label>Categoria al añadir alimento</label>
+          <select id="newFoodCat"></select>
         </div>
       </div>
 
@@ -463,15 +413,26 @@
 
       <pre id="op">Introduce datos</pre>
 
-      <div style="margin-top:10px">
+      <div style="margin-top:12px">
         <label>Añadir alimento</label>
         <div class="row">
-          <input id="newFoodName" placeholder="Nombre (como se verá)" />
+          <input id="newFoodName" placeholder="Nombre" />
           <input id="newFoodR" inputmode="decimal" placeholder="Raciones (R)" />
         </div>
-        <button id="addFood" class="btnGreen" style="margin-top:8px">Añadir</button>
-        <div class="muted" style="margin-top:6px">Se guarda en el móvil (localStorage).</div>
+        <button id="addFood" class="btnGreen" style="margin-top:8px">Añadir alimento</button>
       </div>
+
+      <div style="margin-top:12px">
+        <label>Categorías</label>
+        <div class="row">
+          <input id="newCatName" placeholder="Nueva categoría" />
+          <input id="newCatEmoji" placeholder="Emoji" />
+        </div>
+        <button id="addCat" class="btnGreen" style="margin-top:8px">Añadir categoría</button>
+
+        <table class="miniTable" id="catTable"></table>
+      </div>
+
     </div>
   </details>
 </div>
@@ -479,6 +440,8 @@
 <script>
 const GOAL_KEY = "goal_glucose";
 const ENTRIES_KEY = "inpen_entries_v1";
+const FOODS_KEY = "foods_custom_v2";
+const CATS_KEY = "cats_custom_v1";
 
 const DEFAULT_PARAMS = {
   "Desayuno":      { ratio: 3.75, isf: 25 },
@@ -490,100 +453,121 @@ const DEFAULT_PARAMS = {
 
 const GRAMS_PER_R = 10;
 
-const DEFAULT_FOODS = [
-  {"name":"pan rebanada tipo bimbo","r":1.3},
-  {"name":"pan tostada grande (60gr)","r":3.0},
-  {"name":"pan caliente","r":2.5},
-  {"name":"pancito yago","r":1.5},
-  {"name":"1 galleta maría","r":0.5},
-  {"name":"1 galleta oceanix / dinosaurio","r":0.75},
-  {"name":"carne","r":0.0},
-  {"name":"carne rebozada","r":1.5},
-  {"name":"pescado","r":0.0},
-  {"name":"pescado rebozado","r":1.5},
-  {"name":"salchicha","r":0.0},
-  {"name":"butifarra","r":0.0},
-  {"name":"judías blancas o rojas","r":2.0},
-  {"name":"verduras","r":0.0},
-  {"name":"patata","r":2.0},
-  {"name":"pasta","r":2.0},
-  {"name":"arroz (80 gr)","r":2.0},
-  {"name":"pollo","r":0.0},
-  {"name":"pollo rebozado","r":1.5},
-  {"name":"pan menu cole","r":1.0},
-  {"name":"leche (1 vaso 200ml)","r":1.0},
-  {"name":"yogur azucarado","r":1.5},
-  {"name":"yogur blanco","r":1.0},
-  {"name":"mini oreo (bolsita)","r":2.5},
-  {"name":"mini príncipe (bolsita)","r":2.5},
-  {"name":"crackers bolsita","r":2.7},
-  {"name":"chips ahoy bolsita","r":2.5},
-  {"name":"patatas chips menú cole","r":0.5},
-  {"name":"patatas chips/ doritos bolsa pequeña","r":3.0},
-  {"name":"sopa de fideos/pasta","r":2.0},
-  {"name":"tortilla de patatas","r":2.0},
-  {"name":"tortilla francesa","r":0.0},
-  {"name":"croissant chocolate","r":4.0},
-  {"name":"croissant jamón","r":3.0},
-  {"name":"hamburguesa con pan","r":4.0},
-  {"name":"pizza 1 trozo pequeño","r":2.0},
-  {"name":"bikini","r":2.6},
-  {"name":"nuggets (4 udes)","r":2.0},
-  {"name":"patatas fritas (pequeñas)","r":4.0},
-  {"name":"fruta normal","r":2.0},
-  {"name":"fruta pequeña (mandarina)","r":1.0},
-  {"name":"cereales (1 bol)","r":3.0},
-  {"name":"bocadillo pequeño","r":4.0},
-  {"name":"lentejas","r":1.5},
-  {"name":"garbanzos","r":1.5},
-  {"name":"hummus de garbanzos","r":1.0},
-  {"name":"guisantes","r":1.5},
-  {"name":"crema de verduras","r":1.0},
-  {"name":"canelones","r":4.0},
-  {"name":"buñuelos de merluza","r":2.0},
-  {"name":"flan","r":2.0},
-  {"name":"gelatina","r":1.5},
-  {"name":"natillas","r":2.0},
-  {"name":"helado tarrina","r":2.0},
-  {"name":"helado cono","r":4.0}
+const DEFAULT_CATEGORIES = [
+  {id:"all", name:"Todo", emoji:"✨"},
+  {id:"pan", name:"Pan", emoji:"🍞"},
+  {id:"pasta", name:"Pasta/arroz", emoji:"🍝"},
+  {id:"patata", name:"Patatas", emoji:"🥔"},
+  {id:"verduras", name:"Verduras", emoji:"🥦"},
+  {id:"proteina", name:"Proteína", emoji:"🍗"},
+  {id:"lacteos", name:"Lácteos", emoji:"🥛"},
+  {id:"snack", name:"Snacks", emoji:"🍪"},
+  {id:"postre", name:"Postres", emoji:"🍨"},
+  {id:"fruta", name:"Fruta", emoji:"🍎"},
+  {id:"bolleria", name:"Bollería", emoji:"🥐"},
+  {id:"fastfood", name:"Rápida", emoji:"🍕"},
+  {id:"otros", name:"Otros", emoji:"🍽️"},
+  {id:"miranda", name:"Miranda", emoji:"🏫"},
+  {id:"plato", name:"Platos", emoji:"🥣"}
 ];
 
-const CATEGORIES = [
-  { key:"all", label:"Todo", emoji:"✨" },
-  { key:"bread", label:"Pan", emoji:"🍞" },
-  { key:"pasta", label:"Pasta", emoji:"🍝" },
-  { key:"potato", label:"Patata", emoji:"🥔" },
-  { key:"fruit", label:"Fruta", emoji:"🍎" },
-  { key:"dairy", label:"Lácteos", emoji:"🥛" },
-  { key:"cookies", label:"Galletas", emoji:"🍪" },
-  { key:"fastfood", label:"Pizza", emoji:"🍕" },
-  { key:"protein", label:"Proteína", emoji:"🍗" },
-  { key:"soup", label:"Sopa", emoji:"🥣" },
-  { key:"veg", label:"Verduras", emoji:"🥦" },
-  { key:"dessert", label:"Postre", emoji:"🍨" }
+const DEFAULT_FOODS = [
+  {name:"pan rebanada tipo bimbo", r:1.3, cat:"pan"},
+  {name:"pan tostada grande (60gr)", r:3.0, cat:"pan"},
+  {name:"pan caliente", r:2.5, cat:"pan"},
+  {name:"pancito nico", r:1.5, cat:"pan"},
+  {name:"pan menú cole", r:1.0, cat:"pan"},
+  {name:"bocadillo pequeño", r:4.0, cat:"pan"},
+
+  {name:"pasta", r:2.0, cat:"pasta"},
+  {name:"arroz (80gr)", r:2.0, cat:"pasta"},
+
+  {name:"patata", r:2.0, cat:"patata"},
+  {name:"patatas chips menú cole", r:0.5, cat:"patata"},
+  {name:"patatas chips/ doritos bolsa pequeña", r:3.0, cat:"patata"},
+  {name:"patatas fritas (pequeñas)", r:4.0, cat:"patata"},
+
+  {name:"verdura", r:0.0, cat:"verduras"},
+  {name:"judías", r:1.5, cat:"verduras"},
+  {name:"alubias", r:1.5, cat:"verduras"},
+  {name:"garbanzos", r:1.5, cat:"verduras"},
+  {name:"lentejas", r:1.5, cat:"verduras"},
+  {name:"guisantes", r:1.5, cat:"verduras"},
+  {name:"brócoli", r:0.5, cat:"verduras"},
+  {name:"coliflor", r:0.5, cat:"verduras"},
+  {name:"calabaza", r:1.0, cat:"verduras"},
+  {name:"tomate", r:0.5, cat:"verduras"},
+  {name:"cebolla", r:0.5, cat:"verduras"},
+
+  {name:"pollo", r:0.0, cat:"proteina"},
+  {name:"pollo rebozado", r:1.5, cat:"proteina"},
+  {name:"carne", r:0.0, cat:"proteina"},
+  {name:"carne rebozada", r:1.5, cat:"proteina"},
+  {name:"cerdo", r:0.0, cat:"proteina"},
+  {name:"butifarra", r:0.0, cat:"proteina"},
+  {name:"salchicha", r:0.0, cat:"proteina"},
+  {name:"pescado", r:0.0, cat:"proteina"},
+  {name:"pescado rebozado", r:1.5, cat:"proteina"},
+  {name:"merluza", r:0.0, cat:"proteina"},
+  {name:"jamón", r:0.0, cat:"proteina"},
+  {name:"fuet", r:0.0, cat:"proteina"},
+  {name:"boquerones andaluza", r:2.0, cat:"proteina"},
+
+  {name:"leche (1 vaso 200ml)", r:1.0, cat:"lacteos"},
+  {name:"yogur blanco", r:1.0, cat:"lacteos"},
+  {name:"yogur azucarado", r:1.5, cat:"lacteos"},
+
+  {name:"1 galleta maría", r:0.5, cat:"snack"},
+  {name:"1 galleta oceanix / dinosaurio", r:0.75, cat:"snack"},
+  {name:"biskoff", r:0.7, cat:"snack"},
+  {name:"chips ahoy", r:0.6, cat:"snack"},
+  {name:"crackers", r:2.7, cat:"snack"},
+  {name:"mini oreo (bolsita)", r:2.5, cat:"snack"},
+  {name:"mini príncipe (bolsita)", r:2.5, cat:"snack"},
+
+  {name:"flan", r:2.0, cat:"postre"},
+  {name:"natillas", r:2.0, cat:"postre"},
+  {name:"gelatina", r:1.5, cat:"postre"},
+  {name:"helado tarrina", r:2.0, cat:"postre"},
+  {name:"helado cono", r:4.0, cat:"postre"},
+
+  {name:"fruta normal", r:2.0, cat:"fruta"},
+  {name:"fruta pequeña (mandarina)", r:1.0, cat:"fruta"},
+
+  {name:"croissant chocolate", r:4.0, cat:"bolleria"},
+  {name:"croissant jamón", r:3.0, cat:"bolleria"},
+  {name:"cereales (1 bol)", r:3.0, cat:"bolleria"},
+
+  {name:"pizza 1 trozo pequeño", r:2.0, cat:"fastfood"},
+  {name:"hamburguesa con pan", r:4.0, cat:"fastfood"},
+  {name:"nuggets (4 udes)", r:2.0, cat:"fastfood"},
+  {name:"tortilla de patatas", r:2.0, cat:"fastfood"},
+  {name:"tortilla francesa", r:0.0, cat:"fastfood"},
+
+  {name:"couscous", r:2.0, cat:"otros"},
+  {name:"verduritas", r:1.0, cat:"otros"},
+
+  {name:"judías con patatas", r:3.0, cat:"miranda"},
+  {name:"butifarra con mongetes", r:2.5, cat:"miranda"},
+  {name:"butifarra con arroz", r:2.5, cat:"miranda"},
+  {name:"brócoli con patatas", r:2.0, cat:"miranda"},
+  {name:"buñuelos de merluza con ensalada", r:2.0, cat:"miranda"},
+  {name:"costillas bbq con patatas", r:3.0, cat:"miranda"},
+  {name:"boquerones andaluza con couscous y verduritas", r:3.0, cat:"miranda"},
+
+  {name:"sopa de fideos", r:2.0, cat:"plato"},
+  {name:"guisantes con jamón", r:1.5, cat:"plato"},
+  {name:"crema de verduras", r:1.0, cat:"plato"}
 ];
 
 const $ = (id) => document.getElementById(id);
 
-function num(v){
-  return Number(String(v ?? "").replace(",", "."));
-}
+function num(v){ return Number(String(v ?? "").replace(",", ".")); }
+function norm(s){ return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim(); }
+function slug(s){ return norm(s).replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"") || ("cat-" + Date.now()); }
 
-function norm(s){
-  return String(s || "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .toLowerCase()
-    .trim();
-}
-
-function getGoal(){
-  return Number(localStorage.getItem(GOAL_KEY)) || 100;
-}
-
-function setGoal(v){
-  localStorage.setItem(GOAL_KEY, String(v));
-}
+function getGoal(){ return Number(localStorage.getItem(GOAL_KEY)) || 100; }
+function setGoal(v){ localStorage.setItem(GOAL_KEY, String(v)); }
 
 function loadParams(meal){
   const r = localStorage.getItem("ratio_" + meal);
@@ -593,12 +577,10 @@ function loadParams(meal){
     isf:   (s !== null) ? Number(s) : DEFAULT_PARAMS[meal].isf
   };
 }
-
 function saveParams(meal, ratio, isf){
   localStorage.setItem("ratio_" + meal, String(ratio));
   localStorage.setItem("isf_" + meal, String(isf));
 }
-
 function resetParams(meal){
   localStorage.removeItem("ratio_" + meal);
   localStorage.removeItem("isf_" + meal);
@@ -609,98 +591,69 @@ function loadEntries(){
     const raw = localStorage.getItem(ENTRIES_KEY);
     const arr = raw ? JSON.parse(raw) : [];
     return Array.isArray(arr) ? arr : [];
-  }catch{
-    return [];
-  }
+  }catch{return []}
 }
-
 function saveEntry(entry){
   const arr = loadEntries();
   arr.push(entry);
   localStorage.setItem(ENTRIES_KEY, JSON.stringify(arr));
 }
 
-const FOODS_KEY = "foods_custom_v1";
-
-function loadCustomFoods(){
+function loadCategories(){
   try{
-    const raw = localStorage.getItem(FOODS_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const raw = localStorage.getItem(CATS_KEY);
+    const custom = raw ? JSON.parse(raw) : [];
+    if(!Array.isArray(custom) || !custom.length) return DEFAULT_CATEGORIES.slice();
+    const merged = [...DEFAULT_CATEGORIES.filter(c=>c.id==="all")];
+    const seen = new Set(["all"]);
+    for(const c of [...DEFAULT_CATEGORIES.filter(c=>c.id!=="all"), ...custom]){
+      if(c && c.id && !seen.has(c.id)){
+        merged.push(c);
+        seen.add(c.id);
+      }
+    }
+    return merged;
   }catch{
-    return [];
+    return DEFAULT_CATEGORIES.slice();
   }
 }
+function saveCategories(arr){
+  localStorage.setItem(CATS_KEY, JSON.stringify(arr.filter(c=>c.id!=="all")));
+}
 
-function saveCustomFoods(arr){
+function loadFoods(){
+  try{
+    const raw = localStorage.getItem(FOODS_KEY);
+    const custom = raw ? JSON.parse(raw) : [];
+    const map = new Map();
+    for(const f of DEFAULT_FOODS) map.set(norm(f.name), {name:f.name, r:Number(f.r), cat:f.cat});
+    for(const f of custom){
+      if(f?.name) map.set(norm(f.name), {name:String(f.name), r:Number(f.r), cat:f.cat || "otros"});
+    }
+    return Array.from(map.values()).sort((a,b)=>norm(a.name).localeCompare(norm(b.name)));
+  }catch{
+    return DEFAULT_FOODS.slice();
+  }
+}
+function saveCustomFood(food){
+  const raw = localStorage.getItem(FOODS_KEY);
+  const arr = raw ? JSON.parse(raw) : [];
+  arr.push(food);
   localStorage.setItem(FOODS_KEY, JSON.stringify(arr));
 }
 
-function getAllFoods(){
-  const custom = loadCustomFoods();
-  const map = new Map();
-
-  for(const f of DEFAULT_FOODS){
-    map.set(norm(f.name), {name:f.name, r:Number(f.r)});
-  }
-
-  for(const f of custom){
-    if(f?.name){
-      map.set(norm(f.name), {name:String(f.name), r:Number(f.r)});
-    }
-  }
-
-  return Array.from(map.values()).sort((a,b)=>norm(a.name).localeCompare(norm(b.name)));
+function getCategoryById(id){
+  return CATEGORIES.find(c => c.id === id);
 }
 
-function foodEmoji(name){
-  const n = norm(name);
-  if(n.includes("pan")||n.includes("bocadillo")||n.includes("galleta")||n.includes("croissant")||n.includes("cereal")||n.includes("bikini")) return "🍞";
-  if(n.includes("pasta")||n.includes("fideos")||n.includes("arroz")||n.includes("canelones")) return "🍝";
-  if(n.includes("pizza")) return "🍕";
-  if(n.includes("patata")) return "🥔";
-  if(n.includes("zumo")) return "🧃";
-  if(n.includes("leche")||n.includes("yogur")) return "🥛";
-  if(n.includes("fruta")) return "🍎";
-  if(n.includes("pollo")) return "🍗";
-  if(n.includes("pescado")||n.includes("fish")||n.includes("merluza")) return "🐟";
-  if(n.includes("carne")||n.includes("hamburguesa")) return "🍔";
-  if(n.includes("verdura")||n.includes("verduras")||n.includes("judia")||n.includes("guisantes")||n.includes("lentejas")||n.includes("garbanzos")||n.includes("hummus")) return "🥦";
-  if(n.includes("chips")||n.includes("patatas fritas")||n.includes("doritos")) return "🍟";
-  if(n.includes("tortilla")) return "🍳";
-  if(n.includes("helado")||n.includes("flan")||n.includes("gelatina")||n.includes("natillas")) return "🍨";
-  if(n.includes("sopa")) return "🥣";
-  return "🍽️";
+function foodEmoji(food){
+  const cat = getCategoryById(food.cat);
+  return cat?.emoji || "🍽️";
 }
 
-function belongsToCategory(food, category){
-  const n = norm(food.name);
-  if(category === "all") return true;
-  if(category === "bread") return n.includes("pan") || n.includes("bocadillo") || n.includes("croissant") || n.includes("bikini");
-  if(category === "pasta") return n.includes("pasta") || n.includes("arroz") || n.includes("fideos") || n.includes("canelones");
-  if(category === "potato") return n.includes("patata") || n.includes("chips") || n.includes("doritos");
-  if(category === "fruit") return n.includes("fruta") || n.includes("zumo");
-  if(category === "dairy") return n.includes("leche") || n.includes("yogur");
-  if(category === "cookies") return n.includes("galleta") || n.includes("oreo") || n.includes("principe") || n.includes("príncipe") || n.includes("crackers") || n.includes("chips ahoy");
-  if(category === "fastfood") return n.includes("pizza") || n.includes("hamburguesa") || n.includes("bikini");
-  if(category === "protein") return n.includes("pollo") || n.includes("carne") || n.includes("pescado") || n.includes("salchicha") || n.includes("butifarra") || n.includes("nuggets") || n.includes("merluza");
-  if(category === "soup") return n.includes("sopa") || n.includes("crema");
-  if(category === "veg") return n.includes("verduras") || n.includes("verdura") || n.includes("judia") || n.includes("judías") || n.includes("garbanzos") || n.includes("lentejas") || n.includes("hummus") || n.includes("guisantes");
-  if(category === "dessert") return n.includes("helado") || n.includes("flan") || n.includes("gelatina") || n.includes("natillas");
-  return true;
-}
+let CATEGORIES = loadCategories();
+let FOODS = loadFoods();
 
-function calcInpen({bg, goal, hc, ratio, isf, iob}){
-  const bolusHC = hc / ratio;
-  const corr = (bg - goal) / isf;
-  const corrEff = Math.max(0, corr - iob);
-  return { bolusHC, corr, corrEff, bolus: bolusHC + corrEff };
-}
-
-function roundHalf(x){
-  return Math.round(x * 2) / 2;
-}
-
-let FOODS = getAllFoods();
 let selected = [];
 let lastBolus = NaN;
 let suggestions = [];
@@ -715,9 +668,8 @@ function totals(){
 
 function renderSelected(){
   const box = $("selectedList");
-
   if(selected.length === 0){
-    box.className = "muted tiny";
+    box.className = "muted";
     box.textContent = "Aún no has añadido alimentos.";
     return;
   }
@@ -786,9 +738,9 @@ function recalcHcFromMenu(){
 function renderCategories(){
   const grid = $("catGrid");
   grid.innerHTML = CATEGORIES.map(cat => `
-    <div class="catBtn ${cat.key===activeCategory ? "active" : ""}" data-key="${cat.key}">
+    <div class="catBtn ${cat.id===activeCategory ? "active" : ""}" data-key="${cat.id}">
       <span class="e">${cat.emoji}</span>
-      <span class="t">${cat.label}</span>
+      <span class="t">${cat.name}</span>
     </div>
   `).join("");
 
@@ -796,6 +748,42 @@ function renderCategories(){
     btn.addEventListener("click", ()=>{
       activeCategory = btn.dataset.key;
       renderCategories();
+      showSuggestions($("foodSearch").value);
+    });
+  });
+
+  const sel = $("newFoodCat");
+  sel.innerHTML = CATEGORIES.filter(c=>c.id!=="all").map(c=>`<option value="${c.id}">${c.emoji} ${c.name}</option>`).join("");
+}
+
+function renderCategoryTable(){
+  const table = $("catTable");
+  const editableCats = CATEGORIES.filter(c=>c.id!=="all");
+
+  table.innerHTML = editableCats.map(cat=>`
+    <tr>
+      <td style="width:42px;">${cat.emoji}</td>
+      <td>${cat.name}</td>
+      <td style="width:70px;"><button class="miniBtn editCatBtn" data-id="${cat.id}">Editar</button></td>
+    </tr>
+  `).join("");
+
+  table.querySelectorAll(".editCatBtn").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const id = btn.dataset.id;
+      const cat = CATEGORIES.find(c=>c.id===id);
+      const newName = prompt("Nuevo nombre de categoría", cat.name);
+      if(newName === null) return;
+      const cleanName = newName.trim();
+      if(!cleanName) return;
+
+      const newEmoji = prompt("Nuevo emoji", cat.emoji);
+      if(newEmoji === null) return;
+
+      CATEGORIES = CATEGORIES.map(c => c.id===id ? {...c, name:cleanName, emoji:newEmoji.trim() || c.emoji} : c);
+      saveCategories(CATEGORIES);
+      renderCategories();
+      renderCategoryTable();
       showSuggestions($("foodSearch").value);
     });
   });
@@ -812,14 +800,14 @@ function renderSuggestions(){
 
   list.innerHTML = suggestions.map((f, idx)=>{
     const g = (Number(f.r)||0) * GRAMS_PER_R;
-    const active = (idx===activeIndex) ? "active" : "";
+    const active = idx===activeIndex ? "active" : "";
     return `
       <div class="acItem ${active}" data-idx="${idx}">
         <div style="display:flex; gap:8px;">
-          <div class="emoji">${foodEmoji(f.name)}</div>
+          <div class="emoji">${foodEmoji(f)}</div>
           <div>
             <b>${f.name}</b>
-            <div class="muted tiny">${Number(f.r).toFixed(2)} R · ${g.toFixed(0)} g</div>
+            <div class="muted">${Number(f.r).toFixed(2)} R · ${g.toFixed(0)} g</div>
           </div>
         </div>
         <small>➕</small>
@@ -837,8 +825,7 @@ function renderSuggestions(){
 function selectSuggestion(idx){
   const f = suggestions[idx];
   if(!f) return;
-  const baseR = Number(f.r) || 0;
-  selected.push({name:f.name, baseR, r:baseR});
+  selected.push({name:f.name, r:Number(f.r), cat:f.cat});
   $("foodSearch").value = "";
   $("acList").style.display = "none";
   suggestions = [];
@@ -850,7 +837,11 @@ function selectSuggestion(idx){
 function showSuggestions(q){
   const list = $("acList");
   const query = norm(q);
-  const pool = FOODS.filter(f => belongsToCategory(f, activeCategory));
+
+  let pool = FOODS;
+  if(activeCategory !== "all"){
+    pool = FOODS.filter(f => f.cat === activeCategory);
+  }
 
   if(!query){
     suggestions = pool.slice(0, 12);
@@ -872,9 +863,7 @@ function showSuggestions(q){
   renderSuggestions();
 }
 
-function currentMeal(){
-  return $("meal").value;
-}
+function currentMeal(){ return $("meal").value; }
 
 function updateParamsUI(){
   const p = loadParams(currentMeal());
@@ -919,6 +908,7 @@ Bolus = ${res.bolus.toFixed(2)} U`;
 
   $("goal").value = String(getGoal());
   renderCategories();
+  renderCategoryTable();
   updateParamsUI();
   syncMenuTotalsToUI();
 
@@ -1059,18 +1049,36 @@ Bolus = ${res.bolus.toFixed(2)} U`;
   $("addFood").addEventListener("click", ()=>{
     const name = String($("newFoodName").value || "").trim();
     const r = num($("newFoodR").value);
+    const cat = $("newFoodCat").value;
 
     if(!name) return alert("Escribe un nombre");
     if(!isFinite(r)) return alert("Raciones inválidas");
+    if(!cat) return alert("Elige una categoría");
 
-    const custom = loadCustomFoods();
-    custom.push({name, r});
-    saveCustomFoods(custom);
+    saveCustomFood({name, r, cat});
+    FOODS = loadFoods();
 
-    FOODS = getAllFoods();
     $("newFoodName").value = "";
     $("newFoodR").value = "";
+    showSuggestions($("foodSearch").value);
     alert("Añadido ✅");
+  });
+
+  $("addCat").addEventListener("click", ()=>{
+    const name = String($("newCatName").value || "").trim();
+    const emoji = String($("newCatEmoji").value || "").trim() || "📁";
+    if(!name) return alert("Escribe un nombre");
+
+    const id = slug(name);
+    if(CATEGORIES.some(c => c.id === id)) return alert("Ya existe una categoría parecida");
+
+    CATEGORIES.push({id, name, emoji});
+    saveCategories(CATEGORIES);
+    renderCategories();
+    renderCategoryTable();
+
+    $("newCatName").value = "";
+    $("newCatEmoji").value = "";
   });
 })();
 </script>
