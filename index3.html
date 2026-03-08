@@ -1236,11 +1236,11 @@ Bolus = ${res.bolus.toFixed(2)} U`;
   $("insulinPickerBtn").addEventListener("click", ()=>{
     openPicker({
       title:"Insulina puesta",
-      values: buildRange(0, 20, 0.1),
+      values: buildRange(0, 20, 0.5),
       current: formState.insulinPut,
       formatter: (v)=>Number(v).toFixed(1),
       target:"insulinPut",
-      sub:"Pasos de 0.1 U"
+      sub:"Pasos de 0.5 U"
     });
   });
 
