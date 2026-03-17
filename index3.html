@@ -2,475 +2,370 @@
 <html lang="es">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Yago • Insulina</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>App Yago</title>
 <style>
-  :root{
-    --bg:#f4f7ff;
-    --card:#fff;
-    --txt:#0f172a;
-    --muted:#64748b;
-    --border:#dbe3ff;
-    --shadow:0 10px 26px rgba(15,23,42,.10);
-    --blue:#2563eb;
-    --green:#16a34a;
-    --orange:#f59e0b;
-    --violet:#7c3aed;
-    --soft:#eef4ff;
-    --softBorder:#c7d6ff;
-    --radius:16px;
-  }
+:root{
+  --bg:#f4f7ff;
+  --card:#fff;
+  --txt:#0f172a;
+  --muted:#64748b;
+  --border:#dbe3ff;
+  --shadow:0 10px 26px rgba(15,23,42,.10);
+  --blue:#2563eb;
+  --green:#16a34a;
+  --orange:#f59e0b;
+  --violet:#7c3aed;
+  --soft:#eef4ff;
+  --softBorder:#c7d6ff;
+  --radius:16px;
+}
+*{box-sizing:border-box}
+body{
+  font-family:-apple-system,system-ui,Segoe UI,Arial;
+  margin:8px;
+  background:linear-gradient(180deg,#eef2ff 0%,#f8fafc 70%);
+  color:var(--txt);
+  font-size:15px;
+}
+.topNav{display:flex;gap:6px;margin-bottom:8px}
+.topNav a{flex:1;text-decoration:none}
+.navBtn{
+  width:100%;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:#fff;
+  padding:8px;
+  font-weight:950;
+  font-size:14px;
+}
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:10px;
+  margin-bottom:8px;
+  box-shadow:var(--shadow);
+  border:1px solid rgba(219,227,255,.9);
+}
+.title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:4px;
+}
+.title h1{
+  font-size:16px;
+  margin:0;
+  font-weight:1100;
+}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  background:#eef2ff;
+  border:1px solid var(--border);
+  padding:4px 8px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:950;
+  color:#1e293b;
+}
+.muted{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.2;
+}
+label{
+  font-weight:950;
+  font-size:12px;
+}
+input,select,button,textarea{
+  width:100%;
+  padding:10px;
+  margin-top:5px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  font-size:15px;
+  background:#fff;
+}
+textarea{
+  resize:vertical;
+  min-height:92px;
+}
+button{
+  border:none;
+  font-weight:1100;
+}
+.userField{
+  background:var(--soft);
+  border:1px solid var(--softBorder);
+}
+.pickerField{
+  background:var(--soft);
+  border:1px solid var(--softBorder);
+  padding:10px;
+  margin-top:5px;
+  border-radius:14px;
+  min-height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:700;
+}
+.pickerField .hint{
+  color:var(--muted);
+  font-weight:600;
+}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.btnBlue{background:var(--blue);color:#fff}
+.btnGreen{background:var(--green);color:#fff}
+.btnGhost{background:#eef2ff;color:#0f172a;border:1px solid var(--border)}
+.btnOrange{background:var(--orange);color:#0f172a}
+.btnViolet{background:var(--violet);color:#fff}
+.pill{
+  border-radius:16px;
+  padding:8px;
+  border:1px solid var(--border);
+  background:linear-gradient(180deg,#fff 0%,#f7faff 100%);
+}
+.pill .k{font-size:11px;color:var(--muted);font-weight:950}
+.pill .v{font-size:18px;font-weight:1200}
+.err{color:#b00020;font-weight:1100;margin-top:6px}
+.ok{color:#166534;font-weight:1100;margin-top:6px}
 
-  *{box-sizing:border-box}
+.catGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+  margin-top:8px;
+}
+.catBtn{
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:#fff;
+  padding:10px 8px;
+  font-weight:1100;
+  text-align:center;
+  line-height:1.1;
+  user-select:none;
+  cursor:pointer;
+}
+.catBtn.active{
+  background:#eaf0ff;
+  border:1px solid #9bb7ff;
+}
+.catBtn .e{
+  font-size:20px;
+  display:block;
+  margin-bottom:4px;
+}
+.catBtn .t{
+  font-size:12px;
+  color:#0f172a;
+}
 
-  body{
-    font-family:-apple-system,system-ui,Segoe UI,Arial;
-    margin:8px;
-    background:linear-gradient(180deg,#eef2ff 0%, #f8fafc 70%);
-    color:var(--txt);
-    font-size:15px;
-  }
+.acWrap{position:relative}
+.acList{
+  position:absolute;
+  left:0;
+  right:0;
+  top:100%;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:0 16px 30px rgba(0,0,0,.12);
+  overflow:hidden;
+  z-index:50;
+  margin-top:6px;
+  max-height:260px;
+  overflow-y:auto;
+}
+.acItem{
+  padding:10px;
+  border-bottom:1px solid #f0f3ff;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  font-size:14px;
+  cursor:pointer;
+}
+.acItem:last-child{border-bottom:none}
+.acItem:hover,.acItem.active{background:#eaf0ff}
+.emoji{
+  font-size:18px;
+  width:22px;
+  text-align:center;
+  flex:0 0 auto;
+}
 
-  .topNav{
-    display:flex;
-    gap:6px;
-    margin-bottom:8px;
-  }
+.sel{
+  margin-top:8px;
+  border:1px dashed #e5e7ff;
+  border-radius:14px;
+  padding:8px;
+  background:#fff;
+}
+.foodTable,.miniTable{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:2px;
+}
+.foodTable td,.miniTable td{
+  padding:6px 4px;
+  border-bottom:1px dashed #eef2ff;
+  vertical-align:middle;
+  font-size:14px;
+}
+.foodTable tr:last-child td,.miniTable tr:last-child td{border-bottom:none}
+.foodName{font-weight:1000}
+.rInline{
+  width:72px;
+  margin:0;
+  padding:6px 8px;
+  border-radius:10px;
+  font-size:13px;
+  text-align:center;
+}
+.gInline{
+  font-size:13px;
+  font-weight:900;
+  white-space:nowrap;
+  text-align:right;
+}
+.xBtn{
+  width:auto;
+  margin:0;
+  padding:6px 10px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#fff;
+  font-weight:1100;
+  font-size:13px;
+}
+.miniBtn{
+  width:auto;
+  padding:6px 10px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#fff;
+  font-size:12px;
+  font-weight:1000;
+  margin:0;
+}
+details{
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  background:#fff;
+}
+summary{
+  list-style:none;
+  cursor:pointer;
+  padding:10px;
+  font-weight:1200;
+  background:linear-gradient(180deg,#fff 0%,#f4f7ff 100%);
+}
+summary::-webkit-details-marker{display:none}
+.detailsBody{padding:10px}
+pre{
+  background:#f3f6ff;
+  border:1px solid var(--border);
+  padding:10px;
+  border-radius:14px;
+  font-size:12px;
+  white-space:pre-wrap;
+  word-break:break-word;
+  margin:8px 0 0;
+}
 
-  .topNav a{
-    flex:1;
-    text-decoration:none;
-  }
-
-  .navBtn{
-    width:100%;
-    border-radius:14px;
-    border:1px solid var(--border);
-    background:#fff;
-    padding:8px;
-    font-weight:950;
-    font-size:14px;
-  }
-
-  .card{
-    background:var(--card);
-    border-radius:var(--radius);
-    padding:10px;
-    margin-bottom:8px;
-    box-shadow:var(--shadow);
-    border:1px solid rgba(219,227,255,.9);
-  }
-
-  .title{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:4px;
-  }
-
-  .title h1{
-    font-size:16px;
-    margin:0;
-    font-weight:1100;
-  }
-
-  .badge{
-    display:inline-flex;
-    align-items:center;
-    background:#eef2ff;
-    border:1px solid var(--border);
-    padding:4px 8px;
-    border-radius:999px;
-    font-size:12px;
-    font-weight:950;
-    color:#1e293b;
-  }
-
-  .muted{
-    color:var(--muted);
-    font-size:12px;
-    line-height:1.2;
-  }
-
-  label{
-    font-weight:950;
-    font-size:12px;
-  }
-
-  input, select, button{
-    width:100%;
-    padding:10px;
-    margin-top:5px;
-    border-radius:14px;
-    border:1px solid var(--border);
-    font-size:15px;
-    background:#fff;
-  }
-
-  button{
-    border:none;
-    font-weight:1100;
-  }
-
-  .userField{
-    background:var(--soft);
-    border:1px solid var(--softBorder);
-  }
-
-  .pickerField{
-    background:var(--soft);
-    border:1px solid var(--softBorder);
-    padding:10px;
-    margin-top:5px;
-    border-radius:14px;
-    min-height:44px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    cursor:pointer;
-    font-size:15px;
-    font-weight:700;
-  }
-
-  .pickerField .hint{
-    color:var(--muted);
-    font-weight:600;
-  }
-
-  .row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-  }
-
-  .row3{
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr;
-    gap:8px;
-  }
-
-  .btnBlue{background:var(--blue); color:#fff}
-  .btnGreen{background:var(--green); color:#fff}
-  .btnGhost{background:#eef2ff; color:#0f172a; border:1px solid var(--border)}
-  .btnOrange{background:var(--orange); color:#0f172a}
-  .btnViolet{background:var(--violet); color:#fff}
-
-  .pill{
-    border-radius:16px;
-    padding:8px;
-    border:1px solid var(--border);
-    background:linear-gradient(180deg,#ffffff 0%, #f7faff 100%);
-  }
-
-  .pill .k{
-    font-size:11px;
-    color:var(--muted);
-    font-weight:950;
-  }
-
-  .pill .v{
-    font-size:18px;
-    font-weight:1200;
-  }
-
-  .err{
-    color:#b00020;
-    font-weight:1100;
-    margin-top:6px;
-  }
-
-  .ok{
-    color:#166534;
-    font-weight:1100;
-    margin-top:6px;
-  }
-
-  .catGrid{
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:6px;
-    margin-top:8px;
-  }
-
-  .catBtn{
-    border-radius:14px;
-    border:1px solid var(--border);
-    background:#fff;
-    padding:10px 8px;
-    font-weight:1100;
-    text-align:center;
-    line-height:1.1;
-    user-select:none;
-    cursor:pointer;
-  }
-
-  .catBtn.active{
-    background:#eaf0ff;
-    border:1px solid #9bb7ff;
-  }
-
-  .catBtn .e{
-    font-size:20px;
-    display:block;
-    margin-bottom:4px;
-  }
-
-  .catBtn .t{
-    font-size:12px;
-    color:#0f172a;
-  }
-
-  .acWrap{
-    position:relative;
-  }
-
-  .acList{
-    position:absolute;
-    left:0;
-    right:0;
-    top:100%;
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:14px;
-    box-shadow:0 16px 30px rgba(0,0,0,.12);
-    overflow:hidden;
-    z-index:50;
-    margin-top:6px;
-    max-height:260px;
-    overflow-y:auto;
-  }
-
-  .acItem{
-    padding:10px;
-    border-bottom:1px solid #f0f3ff;
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    font-size:14px;
-    cursor:pointer;
-  }
-
-  .acItem:last-child{
-    border-bottom:none;
-  }
-
-  .acItem:hover,
-  .acItem.active{
-    background:#eaf0ff;
-  }
-
-  .emoji{
-    font-size:18px;
-    width:22px;
-    text-align:center;
-    flex:0 0 auto;
-  }
-
-  .sel{
-    margin-top:8px;
-    border:1px dashed #e5e7ff;
-    border-radius:14px;
-    padding:8px;
-    background:#fff;
-  }
-
-  .foodTable{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:2px;
-  }
-
-  .foodTable td{
-    padding:6px 4px;
-    border-bottom:1px dashed #eef2ff;
-    vertical-align:middle;
-    font-size:14px;
-  }
-
-  .foodTable tr:last-child td{
-    border-bottom:none;
-  }
-
-  .foodName{
-    font-weight:1000;
-  }
-
-  .rInline{
-    width:72px;
-    margin:0;
-    padding:6px 8px;
-    border-radius:10px;
-    font-size:13px;
-    text-align:center;
-  }
-
-  .gInline{
-    font-size:13px;
-    font-weight:900;
-    white-space:nowrap;
-    text-align:right;
-  }
-
-  .xBtn{
-    width:auto;
-    margin:0;
-    padding:6px 10px;
-    border-radius:10px;
-    border:1px solid var(--border);
-    background:#fff;
-    font-weight:1100;
-    font-size:13px;
-  }
-
-  details{
-    border:1px solid var(--border);
-    border-radius:16px;
-    overflow:hidden;
-    background:#fff;
-  }
-
-  summary{
-    list-style:none;
-    cursor:pointer;
-    padding:10px;
-    font-weight:1200;
-    background:linear-gradient(180deg,#ffffff 0%, #f4f7ff 100%);
-  }
-
-  summary::-webkit-details-marker{
-    display:none;
-  }
-
-  .detailsBody{
-    padding:10px;
-  }
-
-  .miniTable{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:8px;
-  }
-
-  .miniTable td{
-    padding:6px 4px;
-    border-bottom:1px dashed #eef2ff;
-    vertical-align:middle;
-    font-size:13px;
-  }
-
-  .miniTable tr:last-child td{
-    border-bottom:none;
-  }
-
-  .miniBtn{
-    width:auto;
-    padding:6px 10px;
-    border-radius:10px;
-    border:1px solid var(--border);
-    background:#fff;
-    font-size:12px;
-    font-weight:1000;
-    margin:0;
-  }
-
-  pre{
-    background:#f3f6ff;
-    border:1px solid var(--border);
-    padding:10px;
-    border-radius:14px;
-    font-size:12px;
-    white-space:pre-wrap;
-    word-break:break-word;
-    margin:8px 0 0;
-  }
-
-  .pickerOverlay{
-    position:fixed;
-    inset:0;
-    background:rgba(15,23,42,.32);
-    display:none;
-    align-items:flex-end;
-    justify-content:center;
-    z-index:9999;
-  }
-
-  .pickerSheet{
-    width:100%;
-    max-width:520px;
-    background:#fff;
-    border-radius:22px 22px 0 0;
-    padding:10px 10px 18px;
-    box-shadow:0 -10px 30px rgba(0,0,0,.18);
-  }
-
-  .pickerTop{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:8px;
-    margin-bottom:8px;
-  }
-
-  .pickerTitle{
-    font-weight:1100;
-    font-size:16px;
-  }
-
-  .pickerTopBtn{
-    width:auto;
-    padding:8px 12px;
-    margin:0;
-    border-radius:12px;
-    font-size:14px;
-  }
-
-  .wheelWrap{
-    position:relative;
-    height:240px;
-    overflow:hidden;
-    border-radius:18px;
-    background:linear-gradient(180deg,#f8fbff 0%, #ffffff 18%, #ffffff 82%, #f8fbff 100%);
-    border:1px solid var(--border);
-  }
-
-  .wheelHighlight{
-    position:absolute;
-    left:0;
-    right:0;
-    top:98px;
-    height:44px;
-    border-top:1px solid #cfe0ff;
-    border-bottom:1px solid #cfe0ff;
-    background:rgba(37,99,235,.05);
-    pointer-events:none;
-  }
-
-  .wheel{
-    height:240px;
-    overflow-y:auto;
-    scroll-snap-type:y mandatory;
-    -webkit-overflow-scrolling:touch;
-    padding:98px 0;
-  }
-
-  .wheelItem{
-    height:44px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    scroll-snap-align:center;
-    font-size:24px;
-    font-weight:800;
-    color:#334155;
-  }
-
-  .wheelSub{
-    font-size:12px;
-    color:var(--muted);
-    text-align:center;
-    margin-top:8px;
-  }
+.pickerOverlay{
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,42,.32);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:9999;
+}
+.pickerSheet{
+  width:100%;
+  max-width:520px;
+  background:#fff;
+  border-radius:22px 22px 0 0;
+  padding:10px 10px 18px;
+  box-shadow:0 -10px 30px rgba(0,0,0,.18);
+}
+.pickerTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  margin-bottom:8px;
+}
+.pickerTitle{
+  font-weight:1100;
+  font-size:16px;
+}
+.pickerTopBtn{
+  width:auto;
+  padding:8px 12px;
+  margin:0;
+  border-radius:12px;
+  font-size:14px;
+}
+.wheelWrap{
+  position:relative;
+  height:240px;
+  overflow:hidden;
+  border-radius:18px;
+  background:linear-gradient(180deg,#f8fbff 0%,#fff 18%,#fff 82%,#f8fbff 100%);
+  border:1px solid var(--border);
+}
+.wheelHighlight{
+  position:absolute;
+  left:0;
+  right:0;
+  top:98px;
+  height:44px;
+  border-top:1px solid #cfe0ff;
+  border-bottom:1px solid #cfe0ff;
+  background:rgba(37,99,235,.05);
+  pointer-events:none;
+}
+.wheel{
+  height:240px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scroll-snap-type:y mandatory;
+  -webkit-overflow-scrolling:touch;
+  padding:98px 0;
+  touch-action:pan-y;
+  overscroll-behavior-x:none;
+}
+.wheelItem{
+  height:44px;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  scroll-snap-align:center;
+  font-size:24px;
+  font-weight:800;
+  color:#334155;
+}
+.wheelSub{
+  font-size:12px;
+  color:var(--muted);
+  text-align:center;
+  margin-top:8px;
+}
+.row > div {
+  flex: 1;
+  min-width: 120px;
+}
 </style>
 </head>
 <body>
@@ -484,10 +379,10 @@
 
 <div class="card">
   <div class="title">
-    <h1>🧒 Yago • Insulina</h1>
+    <h1>🧒 App Yago</h1>
     <div class="badge">Categorías editables</div>
   </div>
-  <div class="muted">Los números principales usan selector tipo rueda.</div>
+  <div class="muted">El buscador encuentra cualquier alimento aunque haya otra categoría activa.</div>
 </div>
 
 <div class="card">
@@ -517,50 +412,71 @@
   </div>
 
   <div style="margin-top:8px">
-    <label>Buscar alimento</label>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <label>Buscar alimento</label>
+      <button id="closeFoodList" class="miniBtn" style="width:auto;padding:6px 10px;display:none;">✕</button>
+    </div>
+
     <div class="acWrap">
       <input id="foodSearch" class="userField" placeholder="Escribe… (ej: pa)" autocomplete="off" />
       <div id="acList" class="acList" style="display:none;"></div>
     </div>
 
-    <div class="row" style="margin-top:8px">
-      <button id="finishMenu" class="btnGhost">✅ Listo</button>
+    <div style="margin-top:8px">
       <button id="clearMenu" class="btnGhost">🧼 Vaciar</button>
     </div>
 
     <div class="sel">
       <div id="selectedList" class="muted">Aún no has añadido alimentos.</div>
 
-      <div class="row3" style="margin-top:10px">
-        <div class="pill"><div class="k">R</div><div class="v" id="totalR">0.0</div></div>
-        <div class="pill"><div class="k">HC (g)</div><div class="v" id="totalG">0</div></div>
-        <div class="pill"><div class="k">Bolus</div><div class="v" id="bolusRound">—</div></div>
-      </div>
-
       <div style="margin-top:8px">
         <label>HC totales (g)</label>
-        <input id="hc" inputmode="decimal" placeholder="Auto del menú" />
-        <button id="recalcHc" class="btnGhost" style="margin-top:6px;padding:9px;">♻️ HC automático</button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:5px;align-items:center;">
+          <input id="hc" class="userField" inputmode="decimal" placeholder="" />
+          <button id="recalcHc" class="btnGhost" style="width:100%;padding:10px 12px;margin-top:0;">♻️ HC automático</button>
+        </div>
       </div>
+
+      <div class="row3" style="margin-top:8px; display:flex; gap:8px">
+        <button id="calc" class="btnBlue" style="flex:1">🧮 Calcular</button>
+        <button id="saveHistory" class="btnGreen" style="flex:1">💾 Guardar</button>
+      </div>
+
+<div class="row" style="margin-top:8px; display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap">
+
+  <div>
+    <label>Insulina sin redondeo</label>
+    <div class="pickerField">
+      <span id="bolusRaw">—</span>
     </div>
   </div>
 
-  <div class="row" style="margin-top:8px">
-    <button id="calc" class="btnBlue">🧮 Calcular y guardar</button>
-    <button id="roundBtn" class="btnOrange">🎯 0.5</button>
+  <div>
+    <label>Con redondeo</label>
+    <div class="pickerField">
+      <span id="bolusRounded">—</span>
+    </div>
   </div>
 
-  <div id="err" class="err"></div>
-  <div id="ok" class="ok"></div>
+  <div>
+    <label>Insulina puesta (U)</label>
+    <div id="insulinPickerBtn" class="pickerField">
+      <span id="insulinDisplay">0.0</span>
+      <span class="hint">▾</span>
+    </div>
+  </div>
 
-  <div class="row" style="margin-top:8px">
-    <div class="pill"><div class="k">Sin redondeo</div><div class="v" id="bolusRaw">—</div></div>
-    <div>
-      <label>Insulina puesta (U)</label>
-      <div id="insulinPickerBtn" class="pickerField">
-        <span id="insulinDisplay">0.0</span>
-        <span class="hint">▾</span>
-      </div>
+  <div>
+    <label style="color:#888">HC/i (g/U)</label>
+    <input id="ratioEdit" class="userField" style="color:#888" inputmode="decimal" />
+  </div>
+
+</div>
+
+
+
+      <div id="err" class="err"></div>
+      <div id="ok" class="ok"></div>
     </div>
   </div>
 </div>
@@ -570,7 +486,13 @@
     <summary>👩 Para mamá</summary>
     <div class="detailsBody">
 
-      <div class="row">
+      <div class="row3">
+        <div class="pill"><div class="k">R</div><div class="v" id="totalR">0.0</div></div>
+        <div class="pill"><div class="k">HC (g)</div><div class="v" id="totalG">0</div></div>
+        <div class="pill"><div class="k">1R</div><div class="v">10g</div></div>
+      </div>
+
+      <div class="row3" style="margin-top:8px">
         <div>
           <label>IOB (U)</label>
           <div id="iobPickerBtn" class="pickerField">
@@ -580,39 +502,37 @@
         </div>
         <div>
           <label>HC/i (g/U)</label>
-          <input id="ratioEdit" inputmode="decimal" />
+          <input id="ratioEdit" class="userField" inputmode="decimal" />
         </div>
-      </div>
-
-      <div class="row" style="margin-top:8px">
         <div>
           <label>ISF</label>
-          <input id="isfEdit" inputmode="decimal" />
-        </div>
-        <div>
-          <label>Categoría al añadir alimento</label>
-          <select id="newFoodCat"></select>
+          <input id="isfEdit" class="userField" inputmode="decimal" />
         </div>
       </div>
 
       <div class="row" style="margin-top:8px">
-        <button id="saveParams" class="btnViolet">Guardar</button>
+        <button id="saveParams" class="btnViolet">Guardar parámetros</button>
         <button id="resetParams" class="btnGhost">Reset</button>
       </div>
 
       <div class="row3" style="margin-top:8px">
         <div class="pill"><div class="k">HC/i actual</div><div class="v" id="ratioNow">—</div></div>
         <div class="pill"><div class="k">ISF actual</div><div class="v" id="isfNow">—</div></div>
-        <div class="pill"><div class="k">1R</div><div class="v">10g</div></div>
+        <div class="pill"><div class="k">Objetivo</div><div class="v" id="goalNow">—</div></div>
       </div>
 
       <pre id="op">Introduce datos</pre>
 
       <div style="margin-top:12px">
+        <label>Categoría al añadir alimento</label>
+        <select id="newFoodCat" class="userField"></select>
+      </div>
+
+      <div style="margin-top:12px">
         <label>Añadir alimento</label>
         <div class="row">
-          <input id="newFoodName" placeholder="Nombre" />
-          <input id="newFoodR" inputmode="decimal" placeholder="Raciones (R)" />
+          <input id="newFoodName" class="userField" placeholder="Nombre" />
+          <input id="newFoodR" class="userField" inputmode="decimal" placeholder="Raciones (R)" />
         </div>
         <button id="addFood" class="btnGreen" style="margin-top:8px">Añadir alimento</button>
       </div>
@@ -620,8 +540,8 @@
       <div style="margin-top:12px">
         <label>Categorías</label>
         <div class="row">
-          <input id="newCatName" placeholder="Nueva categoría" />
-          <input id="newCatEmoji" placeholder="Emoji" />
+          <input id="newCatName" class="userField" placeholder="Nueva categoría" />
+          <input id="newCatEmoji" class="userField" placeholder="Emoji" />
         </div>
         <button id="addCat" class="btnGreen" style="margin-top:8px">Añadir categoría</button>
         <table class="miniTable" id="catTable"></table>
@@ -649,8 +569,8 @@
 <script>
 const GOAL_KEY = "goal_glucose";
 const ENTRIES_KEY = "inpen_entries_v1";
-const FOODS_KEY = "foods_custom_v2";
-const CATS_KEY = "cats_custom_v1";
+const FOODS_KEY = "foods_custom_v3";
+const CATS_KEY = "cats_custom_v2";
 
 const DEFAULT_PARAMS = {
   "Desayuno":      { ratio: 3.75, isf: 25 },
@@ -770,10 +690,9 @@ const DEFAULT_FOODS = [
 ];
 
 const $ = (id) => document.getElementById(id);
-
-function num(v){ return Number(String(v ?? "").replace(",", ".")); }
-function norm(s){ return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim(); }
-function slug(s){ return norm(s).replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"") || ("cat-" + Date.now()); }
+const num = (v)=> Number(String(v ?? "").replace(",", "."));
+const norm = (s)=> String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
+const slug = (s)=> norm(s).replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"") || ("cat-" + Date.now());
 
 function getGoal(){ return Number(localStorage.getItem(GOAL_KEY)) || 100; }
 function setGoal(v){ localStorage.setItem(GOAL_KEY, String(v)); }
@@ -782,8 +701,8 @@ function loadParams(meal){
   const r = localStorage.getItem("ratio_" + meal);
   const s = localStorage.getItem("isf_" + meal);
   return {
-    ratio: (r !== null) ? Number(r) : DEFAULT_PARAMS[meal].ratio,
-    isf:   (s !== null) ? Number(s) : DEFAULT_PARAMS[meal].isf
+    ratio:(r!==null)?Number(r):DEFAULT_PARAMS[meal].ratio,
+    isf:(s!==null)?Number(s):DEFAULT_PARAMS[meal].isf
   };
 }
 function saveParams(meal, ratio, isf){
@@ -802,10 +721,13 @@ function loadEntries(){
     return Array.isArray(arr) ? arr : [];
   }catch{return []}
 }
+function saveEntries(arr){
+  localStorage.setItem(ENTRIES_KEY, JSON.stringify(arr));
+}
 function saveEntry(entry){
   const arr = loadEntries();
   arr.push(entry);
-  localStorage.setItem(ENTRIES_KEY, JSON.stringify(arr));
+  saveEntries(arr);
 }
 
 function loadCategories(){
@@ -835,9 +757,13 @@ function loadFoods(){
     const raw = localStorage.getItem(FOODS_KEY);
     const custom = raw ? JSON.parse(raw) : [];
     const map = new Map();
-    for(const f of DEFAULT_FOODS) map.set(norm(f.name), {name:f.name, r:Number(f.r), cat:f.cat});
+    for(const f of DEFAULT_FOODS){
+      map.set(norm(f.name), {name:f.name, r:Number(f.r), cat:f.cat});
+    }
     for(const f of custom){
-      if(f?.name) map.set(norm(f.name), {name:String(f.name), r:Number(f.r), cat:f.cat || "otros"});
+      if(f?.name){
+        map.set(norm(f.name), {name:String(f.name), r:Number(f.r), cat:f.cat || "otros"});
+      }
     }
     return Array.from(map.values()).sort((a,b)=>norm(a.name).localeCompare(norm(b.name)));
   }catch{
@@ -855,22 +781,33 @@ function getCategoryById(id){
   return CATEGORIES.find(c => c.id === id);
 }
 function foodEmoji(food){
-  const cat = getCategoryById(food.cat);
-  return cat?.emoji || "🍽️";
+  return getCategoryById(food.cat)?.emoji || "🍽️";
 }
 
+function calcInpen({bg, goal, hc, ratio, isf, iob}){
+  const bolusHC = hc / ratio;
+  const corr = (bg - goal) / isf;
+  const corrEff = Math.max(0, corr - iob);
+  return { bolusHC, corr, corrEff, bolus: bolusHC + corrEff };
+}
+function roundHalf(x){
+  return Math.round(x * 2) / 2;
+}
+
+/* picker */
 const pickerState = {
-  target: null,
-  values: [],
-  formatter: (v)=>String(v),
-  selected: null
+  target:null,
+  values:[],
+  formatter:(v)=>String(v),
+  selected:null,
+  timer:null
 };
 
 function buildRange(start, end, step){
   const out = [];
-  const factor = Math.round(1 / step);
-  for(let i = Math.round(start * factor); i <= Math.round(end * factor); i++){
-    out.push(i / factor);
+  const decimals = (String(step).split(".")[1] || "").length;
+  for(let v = start; v <= end + step/2; v += step){
+    out.push(Number(v.toFixed(decimals)));
   }
   return out;
 }
@@ -880,16 +817,19 @@ let FOODS = loadFoods();
 
 let selected = [];
 let lastBolus = NaN;
+let lastCalcSnapshot = "";
 let suggestions = [];
 let activeIndex = -1;
 let hcWasManuallyEdited = false;
 let activeCategory = "all";
+let menuMode = "category";
+let categoryDropdownPinned = false;
 
 let formState = {
-  bg: 130,
-  goal: getGoal(),
-  iob: 0.0,
-  insulinPut: 0.0
+  bg:130,
+  goal:getGoal(),
+  iob:0.0,
+  insulinPut:0.0
 };
 
 function renderNumberDisplays(){
@@ -897,6 +837,7 @@ function renderNumberDisplays(){
   $("goalDisplay").textContent = Math.round(formState.goal);
   $("iobDisplay").textContent = Number(formState.iob).toFixed(1);
   $("insulinDisplay").textContent = Number(formState.insulinPut).toFixed(1);
+  $("goalNow").textContent = Math.round(formState.goal);
 }
 
 function openPicker({title, values, current, formatter, target, sub=""}){
@@ -916,7 +857,7 @@ function openPicker({title, values, current, formatter, target, sub=""}){
   requestAnimationFrame(()=>{
     const index = Math.max(0, values.findIndex(v => Number(v) === Number(current)));
     wheel.scrollTop = index * 44;
-    syncPickerSelection();
+    syncPickerSelection(true);
   });
 }
 
@@ -924,7 +865,7 @@ function closePicker(){
   $("pickerOverlay").style.display = "none";
 }
 
-function syncPickerSelection(){
+function syncPickerSelection(forceSnap=false){
   const wheel = $("pickerWheel");
   const index = Math.round(wheel.scrollTop / 44);
   const safeIndex = Math.max(0, Math.min(index, pickerState.values.length - 1));
@@ -933,6 +874,23 @@ function syncPickerSelection(){
   wheel.querySelectorAll(".wheelItem").forEach((el, i)=>{
     el.style.opacity = (i === safeIndex) ? "1" : "0.45";
     el.style.transform = (i === safeIndex) ? "scale(1.05)" : "scale(0.96)";
+  });
+
+  clearTimeout(pickerState.timer);
+  pickerState.timer = setTimeout(()=>{
+    wheel.scrollTo({ top: safeIndex * 44, behavior: forceSnap ? "auto" : "smooth" });
+  }, 80);
+}
+
+function snapshotState(){
+  return JSON.stringify({
+    meal: currentMeal(),
+    bg: formState.bg,
+    goal: formState.goal,
+    iob: formState.iob,
+    insulinPut: formState.insulinPut,
+    hc: $("hc").value,
+    selected: selected.map(s => ({n:s.name, r:s.r}))
   });
 }
 
@@ -959,10 +917,10 @@ function renderSelected(){
             <tr>
               <td class="foodName">${it.name}</td>
               <td style="width:82px;">
-                <input class="rInline" data-i="${idx}" inputmode="decimal" value="${Number(it.r).toFixed(2)}" />
+                <input class="rInline userField" data-i="${idx}" inputmode="decimal" value="${Number(it.r).toFixed(2)}" />
               </td>
               <td class="gInline" style="width:56px;">${g.toFixed(0)}g</td>
-              <td style="width:42px; text-align:right;">
+              <td style="width:42px;text-align:right;">
                 <button class="xBtn" data-i="${idx}">✕</button>
               </td>
             </tr>
@@ -995,8 +953,11 @@ function syncMenuTotalsToUI(){
   $("totalR").textContent = t.totalR.toFixed(1);
   $("totalG").textContent = t.totalG.toFixed(0);
 
-  if(!hcWasManuallyEdited){
+  if(!hcWasManuallyEdited && selected.length){
     $("hc").value = t.totalG.toFixed(0);
+  }
+  if(!selected.length && !hcWasManuallyEdited){
+    $("hc").value = "";
   }
 
   renderSelected();
@@ -1005,25 +966,28 @@ function syncMenuTotalsToUI(){
 
 function recalcHcFromMenu(){
   const t = totals();
-  $("hc").value = t.totalG.toFixed(0);
+  $("hc").value = selected.length ? t.totalG.toFixed(0) : "";
   hcWasManuallyEdited = false;
   updateOp();
 }
 
 function renderCategories(){
-  const grid = $("catGrid");
-  grid.innerHTML = CATEGORIES.map(cat => `
+  $("catGrid").innerHTML = CATEGORIES.map(cat => `
     <div class="catBtn ${cat.id===activeCategory ? "active" : ""}" data-key="${cat.id}">
       <span class="e">${cat.emoji}</span>
       <span class="t">${cat.name}</span>
     </div>
   `).join("");
 
-  grid.querySelectorAll(".catBtn").forEach(btn=>{
+  document.querySelectorAll(".catBtn").forEach(btn=>{
     btn.addEventListener("click", ()=>{
       activeCategory = btn.dataset.key;
+      menuMode = "category";
+      categoryDropdownPinned = true;
+      $("foodSearch").value = "";
       renderCategories();
-      showSuggestions($("foodSearch").value);
+      showSuggestions("");
+      keepSuggestionsOpen();
     });
   });
 
@@ -1034,10 +998,8 @@ function renderCategories(){
 }
 
 function renderCategoryTable(){
-  const table = $("catTable");
   const editableCats = CATEGORIES.filter(c=>c.id!=="all");
-
-  table.innerHTML = editableCats.map(cat=>`
+  $("catTable").innerHTML = editableCats.map(cat=>`
     <tr>
       <td style="width:42px;">${cat.emoji}</td>
       <td>${cat.name}</td>
@@ -1045,19 +1007,19 @@ function renderCategoryTable(){
     </tr>
   `).join("");
 
-  table.querySelectorAll(".editCatBtn").forEach(btn=>{
+  document.querySelectorAll(".editCatBtn").forEach(btn=>{
     btn.addEventListener("click", ()=>{
       const id = btn.dataset.id;
       const cat = CATEGORIES.find(c=>c.id===id);
       const newName = prompt("Nuevo nombre de categoría", cat.name);
       if(newName === null) return;
-      const cleanName = newName.trim();
-      if(!cleanName) return;
+      const clean = newName.trim();
+      if(!clean) return;
 
       const newEmoji = prompt("Nuevo emoji", cat.emoji);
       if(newEmoji === null) return;
 
-      CATEGORIES = CATEGORIES.map(c => c.id===id ? {...c, name:cleanName, emoji:newEmoji.trim() || c.emoji} : c);
+      CATEGORIES = CATEGORIES.map(c=>c.id===id ? {...c, name:clean, emoji:newEmoji.trim() || c.emoji} : c);
       saveCategories(CATEGORIES);
       renderCategories();
       renderCategoryTable();
@@ -1066,21 +1028,39 @@ function renderCategoryTable(){
   });
 }
 
+function updateCloseFoodBtn(){
+  const btn = $("closeFoodList");
+  const list = $("acList");
+  if(!btn || !list) return;
+  btn.style.display = (list.style.display === "block") ? "inline-block" : "none";
+}
+
+function keepSuggestionsOpen(){
+  const list = $("acList");
+  list.style.display = "block";
+  updateCloseFoodBtn();
+}
+
+function hideSuggestions(){
+  $("acList").style.display = "none";
+  updateCloseFoodBtn();
+}
+
 function renderSuggestions(){
   const list = $("acList");
 
   if(suggestions.length === 0){
     list.innerHTML = `<div class="acItem"><div><b>Sin resultados</b></div><small></small></div>`;
     list.style.display = "block";
+    updateCloseFoodBtn();
     return;
   }
 
   list.innerHTML = suggestions.map((f, idx)=>{
     const g = (Number(f.r)||0) * GRAMS_PER_R;
-    const active = idx===activeIndex ? "active" : "";
     return `
-      <div class="acItem ${active}" data-idx="${idx}">
-        <div style="display:flex; gap:8px;">
+      <div class="acItem ${idx===activeIndex ? "active" : ""}" data-idx="${idx}">
+        <div style="display:flex;gap:8px;">
           <div class="emoji">${foodEmoji(f)}</div>
           <div>
             <b>${f.name}</b>
@@ -1097,50 +1077,61 @@ function renderSuggestions(){
   });
 
   list.style.display = "block";
+  updateCloseFoodBtn();
 }
 
 function selectSuggestion(idx){
   const f = suggestions[idx];
   if(!f) return;
   selected.push({name:f.name, r:Number(f.r), cat:f.cat});
-  $("foodSearch").value = "";
-  $("acList").style.display = "none";
-  suggestions = [];
   activeIndex = -1;
   syncMenuTotalsToUI();
+
+  if(menuMode === "category"){
+    $("foodSearch").value = "";
+    showSuggestions("");
+    keepSuggestionsOpen();
+  }else{
+    const q = $("foodSearch").value;
+    showSuggestions(q);
+    keepSuggestionsOpen();
+  }
+
   $("foodSearch").focus();
 }
 
 function showSuggestions(q){
-  const list = $("acList");
   const query = norm(q);
-
   let pool = FOODS;
-  if(activeCategory !== "all"){
-    pool = FOODS.filter(f => f.cat === activeCategory);
+
+  if(query){
+    menuMode = "search";
+    categoryDropdownPinned = false;
+    pool = FOODS;
+  }else if(menuMode === "category" && activeCategory !== "all"){
+    pool = FOODS.filter(f=>f.cat===activeCategory);
+  }else{
+    pool = FOODS;
   }
 
-  if(!query){
-    suggestions = pool.slice(0, 12);
-    activeIndex = suggestions.length ? 0 : -1;
-    if(suggestions.length){
-      renderSuggestions();
-    }else{
-      list.style.display = "none";
-      list.innerHTML = "";
-    }
-    return;
-  }
-
-  suggestions = pool
-    .filter(f => norm(f.name).startsWith(query) || norm(f.name).includes(query))
-    .slice(0, 10);
+  suggestions = (!query
+    ? pool
+    : pool.filter(f=>norm(f.name).startsWith(query) || norm(f.name).includes(query))
+  ).slice(0,12);
 
   activeIndex = suggestions.length ? 0 : -1;
-  renderSuggestions();
+
+  if(query || categoryDropdownPinned || suggestions.length){
+    renderSuggestions();
+    keepSuggestionsOpen();
+  }else{
+    hideSuggestions();
+  }
 }
 
-function currentMeal(){ return $("meal").value; }
+function currentMeal(){
+  return $("meal").value;
+}
 
 function updateParamsUI(){
   const p = loadParams(currentMeal());
@@ -1148,18 +1139,8 @@ function updateParamsUI(){
   $("isfNow").textContent = p.isf.toFixed(0);
   $("ratioEdit").value = p.ratio.toFixed(2);
   $("isfEdit").value = p.isf.toFixed(0);
+  renderNumberDisplays();
   updateOp();
-}
-
-function calcInpen({bg, goal, hc, ratio, isf, iob}){
-  const bolusHC = hc / ratio;
-  const corr = (bg - goal) / isf;
-  const corrEff = Math.max(0, corr - iob);
-  return { bolusHC, corr, corrEff, bolus: bolusHC + corrEff };
-}
-
-function roundHalf(x){
-  return Math.round(x * 2) / 2;
 }
 
 function updateOp(){
@@ -1186,6 +1167,27 @@ Corr. efectiva = max(0, ${res.corr.toFixed(2)} - ${iob.toFixed(1)}) = ${res.corr
 Bolus = ${res.bolus.toFixed(2)} U`;
 }
 
+function calculateOnly(){
+  const goal = Number(formState.goal);
+  const bg = Number(formState.bg);
+  const hc = num($("hc").value);
+  const iob = Number(formState.iob);
+  const p = loadParams(currentMeal());
+
+  if(!isFinite(goal) || !isFinite(bg) || !isFinite(hc) || !isFinite(iob)){
+    $("err").textContent = "Datos inválidos";
+    return null;
+  }
+
+  const res = calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
+  lastBolus = res.bolus;
+  $("bolusRaw").textContent = lastBolus.toFixed(2);
+  $("bolusRounded").textContent = roundHalf(lastBolus).toFixed(1);
+  updateOp();
+  lastCalcSnapshot = snapshotState();
+  return res;
+}
+
 (function init(){
   Object.keys(DEFAULT_PARAMS).forEach(m=>{
     const o = document.createElement("option");
@@ -1198,14 +1200,16 @@ Bolus = ${res.bolus.toFixed(2)} U`;
   renderCategories();
   renderCategoryTable();
   updateParamsUI();
-  syncMenuTotalsToUI();
+  renderSelected();
+  $("hc").value = "";
+  updateCloseFoodBtn();
 
   $("bgPickerBtn").addEventListener("click", ()=>{
     openPicker({
       title:"Glucosa inicial",
-      values: buildRange(40, 400, 1),
-      current: formState.bg,
-      formatter: (v)=>String(Math.round(v)),
+      values:buildRange(40,400,1),
+      current:formState.bg,
+      formatter:v=>String(Math.round(v)),
       target:"bg",
       sub:"Desliza hasta el valor deseado"
     });
@@ -1214,9 +1218,9 @@ Bolus = ${res.bolus.toFixed(2)} U`;
   $("goalPickerBtn").addEventListener("click", ()=>{
     openPicker({
       title:"Glucosa objetivo",
-      values: buildRange(70, 180, 1),
-      current: formState.goal,
-      formatter: (v)=>String(Math.round(v)),
+      values:buildRange(70,180,1),
+      current:formState.goal,
+      formatter:v=>String(Math.round(v)),
       target:"goal",
       sub:"Valor por defecto: 100"
     });
@@ -1225,9 +1229,9 @@ Bolus = ${res.bolus.toFixed(2)} U`;
   $("iobPickerBtn").addEventListener("click", ()=>{
     openPicker({
       title:"IOB",
-      values: buildRange(0, 10, 0.1),
-      current: formState.iob,
-      formatter: (v)=>Number(v).toFixed(1),
+      values:buildRange(0,10,0.1),
+      current:formState.iob,
+      formatter:v=>Number(v).toFixed(1),
       target:"iob",
       sub:"Pasos de 0.1 U"
     });
@@ -1236,85 +1240,103 @@ Bolus = ${res.bolus.toFixed(2)} U`;
   $("insulinPickerBtn").addEventListener("click", ()=>{
     openPicker({
       title:"Insulina puesta",
-      values: buildRange(0, 20, 0.5),
-      current: formState.insulinPut,
-      formatter: (v)=>Number(v).toFixed(1),
+      values:buildRange(0,20,0.1),
+      current:formState.insulinPut,
+      formatter:v=>Number(v).toFixed(1),
       target:"insulinPut",
-      sub:"Pasos de 0.5 U"
+      sub:"Pasos de 0.1 U"
     });
   });
 
-  $("pickerWheel").addEventListener("scroll", syncPickerSelection);
+  $("pickerWheel").addEventListener("scroll", ()=>syncPickerSelection(false));
   $("pickerCancel").addEventListener("click", closePicker);
 
   $("pickerDone").addEventListener("click", ()=>{
     if(pickerState.target){
       formState[pickerState.target] = pickerState.selected;
-      if(pickerState.target === "goal"){
-        setGoal(formState.goal);
-      }
+      if(pickerState.target==="goal") setGoal(formState.goal);
       renderNumberDisplays();
       updateOp();
     }
     closePicker();
   });
 
-  $("pickerOverlay").addEventListener("click", (e)=>{
-    if(e.target.id === "pickerOverlay") closePicker();
+  $("pickerOverlay").addEventListener("click", e=>{
+    if(e.target.id==="pickerOverlay") closePicker();
   });
 
-  $("foodSearch").addEventListener("input", (e)=>showSuggestions(e.target.value));
+  $("foodSearch").addEventListener("input", e=>{
+    const raw = e.target.value;
+    if(raw.trim()){
+      menuMode = "search";
+      categoryDropdownPinned = false;
+    }else if(activeCategory !== "all"){
+      menuMode = "category";
+      categoryDropdownPinned = true;
+    }
+    showSuggestions(raw);
+  });
+
   $("foodSearch").addEventListener("focus", ()=>showSuggestions($("foodSearch").value));
 
-  $("foodSearch").addEventListener("keydown", (e)=>{
-    const open = $("acList").style.display === "block";
-
+  $("foodSearch").addEventListener("keydown", e=>{
+    const open = $("acList").style.display==="block";
     if(!open && (e.key==="ArrowDown" || e.key==="ArrowUp")){
       showSuggestions($("foodSearch").value);
       return;
     }
-
     if(e.key==="ArrowDown"){
       e.preventDefault();
       if(!suggestions.length) return;
       activeIndex = Math.min(activeIndex + 1, suggestions.length - 1);
       renderSuggestions();
     }
-
     if(e.key==="ArrowUp"){
       e.preventDefault();
       if(!suggestions.length) return;
       activeIndex = Math.max(activeIndex - 1, 0);
       renderSuggestions();
     }
-
-    if(e.key==="Enter"){
-      if(suggestions.length > 0){
-        e.preventDefault();
-        selectSuggestion(activeIndex >= 0 ? activeIndex : 0);
-      }
+    if(e.key==="Enter" && suggestions.length){
+      e.preventDefault();
+      selectSuggestion(activeIndex>=0 ? activeIndex : 0);
     }
-
     if(e.key==="Escape"){
-      $("acList").style.display = "none";
+      hideSuggestions();
       suggestions = [];
       activeIndex = -1;
     }
   });
 
-  document.addEventListener("click", (e)=>{
-    if(!e.target.closest(".acWrap")) $("acList").style.display = "none";
+  document.addEventListener("click", e=>{
+    if(!e.target.closest(".acWrap") && !e.target.closest(".catGrid") && !e.target.closest("#closeFoodList")){
+      if(categoryDropdownPinned){
+        keepSuggestionsOpen();
+      }else{
+        hideSuggestions();
+      }
+    }
   });
 
-  $("finishMenu").addEventListener("click", ()=>{
-    $("acList").style.display = "none";
-    $("foodSearch").blur();
+  $("closeFoodList").addEventListener("click", ()=>{
+    hideSuggestions();
+    categoryDropdownPinned = false;
+    menuMode = "search";
   });
 
   $("clearMenu").addEventListener("click", ()=>{
     selected = [];
+    hcWasManuallyEdited = false;
+    $("hc").value = "";
     syncMenuTotalsToUI();
-    recalcHcFromMenu();
+    if(activeCategory !== "all"){
+      menuMode = "category";
+      categoryDropdownPinned = true;
+      showSuggestions("");
+      keepSuggestionsOpen();
+    }else{
+      hideSuggestions();
+    }
   });
 
   $("recalcHc").addEventListener("click", recalcHcFromMenu);
@@ -1347,46 +1369,47 @@ Bolus = ${res.bolus.toFixed(2)} U`;
   $("calc").addEventListener("click", ()=>{
     $("err").textContent = "";
     $("ok").textContent = "";
+    const res = calculateOnly();
+    if(res) $("ok").textContent = "Cálculo hecho ✅";
+  });
 
-    const goal = Number(formState.goal);
-    const bg = Number(formState.bg);
-    const hc = num($("hc").value);
-    const iob = Number(formState.iob);
-    const p = loadParams(currentMeal());
+  $("saveHistory").addEventListener("click", ()=>{
+    $("err").textContent = "";
+    $("ok").textContent = "";
 
-    if(!isFinite(goal) || !isFinite(bg) || !isFinite(hc) || !isFinite(iob)){
-      $("err").textContent = "Datos inválidos";
-      return;
+    if(lastCalcSnapshot !== snapshotState()){
+      const recalc = confirm("Has cambiado datos desde el último cálculo. ¿Recalcular antes de guardar?");
+      if(recalc){
+        const res = calculateOnly();
+        if(!res) return;
+      }else if(!isFinite(lastBolus)){
+        $("err").textContent = "Primero calcula.";
+        return;
+      }
     }
-
-    const res = calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
-    lastBolus = res.bolus;
-    $("bolusRaw").textContent = lastBolus.toFixed(2);
-    $("bolusRound").textContent = "—";
 
     const menuText = selected.map(s => `${s.name} ${Number(s.r).toFixed(2)}R`).join(" + ");
 
     saveEntry({
+      id: "e_" + Date.now() + "_" + Math.random().toString(36).slice(2,7),
       ts: Date.now(),
       meal: currentMeal(),
       menu_text: menuText,
-      ratio_target: p.ratio,
-      bg: bg,
-      hc_g: hc,
-      iob: iob,
-      bolus_suggested: res.bolus,
+      selected_foods: selected,
+      ratio_target: loadParams(currentMeal()).ratio,
+      bg: Number(formState.bg),
+      goal: Number(formState.goal),
+      hc_g: num($("hc").value),
+      iob: Number(formState.iob),
+      bolus_suggested: Number(lastBolus),
       insulin_put: Number(formState.insulinPut),
       notes: "",
-      i_good: null
+      i_good: null,
+      ratio_good: null,
+      applied_good_ratio: false
     });
 
-    updateOp();
-    $("ok").textContent = "Entrada guardada ✅";
-  });
-
-  $("roundBtn").addEventListener("click", ()=>{
-    if(!isFinite(lastBolus)) return;
-    $("bolusRound").textContent = roundHalf(lastBolus).toFixed(1);
+    $("ok").textContent = "Entrada guardada en histórico ✅";
   });
 
   $("addFood").addEventListener("click", ()=>{
@@ -1398,7 +1421,7 @@ Bolus = ${res.bolus.toFixed(2)} U`;
     if(!isFinite(r)) return alert("Raciones inválidas");
     if(!cat) return alert("Elige una categoría");
 
-    saveCustomFood({name, r, cat});
+    saveCustomFood({name,r,cat});
     FOODS = loadFoods();
 
     $("newFoodName").value = "";
@@ -1413,9 +1436,9 @@ Bolus = ${res.bolus.toFixed(2)} U`;
     if(!name) return alert("Escribe un nombre");
 
     const id = slug(name);
-    if(CATEGORIES.some(c => c.id === id)) return alert("Ya existe una categoría parecida");
+    if(CATEGORIES.some(c=>c.id===id)) return alert("Ya existe una categoría parecida");
 
-    CATEGORIES.push({id, name, emoji});
+    CATEGORIES.push({id,name,emoji});
     saveCategories(CATEGORIES);
     renderCategories();
     renderCategoryTable();
