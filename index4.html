@@ -6,11 +6,23 @@
 <title>Histórico • Index4</title>
 <style>
   :root{
-    --bg:#f4f7ff; --card:#fff; --txt:#0f172a; --muted:#64748b;
-    --border:#dbe3ff; --shadow:0 10px 26px rgba(15,23,42,.10);
-    --blue:#2563eb; --radius:16px;
+    --bg:#f4f7ff;
+    --card:#fff;
+    --txt:#0f172a;
+    --muted:#64748b;
+    --border:#dbe3ff;
+    --shadow:0 10px 26px rgba(15,23,42,.10);
+    --blue:#2563eb;
+    --blue2:#1d4ed8;
+    --red:#dc2626;
+    --red2:#b91c1c;
+    --radius:16px;
+    --edit:#dff1ff;
+    --calc:#f3f4f6;
   }
+
   *{box-sizing:border-box}
+
   body{
     font-family:-apple-system,system-ui,Segoe UI,Arial;
     margin:8px;
@@ -18,8 +30,18 @@
     color:var(--txt);
     font-size:14px;
   }
-  .topNav{display:flex; gap:6px; margin-bottom:8px;}
-  .topNav a{flex:1; text-decoration:none}
+
+  .topNav{
+    display:flex;
+    gap:6px;
+    margin-bottom:8px;
+  }
+
+  .topNav a{
+    flex:1;
+    text-decoration:none;
+  }
+
   .navBtn{
     width:100%;
     border-radius:14px;
@@ -29,6 +51,7 @@
     font-weight:950;
     font-size:14px;
   }
+
   .card{
     background:var(--card);
     border-radius:var(--radius);
@@ -37,8 +60,17 @@
     box-shadow:var(--shadow);
     border:1px solid rgba(219,227,255,.9);
   }
-  h1{margin:0; font-size:16px}
-  .muted{color:var(--muted); font-size:12px; margin-top:4px}
+
+  h1{
+    margin:0;
+    font-size:16px;
+  }
+
+  .muted{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:4px;
+  }
 
   select, button{
     width:100%;
@@ -49,30 +81,167 @@
     font-size:14px;
     margin-top:6px;
   }
-  button{border:none; font-weight:1000; background:var(--blue); color:#fff;}
-  .row{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px}
 
-  table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border:1px solid var(--border); border-radius:14px; background:#fff;}
-  th, td{padding:8px; border-bottom:1px solid #eef2ff; vertical-align:top; font-size:12px}
-  th{background:#eaf0ff; text-align:left; font-weight:1100; position:sticky; top:0}
-  tr:last-child td{border-bottom:none}
-  .tag{display:inline-block; padding:2px 6px; border-radius:999px; background:#eef2ff; border:1px solid var(--border); font-weight:900; font-size:11px}
-  .small{font-size:11px; color:var(--muted)}
-</style>
-</head>
+  button{
+    border:none;
+    font-weight:1000;
+    background:var(--blue);
+    color:#fff;
+  }
+
+  button.secondary{
+    background:#fff;
+    color:#0f172a;
+    border:1px solid var(--border);
+  }
+
+  button.danger{
+    background:var(--red);
+    color:#fff;
+  }
+
+  .row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:8px;
+  }
+
+  .row3{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:8px;
+    margin-top:8px;
+  }
+
+  table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+    overflow:hidden;
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:#fff;
+    min-width:1200px;
+  }
+
+  th, td{
+    padding:4px 5px;
+    border-bottom:1px solid #eef2ff;
+    vertical-align:middle;
+    font-size:11px;
+    line-height:1.1;
+  }
+
+  th{
+    background:#eaf0ff;
+    text-align:left;
+    font-weight:1100;
+    position:sticky;
+    top:0;
+    z-index:2;
+    white-space:nowrap;
+  }
+
+  tr:last-child td{
+    border-bottom:none;
+  }
+
+  .tag{
+    display:inline-block;
+    padding:2px 6px;
+    border-radius:999px;
+    background:#eef2ff;
+    border:1px solid var(--border);
+    font-weight:900;
+    font-size:11px;
+  }
+
+  .small{
+    font-size:11px;
+    color:var(--muted);
+  }
+
+  .cellInput,
+  .cellSelect{
+    width:100%;
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:4px 6px;
+    font-size:11px;
+    background:var(--edit);
+    color:var(--txt);
+    outline:none;
+    height:30px;
+  }
+
+  .cellFood{
+    width:100%;
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:4px 6px;
+    font-size:11px;
+    background:var(--edit);
+    color:var(--txt);
+    outline:none;
+    height:30px;
+  }
+
+  .calcBox{
+    width:100%;
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+    padding:4px 6px;
+    font-size:11px;
+    background:var(--calc);
+    color:#334155;
+    min-height:30px;
+    height:30px;
+    display:flex;
+    align-items:center;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .actionBtn{
+    width:100%;
+    padding:5px 6px;
+    border-radius:8px;
+    font-size:11px;
+    font-weight:900;
+    margin:0;
+    height:30px;
+  }
+
+  .deleteBtn{
+    background:var(--red);
+    color:#fff;
+    border:none;
+  }
+
+  .deleteBtn:hover{
+    background:var(--red2);
+  }
+
+  .hideFood .col-food,
+  .hideFood th.col-food{
+    display:none;
+  }
+</style></head>
 <body>
 
 <div class="topNav">
-  <a href="index0.html"><button class="navBtn" style="background:#fff;color:#0f172a;border:1px solid var(--border)">⬅ Menú</button></a>
-  <a href="index3.html"><button class="navBtn" style="background:#fff;color:#0f172a;border:1px solid var(--border)">Volver a App</button></a>
-  <a href="index4.html"><button class="navBtn">Index4</button></a>
+  <a href="index0.html"><button class="navBtn secondary" type="button">⬅ Menú</button></a>
+  <a href="index3.html"><button class="navBtn secondary" type="button">Volver a App</button></a>
+  <a href="index4.html"><button class="navBtn" type="button">Index4</button></a>
 </div>
 
 <div class="card">
   <h1>📚 Histórico (últimas 7 por franja)</h1>
-  <div class="muted">Datos guardados en el móvil (localStorage). Si cambias de iPhone, se pierde.</div>
+  <div class="muted">Todo se guarda en el móvil. Aquí cada línea es editable, recalcula al cambiar y puedes borrar una entrada completa.</div>
 
-  <div class="row">
+  <div class="row3">
     <div>
       <div class="small">Filtrar por franja</div>
       <select id="mealFilter">
@@ -85,33 +254,41 @@
       </select>
     </div>
     <div>
+      <div class="small">Vista</div>
+      <button id="toggleFood" class="secondary" type="button">Ocultar comida</button>
+    </div>
+    <div>
       <div class="small">Acciones</div>
-      <button id="clear">Borrar histórico</button>
+      <button id="clear" class="danger" type="button">Borrar histórico</button>
     </div>
   </div>
 </div>
 
-<div class="card">
+<div class="card" id="historyWrap">
   <div style="overflow:auto; max-height:72vh;">
     <table>
       <thead>
         <tr>
           <th>Fecha</th>
           <th>Franja</th>
-          <th>Comida</th>
+          <th class="col-food">Comida</th>
           <th>HC/i objetivo<br>(g/U)</th>
           <th>Glucosa<br>inicial</th>
+          <th>Objetivo</th>
+          <th>ISF</th>
+          <th>IOB</th>
           <th>Comida<br>HC (g)</th>
           <th>Bolus corregido<br>x IOB (U)</th>
           <th>Insulina<br>puesta (U)</th>
           <th>HC/i<br>puesto</th>
-          <th>Resultado / notas</th>
+          <th>Notas</th>
           <th>i GOOD</th>
           <th>nvo HC/i GOOD</th>
+          <th>Acción</th>
         </tr>
       </thead>
       <tbody id="tbody">
-        <tr><td colspan="12" class="small">Sin datos todavía.</td></tr>
+        <tr><td colspan="16" class="small">Sin datos todavía.</td></tr>
       </tbody>
     </table>
   </div>
@@ -119,16 +296,24 @@
 
 <script>
 const KEY = "inpen_entries_v1";
+const HIDE_FOOD_KEY = "index4_hide_food_col";
 
 function loadEntries(){
   try{
     const raw = localStorage.getItem(KEY);
     const arr = raw ? JSON.parse(raw) : [];
     return Array.isArray(arr) ? arr : [];
-  }catch{ return []; }
+  }catch{
+    return [];
+  }
+}
+
+function saveEntries(arr){
+  localStorage.setItem(KEY, JSON.stringify(arr));
 }
 
 function fmtDate(ts){
+  if(!ts) return "";
   const d = new Date(ts);
   const dd = String(d.getDate()).padStart(2,"0");
   const mm = String(d.getMonth()+1).padStart(2,"0");
@@ -137,63 +322,211 @@ function fmtDate(ts){
   return `${dd}/${mm} ${hh}:${mi}`;
 }
 
-function n(x, digits=2){
-  return (x===null || x===undefined || !isFinite(Number(x))) ? "" : Number(x).toFixed(digits);
+function esc(s){
+  return String(s ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;");
 }
 
-function render(){
-  const meal = document.getElementById("mealFilter").value;
-  const all = loadEntries().sort((a,b)=>b.ts - a.ts);
+function num(v){
+  if(v === "" || v === null || v === undefined) return null;
+  const x = Number(String(v).replace(",", "."));
+  return Number.isFinite(x) ? x : null;
+}
 
-  // últimas 7 por franja
+function fmt(x, digits=2){
+  return (x===null || x===undefined || !Number.isFinite(Number(x))) ? "" : Number(x).toFixed(digits);
+}
+
+function roundToHalf(x){
+  if(!Number.isFinite(x)) return null;
+  return Math.round(x * 2) / 2;
+}
+
+function calcBolus(entry){
+  const hc = num(entry.hc_g);
+  const ratio = num(entry.ratio_target);
+  const bg = num(entry.bg);
+  const goal = num(entry.goal);
+  const isf = num(entry.isf);
+  const iob = num(entry.iob) ?? 0;
+
+  if(hc===null || ratio===null || ratio<=0) return null;
+
+  const bolusHC = hc / ratio;
+
+  let correction = 0;
+  if(bg!==null && goal!==null && isf!==null && isf>0){
+    correction = (bg - goal) / isf;
+  }
+
+  const corrEff = Math.max(0, correction - iob);
+  const total = bolusHC + corrEff;
+
+  return roundToHalf(total);
+}
+
+function calcHciPut(entry){
+  const hc = num(entry.hc_g);
+  const ins = num(entry.insulin_put);
+  if(hc===null || ins===null || ins<=0) return null;
+  return hc / ins;
+}
+
+function calcHciGood(entry){
+  const hc = num(entry.hc_g);
+  const iGood = num(entry.i_good);
+  if(hc===null || iGood===null || iGood<=0) return null;
+  return hc / iGood;
+}
+
+function getFilteredList(entries){
+  const meal = document.getElementById("mealFilter").value;
+  const all = [...entries].sort((a,b)=>(b.ts||0)-(a.ts||0));
+
   const buckets = {};
   for(const e of all){
     const m = e.meal || "—";
     if(!buckets[m]) buckets[m] = [];
     if(buckets[m].length < 7) buckets[m].push(e);
   }
+
   let list = [];
   if(meal === "ALL"){
-    // juntar todas las franjas (ya limitadas a 7 cada una)
     for(const k of Object.keys(buckets)) list = list.concat(buckets[k]);
-    list.sort((a,b)=>b.ts - a.ts);
+    list.sort((a,b)=>(b.ts||0)-(a.ts||0));
   }else{
     list = buckets[meal] || [];
   }
+  return list;
+}
 
+function rowHtml(e, realIndex){
+  const bolus = calcBolus(e);
+  const hciPut = calcHciPut(e);
+  const hciGood = calcHciGood(e);
+
+  const meals = ["Desayuno","Snack","Comida","Merienda cole","Cena"];
+
+  return `
+    <tr data-index="${realIndex}">
+      <td>${fmtDate(e.ts)}</td>
+
+      <td>
+        <select class="cellSelect" data-field="meal">
+          ${meals.map(m=>`<option value="${esc(m)}" ${e.meal===m?"selected":""}>${esc(m)}</option>`).join("")}
+        </select>
+      </td>
+
+      <td class="col-food">
+        <input class="cellFood" data-field="menu_text" value="${esc(e.menu_text || "")}">
+      </td>
+
+      <td><input class="cellInput" data-field="ratio_target" inputmode="decimal" value="${esc(e.ratio_target ?? "")}"></td>
+      <td><input class="cellInput" data-field="bg" inputmode="decimal" value="${esc(e.bg ?? "")}"></td>
+      <td><input class="cellInput" data-field="goal" inputmode="decimal" value="${esc(e.goal ?? "")}"></td>
+      <td><input class="cellInput" data-field="isf" inputmode="decimal" value="${esc(e.isf ?? "")}"></td>
+      <td><input class="cellInput" data-field="iob" inputmode="decimal" value="${esc(e.iob ?? "")}"></td>
+      <td><input class="cellInput" data-field="hc_g" inputmode="decimal" value="${esc(e.hc_g ?? "")}"></td>
+
+      <td><div class="calcBox" data-calc="bolus">${fmt(bolus,2)}</div></td>
+
+      <td><input class="cellInput" data-field="insulin_put" inputmode="decimal" value="${esc(e.insulin_put ?? "")}"></td>
+
+      <td><div class="calcBox" data-calc="hci_put">${fmt(hciPut,2)}</div></td>
+
+      <td>
+        <input class="cellInput" data-field="notes" value="${esc(e.notes || "")}">
+      </td>
+
+      <td><input class="cellInput" data-field="i_good" inputmode="decimal" value="${esc(e.i_good ?? "")}"></td>
+
+      <td><div class="calcBox" data-calc="hci_good">${fmt(hciGood,2)}</div></td>
+
+      <td>
+        <button class="actionBtn deleteBtn" type="button" data-action="delete">Borrar</button>
+      </td>
+    </tr>
+  `;
+}
+function render(){
+  const entries = loadEntries();
+  const list = getFilteredList(entries);
   const tb = document.getElementById("tbody");
+
   if(list.length === 0){
-    tb.innerHTML = `<tr><td colspan="12" class="small">Sin datos para ese filtro.</td></tr>`;
+    tb.innerHTML = `<tr><td colspan="16" class="small">Sin datos para ese filtro.</td></tr>`;
+    applyHideFoodState();
     return;
   }
 
   tb.innerHTML = list.map(e=>{
-    const hc = Number(e.hc_g);
-    const ins = Number(e.insulin_put);
-    const hci_put = (isFinite(hc) && isFinite(ins) && ins>0) ? (hc/ins) : null;
-    const iGood = Number(e.i_good);
-    const hci_good = (isFinite(hc) && isFinite(iGood) && iGood>0) ? (hc/iGood) : null;
-
-    return `
-      <tr>
-        <td>${fmtDate(e.ts)}</td>
-        <td><span class="tag">${e.meal || ""}</span></td>
-        <td>${(e.menu_text || "").replaceAll("<","&lt;")}</td>
-        <td>${n(e.ratio_target,2)}</td>
-        <td>${n(e.bg,0)}</td>
-        <td>${n(e.hc_g,0)}</td>
-        <td>${n(e.bolus_suggested,2)}</td>
-        <td>${n(e.insulin_put,2)}</td>
-        <td>${hci_put!==null ? n(hci_put,2) : ""}</td>
-        <td>${(e.notes || "").replaceAll("<","&lt;")}</td>
-        <td>${n(e.i_good,2)}</td>
-        <td>${hci_good!==null ? n(hci_good,2) : ""}</td>
-      </tr>
-    `;
+    const realIndex = entries.findIndex(x => x.ts === e.ts && JSON.stringify(x) === JSON.stringify(e));
+    if(realIndex === -1){
+      // respaldo por si cambia algo en el orden
+      const idx = entries.indexOf(e);
+      return rowHtml(e, idx);
+    }
+    return rowHtml(e, realIndex);
   }).join("");
+
+  applyHideFoodState();
+}
+
+function updateEntry(realIndex, field, value, row){
+  const entries = loadEntries();
+  if(!entries[realIndex]) return;
+
+  if(["menu_text","notes","meal"].includes(field)){
+    entries[realIndex][field] = value;
+  }else{
+    entries[realIndex][field] = value === "" ? "" : value.replace(",", ".");
+  }
+
+  const bolus = calcBolus(entries[realIndex]);
+  const hciPut = calcHciPut(entries[realIndex]);
+  const hciGood = calcHciGood(entries[realIndex]);
+
+  entries[realIndex].bolus_suggested = bolus;
+  entries[realIndex].ratio_good = hciGood;
+
+  saveEntries(entries);
+
+  if(row){
+    const bolusBox = row.querySelector('[data-calc="bolus"]');
+    const hciPutBox = row.querySelector('[data-calc="hci_put"]');
+    const hciGoodBox = row.querySelector('[data-calc="hci_good"]');
+
+    if(bolusBox) bolusBox.textContent = fmt(bolus,2);
+    if(hciPutBox) hciPutBox.textContent = fmt(hciPut,2);
+    if(hciGoodBox) hciGoodBox.textContent = fmt(hciGood,2);
+  }
+}
+
+function deleteEntry(realIndex){
+  const entries = loadEntries();
+  if(!entries[realIndex]) return;
+  entries.splice(realIndex, 1);
+  saveEntries(entries);
+  render();
+}
+
+function applyHideFoodState(){
+  const wrap = document.getElementById("historyWrap");
+  const hidden = localStorage.getItem(HIDE_FOOD_KEY) === "1";
+  wrap.classList.toggle("hideFood", hidden);
+  document.getElementById("toggleFood").textContent = hidden ? "Mostrar comida" : "Ocultar comida";
 }
 
 document.getElementById("mealFilter").addEventListener("change", render);
+
+document.getElementById("toggleFood").addEventListener("click", ()=>{
+  const hidden = localStorage.getItem(HIDE_FOOD_KEY) === "1";
+  localStorage.setItem(HIDE_FOOD_KEY, hidden ? "0" : "1");
+  applyHideFoodState();
+});
 
 document.getElementById("clear").addEventListener("click", ()=>{
   if(confirm("¿Seguro que quieres borrar TODO el histórico?")){
@@ -202,7 +535,47 @@ document.getElementById("clear").addEventListener("click", ()=>{
   }
 });
 
+document.getElementById("tbody").addEventListener("input", (ev)=>{
+  const t = ev.target;
+  const row = t.closest("tr[data-index]");
+  if(!row) return;
+
+  const realIndex = Number(row.dataset.index);
+  const field = t.dataset.field;
+  if(!field) return;
+
+  updateEntry(realIndex, field, t.value, row);
+});
+
+document.getElementById("tbody").addEventListener("change", (ev)=>{
+  const t = ev.target;
+  const row = t.closest("tr[data-index]");
+  if(!row) return;
+
+  const realIndex = Number(row.dataset.index);
+
+  const field = t.dataset.field;
+  if(field){
+    updateEntry(realIndex, field, t.value, row);
+  }
+});
+
+document.getElementById("tbody").addEventListener("click", (ev)=>{
+  const btn = ev.target.closest("[data-action='delete']");
+  if(!btn) return;
+
+  const row = btn.closest("tr[data-index]");
+  if(!row) return;
+
+  const realIndex = Number(row.dataset.index);
+
+  if(confirm("¿Borrar esta entrada completa?")){
+    deleteEntry(realIndex);
+  }
+});
+
 render();
+applyHideFoodState();
 </script>
 </body>
 </html>
