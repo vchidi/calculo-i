@@ -447,7 +447,7 @@ pre{
   <div>
     <label>Insulina sin redondeo</label>
     <div class="pickerField">
-      <span id="bolusRaw">—</span>
+      <span id="bolusVal">—</span>
     </div>
   </div>
 
@@ -469,6 +469,13 @@ pre{
   <div>
     <label style="color:#888">HC/i (g/U)</label>
     <input id="ratioEdit" class="userField" style="color:#888" inputmode="decimal" />
+  </div>
+
+  <div>
+    <label style="color:#888">InPen</label>
+    <div class="pickerField">
+      <span id="bolusRaw">—</span>
+    </div>
   </div>
 
 </div>
@@ -788,8 +795,10 @@ function calcInpen({bg, goal, hc, ratio, isf, iob}){
   const bolusHC = hc / ratio;
   const corr = (bg - goal) / isf;
   const corrEff = Math.max(0, corr - iob);
-  return { bolusHC, corr, corrEff, bolus: bolusHC + corrEff };
+  const bolusVal = bolusHC + corr;
+  return { bolusHC, corr, corrEff, bolus: bolusHC + corrEff, bolusVal };
 }
+
 function roundHalf(x){
   return Math.round(x * 2) / 2;
 }
@@ -1158,13 +1167,14 @@ function updateOp(){
     return;
   }
 
-  const res = calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
+const res = calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
 
-  $("op").textContent =
+$("op").textContent =
 `BolusHC = ${hc} / ${p.ratio.toFixed(2)} = ${res.bolusHC.toFixed(2)} U
 Corrección = (${bg}-${goal})/${p.isf} = ${res.corr.toFixed(2)} U
+BolusVal = ${res.bolusHC.toFixed(2)} + (${res.corr.toFixed(2)}) = ${res.bolusVal.toFixed(2)} U
 Corr. efectiva = max(0, ${res.corr.toFixed(2)} - ${iob.toFixed(1)}) = ${res.corrEff.toFixed(2)} U
-Bolus = ${res.bolus.toFixed(2)} U`;
+BolusInPen = ${res.bolus.toFixed(2)} U`;
 }
 
 function calculateOnly(){
@@ -1183,6 +1193,7 @@ function calculateOnly(){
   lastBolus = res.bolus;
   $("bolusRaw").textContent = lastBolus.toFixed(2);
   $("bolusRounded").textContent = roundHalf(lastBolus).toFixed(1);
+  $("bolusVal").textContent = res.bolusVal.toFixed(2);
   updateOp();
   lastCalcSnapshot = snapshotState();
   return res;
