@@ -233,8 +233,8 @@
 
   <div class="row" style="margin-top:8px;">
     <div>
-      <label>HC/i GOOD</label>
-      <input id="newHciGood" disabled />
+	<label>HC/i GOOD</label>
+	<input id="newHciGood" inputmode="decimal" placeholder="Ej: 7.20" />
     </div>
     <div>
       <label>Fecha de la entrada</label>
@@ -330,23 +330,32 @@ function loadCurrentRatio(meal){
 
 let currentEntry = null;
 
-function updateGood(){
+let hciGoodManuallyEdited = false;
+
+function updateGood(fromIGood = false){
   if(!currentEntry) return;
 
   const hc = Number(currentEntry.hc_g);
   const put = Number(currentEntry.insulin_put);
   const target = loadCurrentRatio(currentEntry.meal);
   const iGood = num(document.getElementById("iGood").value);
+  const hciGoodInput = document.getElementById("newHciGood");
 
   const hciPut = (isFinite(hc) && isFinite(put) && put > 0) ? (hc / put) : null;
-  const hciGood = (isFinite(hc) && isFinite(iGood) && iGood > 0) ? (hc / iGood) : null;
+  const autoHciGood = (isFinite(hc) && isFinite(iGood) && iGood > 0) ? (hc / iGood) : null;
 
   document.getElementById("hciPut").value = hciPut !== null ? hciPut.toFixed(2) : "";
-  document.getElementById("newHciGood").value = hciGood !== null ? hciGood.toFixed(2) : "";
+
+  if(fromIGood && !hciGoodManuallyEdited){
+    hciGoodInput.value = autoHciGood !== null ? autoHciGood.toFixed(2) : "";
+  }
+
+  const manualHciGood = num(hciGoodInput.value);
+  const finalHciGood = isFinite(manualHciGood) && manualHciGood > 0 ? manualHciGood : autoHciGood;
 
   document.getElementById("ratioTargetEnd").textContent = isFinite(target) ? Number(target).toFixed(2) : "—";
   document.getElementById("ratioPutEnd").textContent = hciPut !== null ? hciPut.toFixed(2) : "—";
-  document.getElementById("ratioGoodEnd").textContent = hciGood !== null ? hciGood.toFixed(2) : "—";
+  document.getElementById("ratioGoodEnd").textContent = finalHciGood !== null ? finalHciGood.toFixed(2) : "—";
 }
 
 function render(){
@@ -378,15 +387,30 @@ function render(){
   document.getElementById("showInsulin").textContent = isFinite(Number(currentEntry.insulin_put)) ? Number(currentEntry.insulin_put).toFixed(2) : "—";
   document.getElementById("showMenu").textContent = currentEntry.menu_text || "—";
 
-  document.getElementById("iGood").value = isFinite(Number(currentEntry.i_good)) ? Number(currentEntry.i_good).toFixed(2) : "";
-  document.getElementById("notes").value = currentEntry.notes || "";
-  document.getElementById("entryDate").value = fmtDate(currentEntry.ts);
-  document.getElementById("applyGoodRatio").value = "no";
+document.getElementById("iGood").value =
+  isFinite(Number(currentEntry.i_good)) ? Number(currentEntry.i_good).toFixed(2) : "";
 
+document.getElementById("newHciGood").value =
+  isFinite(Number(currentEntry.ratio_good)) ? Number(currentEntry.ratio_good).toFixed(2) : "";
+
+document.getElementById("notes").value = currentEntry.notes || "";
+document.getElementById("entryDate").value = fmtDate(currentEntry.ts);
+document.getElementById("applyGoodRatio").value = "no";
+
+hciGoodManuallyEdited = !!document.getElementById("newHciGood").value;
+updateGood(true);
   updateGood();
 }
 
-document.getElementById("iGood").addEventListener("input", updateGood);
+document.getElementById("iGood").addEventListener("input", ()=>{
+  hciGoodManuallyEdited = false;
+  updateGood(true);
+});
+
+document.getElementById("newHciGood").addEventListener("input", ()=>{
+  hciGoodManuallyEdited = true;
+  updateGood(false);
+});
 document.getElementById("reloadReview").addEventListener("click", render);
 
 document.getElementById("saveReview").addEventListener("click", ()=>{
@@ -407,22 +431,26 @@ document.getElementById("saveReview").addEventListener("click", ()=>{
   }
 
   const iGood = num(document.getElementById("iGood").value);
+  const ratioGood = num(document.getElementById("newHciGood").value);
   const notes = String(document.getElementById("notes").value || "").trim();
   const apply = document.getElementById("applyGoodRatio").value === "yes";
-  const hc = Number(currentEntry.hc_g);
 
   entries[idx].notes = notes;
   entries[idx].i_good = isFinite(iGood) ? iGood : null;
+  entries[idx].ratio_good = (isFinite(ratioGood) && ratioGood > 0) ? ratioGood : null;
   entries[idx].reviewed_at = Date.now();
 
   if(apply){
-    if(isFinite(hc) && isFinite(iGood) && iGood > 0){
-      const newRatio = hc / iGood;
-      localStorage.setItem("ratio_" + currentEntry.meal, String(newRatio));
+    if(isFinite(ratioGood) && ratioGood > 0){
+      localStorage.setItem("ratio_" + currentEntry.meal, String(ratioGood));
+      entries[idx].applied_good_ratio = true;
+      entries[idx].applied_good_ratio_at = Date.now();
     } else {
-      document.getElementById("err").textContent = "Para actualizar el HC/i objetivo, i GOOD debe ser mayor que 0.";
+      document.getElementById("err").textContent = "Para actualizar el HC/i objetivo, escribe un HC/i GOOD mayor que 0.";
       return;
     }
+  } else {
+    entries[idx].applied_good_ratio = false;
   }
 
   saveEntries(entries);
