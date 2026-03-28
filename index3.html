@@ -20,9 +20,7 @@
   --softBorder:#c7d6ff;
   --radius:16px;
 }
-
 *{box-sizing:border-box}
-
 body{
   font-family:-apple-system,system-ui,Segoe UI,Arial;
   margin:8px;
@@ -30,16 +28,8 @@ body{
   color:var(--txt);
   font-size:15px;
 }
-
-.topNav{
-  display:flex;
-  gap:6px;
-  margin-bottom:8px;
-}
-.topNav a{
-  flex:1;
-  text-decoration:none;
-}
+.topNav{display:flex;gap:6px;margin-bottom:8px}
+.topNav a{flex:1;text-decoration:none}
 .navBtn{
   width:100%;
   border-radius:14px;
@@ -49,7 +39,6 @@ body{
   font-weight:950;
   font-size:14px;
 }
-
 .card{
   background:var(--card);
   border-radius:var(--radius);
@@ -58,7 +47,6 @@ body{
   box-shadow:var(--shadow);
   border:1px solid rgba(219,227,255,.9);
 }
-
 .title{
   display:flex;
   align-items:center;
@@ -71,7 +59,6 @@ body{
   margin:0;
   font-weight:1100;
 }
-
 .badge{
   display:inline-flex;
   align-items:center;
@@ -83,18 +70,15 @@ body{
   font-weight:950;
   color:#1e293b;
 }
-
 .muted{
   color:var(--muted);
   font-size:12px;
   line-height:1.2;
 }
-
 label{
   font-weight:950;
   font-size:12px;
 }
-
 input,select,button,textarea{
   width:100%;
   padding:10px;
@@ -104,22 +88,18 @@ input,select,button,textarea{
   font-size:15px;
   background:#fff;
 }
-
 textarea{
   resize:vertical;
   min-height:92px;
 }
-
 button{
   border:none;
   font-weight:1100;
 }
-
 .userField{
   background:var(--soft);
   border:1px solid var(--softBorder);
 }
-
 .pickerField{
   background:var(--soft);
   border:1px solid var(--softBorder);
@@ -138,24 +118,13 @@ button{
   color:var(--muted);
   font-weight:600;
 }
-
-.row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-.row3{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:8px;
-}
-
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .btnBlue{background:var(--blue);color:#fff}
 .btnGreen{background:var(--green);color:#fff}
 .btnGhost{background:#eef2ff;color:#0f172a;border:1px solid var(--border)}
 .btnOrange{background:var(--orange);color:#0f172a}
 .btnViolet{background:var(--violet);color:#fff}
-
 .pill{
   border-radius:16px;
   padding:8px;
@@ -164,7 +133,6 @@ button{
 }
 .pill .k{font-size:11px;color:var(--muted);font-weight:950}
 .pill .v{font-size:18px;font-weight:1200}
-
 .err{color:#b00020;font-weight:1100;margin-top:6px}
 .ok{color:#166534;font-weight:1100;margin-top:6px}
 
@@ -226,7 +194,6 @@ button{
 }
 .acItem:last-child{border-bottom:none}
 .acItem:hover,.acItem.active{background:#eaf0ff}
-
 .emoji{
   font-size:18px;
   width:22px;
@@ -241,7 +208,6 @@ button{
   padding:8px;
   background:#fff;
 }
-
 .foodTable,.miniTable{
   width:100%;
   border-collapse:collapse;
@@ -254,9 +220,7 @@ button{
   font-size:14px;
 }
 .foodTable tr:last-child td,.miniTable tr:last-child td{border-bottom:none}
-
 .foodName{font-weight:1000}
-
 .rInline{
   width:72px;
   margin:0;
@@ -265,14 +229,12 @@ button{
   font-size:13px;
   text-align:center;
 }
-
 .gInline{
   font-size:13px;
   font-weight:900;
   white-space:nowrap;
   text-align:right;
 }
-
 .xBtn{
   width:auto;
   margin:0;
@@ -283,7 +245,6 @@ button{
   font-weight:1100;
   font-size:13px;
 }
-
 .miniBtn{
   width:auto;
   padding:6px 10px;
@@ -294,7 +255,6 @@ button{
   font-weight:1000;
   margin:0;
 }
-
 details{
   border:1px solid var(--border);
   border-radius:16px;
@@ -310,7 +270,6 @@ summary{
 }
 summary::-webkit-details-marker{display:none}
 .detailsBody{padding:10px}
-
 pre{
   background:#f3f6ff;
   border:1px solid var(--border);
@@ -404,92 +363,142 @@ pre{
   margin-top:8px;
 }
 
-/* ===== Responsive iPhone vertical ===== */
-@media (max-width: 768px){
+/* ===== Layout compacto ===== */
+.mainCompactLayout{
+  display:grid;
+  grid-template-columns:0.95fr 1.25fr;
+  gap:10px;
+  align-items:start;
+}
+.leftCompactCol,.rightCompactCol{min-width:0}
+.compact2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  align-items:end;
+}
+.compact3{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:8px;
+  align-items:end;
+}
+.catGrid.compactCats{
+  grid-template-columns:repeat(2,1fr);
+  gap:6px;
+}
+.catGrid.compactCats .catBtn{
+  min-height:64px;
+  padding:8px 6px;
+  border-radius:12px;
+}
+.catGrid.compactCats .catBtn .e{
+  font-size:18px;
+  margin-bottom:2px;
+}
+.catGrid.compactCats .catBtn .t{
+  font-size:11px;
+  line-height:1.05;
+}
+.searchHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.searchActionsCompact{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:8px;
+  margin-top:8px;
+}
+.hcCompactRow{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:8px;
+  align-items:end;
+}
+.hcCompactRow button{
+  width:auto;
+  margin-top:0;
+  white-space:nowrap;
+}
+.calcSaveCompact{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.insulinCompactGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  align-items:end;
+}
 
+/* ===== Responsive ===== */
+@media (max-width: 768px){
   body{
     margin:6px;
     font-size:14px;
   }
-
   .topNav{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:6px;
   }
-
   .title{
     display:grid;
     grid-template-columns:1fr;
     gap:4px;
     text-align:center;
   }
-
-  .title h1{
-    justify-self:center;
-  }
-
   .badge{
     justify-self:center;
   }
-
-  .row,
-  .row3{
-    grid-template-columns:1fr !important;
+  .mainCompactLayout{
+    grid-template-columns:0.88fr 1.12fr;
+    gap:8px;
   }
-
-  .catGrid{
-    grid-template-columns:repeat(3,1fr);
+  .compact3{
+    grid-template-columns:1fr;
   }
-
-  .catBtn{
-    min-height:92px;
+  .compact2{
+    grid-template-columns:1fr 1fr;
   }
-
+  .catGrid.compactCats{
+    grid-template-columns:repeat(2,1fr);
+  }
+  .catGrid.compactCats .catBtn{
+    min-height:58px;
+    padding:7px 4px;
+  }
+  .catGrid.compactCats .catBtn .e{
+    font-size:16px;
+  }
+  .catGrid.compactCats .catBtn .t{
+    font-size:10px;
+  }
+  .insulinCompactGrid{
+    grid-template-columns:1fr;
+  }
+  .hcCompactRow{
+    grid-template-columns:1fr;
+  }
+  .hcCompactRow button{
+    width:100%;
+  }
+  input,select,button,textarea{
+    font-size:16px;
+  }
   .pickerField{
     min-height:42px;
     padding:10px 12px;
   }
-
-  input,select,button,textarea{
-    font-size:16px;
-  }
-
   .foodTable td,.miniTable td{
     font-size:13px;
   }
-
   .pill .v{
     font-size:16px;
-  }
-
-  .hcRowMobile{
-    display:grid !important;
-    grid-template-columns:1fr !important;
-    gap:8px !important;
-  }
-
-  .calcSaveRow{
-    display:grid !important;
-    grid-template-columns:1fr 1fr !important;
-    gap:8px !important;
-  }
-
-  .insulinSummaryRow{
-    display:grid !important;
-    grid-template-columns:1fr !important;
-    gap:10px !important;
-    align-items:stretch !important;
-  }
-
-  .insulinSummaryRow > div{
-    min-width:0 !important;
-  }
-
-  .menuActions{
-    display:grid !important;
-    grid-template-columns:1fr !important;
-    gap:8px !important;
   }
 }
 </style>
@@ -514,99 +523,108 @@ pre{
 </div>
 
 <div class="card">
-  <label>Franja</label>
-  <select id="meal" class="userField"></select>
+  <div class="mainCompactLayout">
 
-  <div class="row" style="margin-top:6px">
-    <div>
-      <label>Glucosa (BG)</label>
-      <div id="bgPickerBtn" class="pickerField">
-        <span id="bgDisplay">130</span>
-        <span class="hint">▾</span>
-      </div>
+    <div class="leftCompactCol">
+      <label>Categorías</label>
+      <div class="catGrid compactCats" id="catGrid"></div>
     </div>
 
-    <div>
-      <label>Glucosa objetivo</label>
-      <div id="goalPickerBtn" class="pickerField">
-        <span id="goalDisplay">100</span>
-        <span class="hint">▾</span>
-      </div>
-      <div id="goalNote" class="muted" style="margin-top:4px;"></div>
-    </div>
-  </div>
+    <div class="rightCompactCol">
 
-  <div style="margin-top:8px">
-    <label>Categorías</label>
-    <div class="catGrid" id="catGrid"></div>
-  </div>
-
-  <div style="margin-top:8px">
-    <div style="display:flex;align-items:center;gap:8px;">
-      <label>Buscar alimento</label>
-      <button id="closeFoodList" class="miniBtn" style="width:auto;padding:6px 10px;display:none;">✕</button>
-    </div>
-
-    <div class="acWrap">
-      <input id="foodSearch" class="userField" placeholder="Escribe… (ej: pa)" autocomplete="off" />
-      <div id="acList" class="acList" style="display:none;"></div>
-    </div>
-
-    <div class="menuActions" style="margin-top:8px">
-      <button id="clearMenu" class="btnGhost">🧼 Vaciar</button>
-    </div>
-
-    <div class="sel">
-      <div id="selectedList" class="muted">Aún no has añadido alimentos.</div>
-
-      <div style="margin-top:8px">
-        <label>HC totales (g)</label>
-        <div class="hcRowMobile" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:5px;align-items:center;">
-          <input id="hc" class="userField" inputmode="decimal" placeholder="" />
-          <button id="recalcHc" class="btnGhost" style="width:100%;padding:10px 12px;margin-top:0;">♻️ HC automático</button>
-        </div>
-      </div>
-
-      <div class="calcSaveRow" style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-        <button id="calc" class="btnBlue">🧮 Calcular</button>
-        <button id="saveHistory" class="btnGreen">💾 Guardar</button>
-      </div>
-
-      <div class="insulinSummaryRow" style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:flex-end;">
-
+      <div class="compact3">
         <div>
-          <label>Insulina sin redondeo</label>
-          <div class="pickerField">
-            <span id="bolusRaw">—</span>
-          </div>
+          <label>Franja</label>
+          <select id="meal" class="userField"></select>
         </div>
 
         <div>
-          <label>Con redondeo</label>
-          <div class="pickerField">
-            <span id="bolusRounded">—</span>
-          </div>
-        </div>
-
-        <div>
-          <label>Insulina puesta (U)</label>
-          <div id="insulinPickerBtn" class="pickerField">
-            <span id="insulinDisplay">0.0</span>
+          <label>Glucosa (BG)</label>
+          <div id="bgPickerBtn" class="pickerField">
+            <span id="bgDisplay">130</span>
             <span class="hint">▾</span>
           </div>
         </div>
 
         <div>
-          <label>HC/i (g/U)</label>
-          <input id="ratioEditTop" class="userField" inputmode="decimal" readonly />
+          <label>Glucosa objetivo</label>
+          <div id="goalPickerBtn" class="pickerField">
+            <span id="goalDisplay">100</span>
+            <span class="hint">▾</span>
+          </div>
+          <div id="goalNote" class="muted" style="margin-top:4px;"></div>
         </div>
-
       </div>
 
-      <div id="err" class="err"></div>
-      <div id="ok" class="ok"></div>
+      <div style="margin-top:8px">
+        <div class="searchHeader">
+          <label>Buscar alimento</label>
+          <button id="closeFoodList" class="miniBtn" style="width:auto;padding:6px 10px;display:none;">✕</button>
+        </div>
+
+        <div class="acWrap">
+          <input id="foodSearch" class="userField" placeholder="Escribe… (ej: pa)" autocomplete="off" />
+          <div id="acList" class="acList" style="display:none;"></div>
+        </div>
+
+        <div class="searchActionsCompact">
+          <button id="clearMenu" class="btnGhost">🧼 Vaciar</button>
+        </div>
+      </div>
+
+      <div class="sel">
+        <div id="selectedList" class="muted">Aún no has añadido alimentos.</div>
+
+        <div style="margin-top:8px">
+          <label>HC totales (g)</label>
+          <div class="hcCompactRow" style="margin-top:5px;">
+            <input id="hc" class="userField" inputmode="decimal" placeholder="" />
+            <button id="recalcHc" class="btnGhost" style="padding:10px 12px;">♻️ HC automático</button>
+          </div>
+        </div>
+
+        <div class="calcSaveCompact" style="margin-top:8px;">
+          <button id="calc" class="btnBlue">🧮 Calcular</button>
+          <button id="saveHistory" class="btnGreen">💾 Guardar</button>
+        </div>
+
+        <div class="insulinCompactGrid" style="margin-top:8px;">
+
+          <div>
+            <label>Insulina sin redondeo</label>
+            <div class="pickerField">
+              <span id="bolusRaw">—</span>
+            </div>
+          </div>
+
+          <div>
+            <label>Con redondeo</label>
+            <div class="pickerField">
+              <span id="bolusRounded">—</span>
+            </div>
+          </div>
+
+          <div>
+            <label>Insulina puesta (U)</label>
+            <div id="insulinPickerBtn" class="pickerField">
+              <span id="insulinDisplay">0.0</span>
+              <span class="hint">▾</span>
+            </div>
+          </div>
+
+          <div>
+            <label>HC/i (g/U)</label>
+            <input id="ratioEditTop" class="userField" inputmode="decimal" readonly />
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </div>
+
+  <div id="err" class="err"></div>
+  <div id="ok" class="ok"></div>
 </div>
 
 <div class="card">
@@ -736,15 +754,12 @@ const DEFAULT_FOODS = [
   {name:"pancito nico", r:1.5, cat:"pan"},
   {name:"pan menú cole", r:1.0, cat:"pan"},
   {name:"bocadillo pequeño", r:4.0, cat:"pan"},
-
   {name:"pasta", r:2.0, cat:"pasta"},
   {name:"arroz (80gr)", r:2.0, cat:"pasta"},
-
   {name:"patata", r:2.0, cat:"patata"},
   {name:"patatas chips menú cole", r:0.5, cat:"patata"},
   {name:"patatas chips/ doritos bolsa pequeña", r:3.0, cat:"patata"},
   {name:"patatas fritas (pequeñas)", r:4.0, cat:"patata"},
-
   {name:"verdura", r:0.0, cat:"verduras"},
   {name:"judías", r:1.5, cat:"verduras"},
   {name:"alubias", r:1.5, cat:"verduras"},
@@ -756,7 +771,6 @@ const DEFAULT_FOODS = [
   {name:"calabaza", r:1.0, cat:"verduras"},
   {name:"tomate", r:0.5, cat:"verduras"},
   {name:"cebolla", r:0.5, cat:"verduras"},
-
   {name:"pollo", r:0.0, cat:"proteina"},
   {name:"pollo rebozado", r:1.5, cat:"proteina"},
   {name:"carne", r:0.0, cat:"proteina"},
@@ -770,11 +784,9 @@ const DEFAULT_FOODS = [
   {name:"jamón", r:0.0, cat:"proteina"},
   {name:"fuet", r:0.0, cat:"proteina"},
   {name:"boquerones andaluza", r:2.0, cat:"proteina"},
-
   {name:"leche (1 vaso 200ml)", r:1.0, cat:"lacteos"},
   {name:"yogur blanco", r:1.0, cat:"lacteos"},
   {name:"yogur azucarado", r:1.5, cat:"lacteos"},
-
   {name:"1 galleta maría", r:0.5, cat:"snack"},
   {name:"1 galleta oceanix / dinosaurio", r:0.75, cat:"snack"},
   {name:"biskoff", r:0.7, cat:"snack"},
@@ -782,29 +794,23 @@ const DEFAULT_FOODS = [
   {name:"crackers", r:2.7, cat:"snack"},
   {name:"mini oreo (bolsita)", r:2.5, cat:"snack"},
   {name:"mini príncipe (bolsita)", r:2.5, cat:"snack"},
-
   {name:"flan", r:2.0, cat:"postre"},
   {name:"natillas", r:2.0, cat:"postre"},
   {name:"gelatina", r:1.5, cat:"postre"},
   {name:"helado tarrina", r:2.0, cat:"postre"},
   {name:"helado cono", r:4.0, cat:"postre"},
-
   {name:"fruta normal", r:2.0, cat:"fruta"},
   {name:"fruta pequeña (mandarina)", r:1.0, cat:"fruta"},
-
   {name:"croissant chocolate", r:4.0, cat:"bolleria"},
   {name:"croissant jamón", r:3.0, cat:"bolleria"},
   {name:"cereales (1 bol)", r:3.0, cat:"bolleria"},
-
   {name:"pizza 1 trozo pequeño", r:2.0, cat:"fastfood"},
   {name:"hamburguesa con pan", r:4.0, cat:"fastfood"},
   {name:"nuggets (4 udes)", r:2.0, cat:"fastfood"},
   {name:"tortilla de patatas", r:2.0, cat:"fastfood"},
   {name:"tortilla francesa", r:0.0, cat:"fastfood"},
-
   {name:"couscous", r:2.0, cat:"otros"},
   {name:"verduritas", r:1.0, cat:"otros"},
-
   {name:"judías con patatas", r:3.0, cat:"miranda"},
   {name:"butifarra con mongetes", r:2.5, cat:"miranda"},
   {name:"butifarra con arroz", r:2.5, cat:"miranda"},
@@ -812,7 +818,6 @@ const DEFAULT_FOODS = [
   {name:"buñuelos de merluza con ensalada", r:2.0, cat:"miranda"},
   {name:"costillas bbq con patatas", r:3.0, cat:"miranda"},
   {name:"boquerones andaluza con couscous y verduritas", r:3.0, cat:"miranda"},
-
   {name:"sopa de fideos", r:2.0, cat:"plato"},
   {name:"guisantes con jamón", r:1.5, cat:"plato"},
   {name:"crema de verduras", r:1.0, cat:"plato"}
@@ -872,12 +877,10 @@ function loadParams(meal){
     isf:(s!==null)?Number(s):DEFAULT_PARAMS[meal].isf
   };
 }
-
 function saveParams(meal, ratio, isf){
   localStorage.setItem("ratio_" + meal, String(ratio));
   localStorage.setItem("isf_" + meal, String(isf));
 }
-
 function resetParams(meal){
   localStorage.removeItem("ratio_" + meal);
   localStorage.removeItem("isf_" + meal);
@@ -888,15 +891,11 @@ function loadEntries(){
     const raw = localStorage.getItem(ENTRIES_KEY);
     const arr = raw ? JSON.parse(raw) : [];
     return Array.isArray(arr) ? arr : [];
-  }catch{
-    return [];
-  }
+  }catch{return []}
 }
-
 function saveEntries(arr){
   localStorage.setItem(ENTRIES_KEY, JSON.stringify(arr));
 }
-
 function saveEntry(entry){
   const arr = loadEntries();
   arr.push(entry);
@@ -908,10 +907,8 @@ function loadCategories(){
     const raw = localStorage.getItem(CATS_KEY);
     const custom = raw ? JSON.parse(raw) : [];
     if(!Array.isArray(custom) || !custom.length) return DEFAULT_CATEGORIES.slice();
-
     const merged = [...DEFAULT_CATEGORIES.filter(c=>c.id==="all")];
     const seen = new Set(["all"]);
-
     for(const c of [...DEFAULT_CATEGORIES.filter(c=>c.id!=="all"), ...custom]){
       if(c && c.id && !seen.has(c.id)){
         merged.push(c);
@@ -923,7 +920,6 @@ function loadCategories(){
     return DEFAULT_CATEGORIES.slice();
   }
 }
-
 function saveCategories(arr){
   localStorage.setItem(CATS_KEY, JSON.stringify(arr.filter(c=>c.id!=="all")));
 }
@@ -933,23 +929,19 @@ function loadFoods(){
     const raw = localStorage.getItem(FOODS_KEY);
     const custom = raw ? JSON.parse(raw) : [];
     const map = new Map();
-
     for(const f of DEFAULT_FOODS){
       map.set(norm(f.name), {name:f.name, r:Number(f.r), cat:f.cat});
     }
-
     for(const f of custom){
       if(f?.name){
         map.set(norm(f.name), {name:String(f.name), r:Number(f.r), cat:f.cat || "otros"});
       }
     }
-
     return Array.from(map.values()).sort((a,b)=>norm(a.name).localeCompare(norm(b.name)));
   }catch{
     return DEFAULT_FOODS.slice();
   }
 }
-
 function saveCustomFood(food){
   const raw = localStorage.getItem(FOODS_KEY);
   const arr = raw ? JSON.parse(raw) : [];
@@ -960,7 +952,6 @@ function saveCustomFood(food){
 function getCategoryById(id){
   return CATEGORIES.find(c => c.id === id);
 }
-
 function foodEmoji(food){
   return getCategoryById(food.cat)?.emoji || "🍽️";
 }
@@ -971,12 +962,10 @@ function calcInpen({bg, goal, hc, ratio, isf, iob}){
   const corrEff = Math.max(0, corr - iob);
   return { bolusHC, corr, corrEff, bolus: bolusHC + corrEff };
 }
-
 function roundHalf(x){
   return Math.round(x * 2) / 2;
 }
 
-/* picker */
 const pickerState = {
   target:null,
   values:[],
@@ -1093,7 +1082,6 @@ function totals(){
 
 function renderSelected(){
   const box = $("selectedList");
-
   if(selected.length === 0){
     box.className = "muted";
     box.textContent = "Aún no has añadido alimentos.";
@@ -1276,7 +1264,6 @@ function renderSuggestions(){
 function selectSuggestion(idx){
   const f = suggestions[idx];
   if(!f) return;
-
   selected.push({name:f.name, r:Number(f.r), cat:f.cat});
   activeIndex = -1;
   syncMenuTotalsToUI();
@@ -1332,9 +1319,7 @@ function updateParamsUI(){
   $("ratioNow").textContent = p.ratio.toFixed(2);
   $("isfNow").textContent = p.isf.toFixed(0);
   $("ratioEdit").value = p.ratio.toFixed(2);
-  if($("ratioEditTop")){
-    $("ratioEditTop").value = p.ratio.toFixed(2);
-  }
+  if($("ratioEditTop")) $("ratioEditTop").value = p.ratio.toFixed(2);
   $("isfEdit").value = p.isf.toFixed(0);
   renderNumberDisplays();
   updateOp();
