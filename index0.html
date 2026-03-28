@@ -2,56 +2,268 @@
 <html lang="es">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Menú</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Menú · App Yago</title>
 <style>
+:root{
+  --bg:#f4f7ff;
+  --card:#ffffff;
+  --txt:#0f172a;
+  --muted:#64748b;
+  --border:#dbe3ff;
+  --shadow:0 10px 26px rgba(15,23,42,.10);
+  --blue:#2563eb;
+  --blueSoft:#eef4ff;
+  --green:#16a34a;
+  --violet:#7c3aed;
+  --orange:#f59e0b;
+  --radius:18px;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  padding:14px;
+  font-family:-apple-system,system-ui,Segoe UI,Arial,sans-serif;
+  background:
+    linear-gradient(180deg,#eef2ff 0%,#f8fafc 70%,#ffffff 100%);
+  color:var(--txt);
+}
+
+.wrap{
+  max-width:720px;
+  margin:0 auto;
+}
+
+.hero{
+  background:linear-gradient(135deg,#2563eb 0%,#4f46e5 100%);
+  color:#fff;
+  border-radius:24px;
+  padding:18px 18px 16px;
+  box-shadow:0 16px 36px rgba(37,99,235,.22);
+  margin-bottom:12px;
+}
+
+.heroTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.heroBadge{
+  background:rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;
+  padding:6px 10px;
+  font-size:12px;
+  font-weight:800;
+  backdrop-filter:blur(6px);
+}
+
+.hero h1{
+  margin:0;
+  font-size:26px;
+  line-height:1.05;
+  font-weight:1000;
+  letter-spacing:-0.02em;
+}
+
+.hero p{
+  margin:10px 0 0;
+  font-size:14px;
+  line-height:1.35;
+  opacity:.96;
+}
+
+.menuCard{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:10px;
+  box-shadow:var(--shadow);
+}
+
+.menuGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.menuBtn{
+  display:block;
+  text-decoration:none;
+  color:inherit;
+}
+
+.menuItem{
+  position:relative;
+  min-height:108px;
+  border-radius:20px;
+  padding:14px;
+  border:1px solid var(--border);
+  background:linear-gradient(180deg,#ffffff 0%,#f8fbff 100%);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  box-shadow:0 6px 16px rgba(15,23,42,.05);
+}
+
+.menuBtn:active .menuItem{
+  transform:scale(.985);
+}
+
+.menuItem:hover{
+  border-color:#bfd0ff;
+  box-shadow:0 10px 22px rgba(15,23,42,.09);
+}
+
+.menuItem.primary{
+  background:linear-gradient(135deg,#eef4ff 0%,#f7faff 100%);
+}
+
+.menuItem.review{
+  background:linear-gradient(135deg,#f5f3ff 0%,#faf8ff 100%);
+}
+
+.menuItem.history{
+  background:linear-gradient(135deg,#effcf5 0%,#f7fffb 100%);
+}
+
+.menuItem.goals{
+  background:linear-gradient(135deg,#fff7ed 0%,#fffdf8 100%);
+}
+
+.icon{
+  width:46px;
+  height:46px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  background:#fff;
+  border:1px solid var(--border);
+  box-shadow:0 6px 14px rgba(15,23,42,.06);
+}
+
+.menuItem.primary .icon{ color:var(--blue); }
+.menuItem.review .icon{ color:var(--violet); }
+.menuItem.history .icon{ color:var(--green); }
+.menuItem.goals .icon{ color:var(--orange); }
+
+.menuTitle{
+  font-size:20px;
+  font-weight:1000;
+  line-height:1.05;
+  letter-spacing:-0.02em;
+}
+
+.menuText{
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.3;
+  margin-top:4px;
+}
+
+.footerNote{
+  margin-top:12px;
+  text-align:center;
+  font-size:12px;
+  color:var(--muted);
+}
+
+@media (max-width: 560px){
   body{
-    font-family:-apple-system,system-ui,Segoe UI,Arial;
-    margin:8px;
-    background:#f6f6f6;
-    font-size:15px;
-  }
-  .box{
-    background:#fff;
-    border-radius:12px;
     padding:10px;
-    margin-bottom:10px;
-    box-shadow:0 1px 3px rgba(0,0,0,.12);
   }
-  h2{
-    margin:0 0 8px;
-    font-size:18px;
+
+  .hero{
+    padding:16px 14px 14px;
+    border-radius:22px;
   }
-  button{
-    width:100%;
-    padding:10px;
-    border-radius:10px;
-    border:none;
-    font-size:16px;
-    margin-top:8px;
-    font-weight:700;
-    color:#fff;
+
+  .hero h1{
+    font-size:23px;
   }
-  .green{ background:#34c759; }
-  .blue{ background:#007aff; }
-  .orange{ background:#f59e0b; }
-  .violet{ background:#7c3aed; }
-  .muted{
-    color:#666;
-    font-size:13px;
-    margin-top:6px;
+
+  .menuGrid{
+    grid-template-columns:1fr;
   }
+
+  .menuItem{
+    min-height:96px;
+  }
+
+  .menuTitle{
+    font-size:19px;
+  }
+}
 </style>
 </head>
 <body>
+  <div class="wrap">
 
-<div class="topNav">
-  <a href="index3.html"><button class="navBtn">App Yago</button></a>
-  <a href="index1.html"><button class="navBtn">Método Val</button></a>
-  <a href="index_goal_week.html"><button class="navBtn">Objetivos semana</button></a>
-  <a href="index3_review.html"><button class="navBtn">Revisión</button></a>
-  <a href="index4.html"><button class="navBtn">Histórico</button></a>
-</div>
+    <div class="hero">
+      <div class="heroTop">
+        <div class="heroBadge">🧒 Diabetes · Yago</div>
+      </div>
+      <h1>App Yago</h1>
+      <p>Menú principal para cálculo, revisión, histórico y objetivos semanales.</p>
+    </div>
 
+    <div class="menuCard">
+      <div class="menuGrid">
+
+        <a class="menuBtn" href="index3.html">
+          <div class="menuItem primary">
+            <div class="icon">🧮</div>
+            <div>
+              <div class="menuTitle">App Yago</div>
+              <div class="menuText">Cálculo rápido de comida, hidratos e insulina.</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="menuBtn" href="index3_review.html">
+          <div class="menuItem review">
+            <div class="icon">🔎</div>
+            <div>
+              <div class="menuTitle">Revisión</div>
+              <div class="menuText">Comprueba resultados y revisa cada franja.</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="menuBtn" href="index4.html">
+          <div class="menuItem history">
+            <div class="icon">📚</div>
+            <div>
+              <div class="menuTitle">Histórico</div>
+              <div class="menuText">Consulta y edita comidas guardadas.</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="menuBtn" href="index_goal_week.html">
+          <div class="menuItem goals">
+            <div class="icon">🎯</div>
+            <div>
+              <div class="menuTitle">Objetivos semana</div>
+              <div class="menuText">Define objetivos y comentarios por día y franja.</div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="footerNote">
+      App Yago · acceso rápido
+    </div>
+
+  </div>
 </body>
 </html>
