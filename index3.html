@@ -378,12 +378,13 @@ pre{
 </div>
 
 <div class="card">
-  <div class="title">
-    <h1>🧒 App Yago</h1>
-    <div class="badge">Categorías editables</div>
-  </div>
-  <div class="muted">El buscador encuentra cualquier alimento aunque haya otra categoría activa.</div>
+<div class="title">
+  <h1>🧒 App Yago</h1>
+  <div id="todayLabel" class="muted" style="text-align:center;flex:1;"></div>
+  <div class="badge">Categorías editables</div>
 </div>
+<div id="specialEventLabel" class="muted" style="text-align:center;margin-top:2px;"></div>
+<div class="muted">El buscador encuentra cualquier alimento aunque haya otra categoría activa.</div>
 
 <div class="card">
   <label>Franja</label>
@@ -397,14 +398,16 @@ pre{
         <span class="hint">▾</span>
       </div>
     </div>
-    <div>
-      <label>Glucosa objetivo</label>
-      <div id="goalPickerBtn" class="pickerField">
-        <span id="goalDisplay">100</span>
-        <span class="hint">▾</span>
-      </div>
-    </div>
+
+<div>
+  <label>Glucosa objetivo</label>
+  <div id="goalPickerBtn" class="pickerField">
+    <span id="goalDisplay">100</span>
+    <span class="hint">▾</span>
   </div>
+  <div id="goalNote" class="muted" style="margin-top:4px;"></div>
+</div>
+
 
   <div style="margin-top:8px">
     <label>Categorías</label>
@@ -447,7 +450,7 @@ pre{
   <div>
     <label>Insulina sin redondeo</label>
     <div class="pickerField">
-      <span id="bolusVal">—</span>
+      <span id="bolusRaw">—</span>
     </div>
   </div>
 
@@ -471,12 +474,14 @@ pre{
     <input id="ratioEdit" class="userField" style="color:#888" inputmode="decimal" />
   </div>
 
+<!--
   <div>
     <label style="color:#888">InPen</label>
     <div class="pickerField">
-      <span id="bolusRaw">—</span>
+      <span id="bolusRaw" style="color:#888">—</span>
     </div>
   </div>
+-->
 
 </div>
 
@@ -575,6 +580,7 @@ pre{
 
 <script>
 const GOAL_KEY = "goal_glucose";
+const GOALS_WEEK_KEY = "goals_week_v1";
 const ENTRIES_KEY = "inpen_entries_v1";
 const FOODS_KEY = "foods_custom_v3";
 const CATS_KEY = "cats_custom_v2";
@@ -703,6 +709,54 @@ const slug = (s)=> norm(s).replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"") || 
 
 function getGoal(){ return Number(localStorage.getItem(GOAL_KEY)) || 100; }
 function setGoal(v){ localStorage.setItem(GOAL_KEY, String(v)); }
+
+function loadWeeklyGoals(){
+  try{
+    return JSON.parse(localStorage.getItem(GOALS_WEEK_KEY)) || {};
+  }catch{
+    return {};
+  }
+}
+
+function getTodayId(){
+  const jsDay = new Date().getDay();
+  const map = ["domingo","lunes","martes","miercoles","jueves","viernes","sabado"];
+  return map[jsDay];
+}
+
+function renderTodayLabel(){
+  const days = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+  const d = new Date();
+  const today = days[d.getDay()];
+  const date = d.getDate();
+
+  $("todayLabel").textContent = `${today} ${date}`;
+}
+
+function getWeeklyGoalForToday(meal){
+  const week = loadWeeklyGoals();
+  const today = getTodayId();
+  return week?.[today]?.[meal]?.goal ?? getGoal();
+}
+
+function getWeeklyNoteForToday(meal){
+  const week = loadWeeklyGoals();
+  const today = getTodayId();
+  return week?.[today]?.[meal]?.note || "";
+}
+
+function renderTodayLabel(){
+  const days = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+  const today = days[new Date().getDay()];
+  $("todayLabel").textContent = today;
+}
+
+function renderSpecialEventLabel(){
+  const meal = currentMeal();
+  const note = getWeeklyNoteForToday(meal);
+
+  $("specialEventLabel").textContent = note ? `📝 ${note}` : "";
+}
 
 function loadParams(meal){
   const r = localStorage.getItem("ratio_" + meal);
@@ -847,6 +901,16 @@ function renderNumberDisplays(){
   $("iobDisplay").textContent = Number(formState.iob).toFixed(1);
   $("insulinDisplay").textContent = Number(formState.insulinPut).toFixed(1);
   $("goalNow").textContent = Math.round(formState.goal);
+}
+
+function applyWeeklyGoalForCurrentMeal(){
+  const meal = currentMeal();
+  formState.goal = getWeeklyGoalForToday(meal);
+  renderNumberDisplays();
+
+  const note = getWeeklyNoteForToday(meal);
+  $("goalNote").textContent = note ? `📝 ${note}` : "";
+  renderSpecialEventLabel();
 }
 
 function openPicker({title, values, current, formatter, target, sub=""}){
@@ -1191,9 +1255,10 @@ function calculateOnly(){
 
   const res = calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
   lastBolus = res.bolus;
+
   $("bolusRaw").textContent = lastBolus.toFixed(2);
   $("bolusRounded").textContent = roundHalf(lastBolus).toFixed(1);
-  $("bolusVal").textContent = res.bolusVal.toFixed(2);
+
   updateOp();
   lastCalcSnapshot = snapshotState();
   return res;
@@ -1207,13 +1272,15 @@ function calculateOnly(){
     $("meal").appendChild(o);
   });
 
-  renderNumberDisplays();
-  renderCategories();
-  renderCategoryTable();
-  updateParamsUI();
-  renderSelected();
-  $("hc").value = "";
-  updateCloseFoodBtn();
+renderNumberDisplays();
+renderTodayLabel();
+renderCategories();
+renderCategoryTable();
+updateParamsUI();
+renderSelected();
+$("hc").value = "";
+updateCloseFoodBtn();
+applyWeeklyGoalForCurrentMeal();
 
   $("bgPickerBtn").addEventListener("click", ()=>{
     openPicker({
@@ -1357,7 +1424,10 @@ function calculateOnly(){
     updateOp();
   });
 
-  $("meal").addEventListener("change", updateParamsUI);
+$("meal").addEventListener("change", ()=>{
+  updateParamsUI();
+  applyWeeklyGoalForCurrentMeal();
+});
 
   $("saveParams").addEventListener("click", ()=>{
     const r = num($("ratioEdit").value);

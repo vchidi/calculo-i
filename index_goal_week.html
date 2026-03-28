@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Objetivos semanales</title>
+<style>
+:root{
+  --bg:#f4f7ff;
+  --card:#fff;
+  --txt:#0f172a;
+  --muted:#64748b;
+  --border:#dbe3ff;
+  --shadow:0 10px 26px rgba(15,23,42,.10);
+  --blue:#2563eb;
+  --green:#16a34a;
+  --orange:#f59e0b;
+  --violet:#7c3aed;
+  --soft:#eef4ff;
+  --softBorder:#c7d6ff;
+  --radius:16px;
+}
+*{box-sizing:border-box}
+body{
+  font-family:-apple-system,system-ui,Segoe UI,Arial;
+  margin:8px;
+  background:linear-gradient(180deg,#eef2ff 0%,#f8fafc 70%);
+  color:var(--txt);
+  font-size:14px;
+}
+.topNav{display:flex;gap:6px;margin-bottom:8px}
+.topNav a{flex:1;text-decoration:none}
+.navBtn{
+  width:100%;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:#fff;
+  padding:8px;
+  font-weight:950;
+  font-size:14px;
+}
+.card{
+  background:var(--card);
+  border-radius:16px;
+  padding:8px;
+  margin-bottom:8px;
+  box-shadow:var(--shadow);
+  border:1px solid rgba(219,227,255,.9);
+}
+.title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:6px;
+}
+.title h1{
+  font-size:16px;
+  margin:0;
+  font-weight:1100;
+}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  background:#eef2ff;
+  border:1px solid var(--border);
+  padding:4px 8px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:950;
+  color:#1e293b;
+}
+label{
+  font-weight:950;
+  font-size:12px;
+}
+input,select,button,textarea{
+  width:100%;
+  padding:9px;
+  margin-top:4px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  font-size:14px;
+  background:#fff;
+}
+textarea{
+  resize:vertical;
+  min-height:72px;
+}
+button{
+  border:none;
+  font-weight:1100;
+}
+.userField{
+  background:var(--soft);
+  border:1px solid var(--softBorder);
+}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.btnBlue{background:var(--blue);color:#fff}
+.btnGreen{background:var(--green);color:#fff}
+.btnGhost{background:#eef2ff;color:#0f172a;border:1px solid var(--border)}
+.btnOrange{background:var(--orange);color:#0f172a}
+.muted{color:var(--muted);font-size:12px;line-height:1.25}
+.ok{color:#166534;font-weight:1100;margin-top:6px}
+.err{color:#b00020;font-weight:1100;margin-top:6px}
+
+#weekContainer{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:8px;
+}
+
+.daySection{
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:8px;
+  margin-top:0;
+  background:linear-gradient(180deg,#fff 0%,#f7faff 100%);
+}
+
+.dayTitle{
+  font-size:14px;
+  font-weight:1100;
+  margin-bottom:6px;
+}
+
+.topActions{
+  display:flex;
+  gap:8px;
+  margin-top:8px;
+}
+.topActions button{flex:1}
+
+.weekTable{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:4px;
+}
+
+.weekTable th{
+  text-align:left;
+  font-size:11px;
+  color:var(--muted);
+  font-weight:900;
+  padding:4px 6px;
+  border-bottom:1px solid var(--border);
+}
+
+.weekTable td{
+  padding:4px 6px;
+  vertical-align:middle;
+  border-bottom:1px dashed #e7edff;
+}
+
+.weekTable tr:last-child td{
+  border-bottom:none;
+}
+
+.mealCell{
+  font-size:12px;
+  font-weight:900;
+  white-space:nowrap;
+  width:92px;
+}
+
+.goalCell{
+  width:84px;
+}
+
+.noteCell{
+  width:auto;
+}
+
+.compactInput{
+  margin-top:0;
+  padding:8px 10px;
+  font-size:13px;
+  border-radius:12px;
+}
+</style>
+</head>
+<body>
+
+<div class="topNav">
+  <a href="index0.html"><button class="navBtn">⬅ Menú</button></a>
+  <a href="index3.html"><button class="navBtn">App Yago</button></a>
+  <a href="index3_review.html"><button class="navBtn">Revisión</button></a>
+  <a href="index4.html"><button class="navBtn">Histórico</button></a>
+</div>
+
+<div class="card">
+  <div class="title">
+    <h1>🎯 Objetivos por día y franja</h1>
+    <div class="badge">Automático</div>
+  </div>
+  <div class="muted">
+    Define un objetivo distinto para cada día y cada franja. También puedes añadir un comentario, por ejemplo: <b>PE 12:00 a 13:00</b>.
+  </div>
+
+  <div class="topActions">
+    <button id="saveAll" class="btnGreen">💾 Guardar todo</button>
+    <button id="resetWeek" class="btnGhost">↺ Reset semanal</button>
+  </div>
+
+  <div id="ok" class="ok"></div>
+  <div id="err" class="err"></div>
+</div>
+
+<div id="weekContainer"></div>
+
+<script>
+const GOAL_KEY = "goal_glucose";
+const GOALS_WEEK_KEY = "goals_week_v1";
+
+const DAYS = [
+  {id:"lunes", label:"Lunes"},
+  {id:"martes", label:"Martes"},
+  {id:"miercoles", label:"Miércoles"},
+  {id:"jueves", label:"Jueves"},
+  {id:"viernes", label:"Viernes"},
+  {id:"sabado", label:"Sábado"},
+  {id:"domingo", label:"Domingo"}
+];
+
+const MEALS = ["Desayuno","Snack","Comida","Merienda cole","Cena"];
+
+function getDefaultGoal(){
+  return Number(localStorage.getItem(GOAL_KEY)) || 100;
+}
+
+function loadWeeklyGoals(){
+  try{
+    return JSON.parse(localStorage.getItem(GOALS_WEEK_KEY)) || {};
+  }catch{
+    return {};
+  }
+}
+
+function saveWeeklyGoals(data){
+  localStorage.setItem(GOALS_WEEK_KEY, JSON.stringify(data));
+}
+
+function buildWeekData(){
+  const saved = loadWeeklyGoals();
+  const baseGoal = getDefaultGoal();
+  const out = {};
+
+  for(const day of DAYS){
+    out[day.id] = {};
+    for(const meal of MEALS){
+      out[day.id][meal] = {
+        goal: saved?.[day.id]?.[meal]?.goal ?? baseGoal,
+        note: saved?.[day.id]?.[meal]?.note ?? ""
+      };
+    }
+  }
+  return out;
+}
+
+function escapeHtml(str){
+  return String(str || "")
+    .replaceAll("&","&amp;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;");
+}
+
+function renderWeekEditor(){
+  const data = buildWeekData();
+  const box = document.getElementById("weekContainer");
+
+  box.innerHTML = DAYS.map(day => `
+    <div class="card daySection">
+      <div class="dayTitle">📅 ${day.label}</div>
+
+      <table class="weekTable">
+        <thead>
+          <tr>
+            <th>Franja</th>
+            <th>Objetivo</th>
+            <th>Comentario</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${MEALS.map(meal => `
+            <tr>
+              <td class="mealCell">${meal}</td>
+              <td class="goalCell">
+                <input
+                  type="number"
+                  class="userField compactInput goalInput"
+                  data-day="${day.id}"
+                  data-meal="${meal}"
+                  value="${data[day.id][meal].goal}"
+                />
+              </td>
+              <td class="noteCell">
+                <input
+                  type="text"
+                  class="userField compactInput noteInput"
+                  data-day="${day.id}"
+                  data-meal="${meal}"
+                  value="${escapeHtml(data[day.id][meal].note)}"
+                  placeholder="Comentario"
+                />
+              </td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `).join("");
+}
+
+function collectWeekDataFromUI(){
+  const out = {};
+
+  for(const day of DAYS){
+    out[day.id] = {};
+    for(const meal of MEALS){
+      const goalEl = document.querySelector(`.goalInput[data-day="${day.id}"][data-meal="${meal}"]`);
+      const noteEl = document.querySelector(`.noteInput[data-day="${day.id}"][data-meal="${meal}"]`);
+
+      const goal = Number(goalEl.value);
+      const note = String(noteEl.value || "").trim();
+
+      out[day.id][meal] = {
+        goal: isFinite(goal) && goal > 0 ? goal : getDefaultGoal(),
+        note
+      };
+    }
+  }
+
+  return out;
+}
+
+document.getElementById("saveAll").addEventListener("click", ()=>{
+  document.getElementById("ok").textContent = "";
+  document.getElementById("err").textContent = "";
+
+  const data = collectWeekDataFromUI();
+  saveWeeklyGoals(data);
+
+  document.getElementById("ok").textContent = "Objetivos semanales guardados ✅";
+});
+
+document.getElementById("resetWeek").addEventListener("click", ()=>{
+  document.getElementById("ok").textContent = "";
+  document.getElementById("err").textContent = "";
+
+  const yes = confirm("¿Seguro que quieres borrar toda la configuración semanal?");
+  if(!yes) return;
+
+  localStorage.removeItem(GOALS_WEEK_KEY);
+  renderWeekEditor();
+
+  document.getElementById("ok").textContent = "Configuración semanal reseteada ✅";
+});
+
+renderWeekEditor();
+</script>
+</body>
+</html>
