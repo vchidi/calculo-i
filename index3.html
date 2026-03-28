@@ -20,7 +20,9 @@
   --softBorder:#c7d6ff;
   --radius:16px;
 }
+
 *{box-sizing:border-box}
+
 body{
   font-family:-apple-system,system-ui,Segoe UI,Arial;
   margin:8px;
@@ -28,8 +30,16 @@ body{
   color:var(--txt);
   font-size:15px;
 }
-.topNav{display:flex;gap:6px;margin-bottom:8px}
-.topNav a{flex:1;text-decoration:none}
+
+.topNav{
+  display:flex;
+  gap:6px;
+  margin-bottom:8px;
+}
+.topNav a{
+  flex:1;
+  text-decoration:none;
+}
 .navBtn{
   width:100%;
   border-radius:14px;
@@ -39,6 +49,7 @@ body{
   font-weight:950;
   font-size:14px;
 }
+
 .card{
   background:var(--card);
   border-radius:var(--radius);
@@ -47,6 +58,7 @@ body{
   box-shadow:var(--shadow);
   border:1px solid rgba(219,227,255,.9);
 }
+
 .title{
   display:flex;
   align-items:center;
@@ -59,6 +71,7 @@ body{
   margin:0;
   font-weight:1100;
 }
+
 .badge{
   display:inline-flex;
   align-items:center;
@@ -70,15 +83,18 @@ body{
   font-weight:950;
   color:#1e293b;
 }
+
 .muted{
   color:var(--muted);
   font-size:12px;
   line-height:1.2;
 }
+
 label{
   font-weight:950;
   font-size:12px;
 }
+
 input,select,button,textarea{
   width:100%;
   padding:10px;
@@ -88,18 +104,22 @@ input,select,button,textarea{
   font-size:15px;
   background:#fff;
 }
+
 textarea{
   resize:vertical;
   min-height:92px;
 }
+
 button{
   border:none;
   font-weight:1100;
 }
+
 .userField{
   background:var(--soft);
   border:1px solid var(--softBorder);
 }
+
 .pickerField{
   background:var(--soft);
   border:1px solid var(--softBorder);
@@ -118,13 +138,24 @@ button{
   color:var(--muted);
   font-weight:600;
 }
-.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.row3{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:8px;
+}
+
 .btnBlue{background:var(--blue);color:#fff}
 .btnGreen{background:var(--green);color:#fff}
 .btnGhost{background:#eef2ff;color:#0f172a;border:1px solid var(--border)}
 .btnOrange{background:var(--orange);color:#0f172a}
 .btnViolet{background:var(--violet);color:#fff}
+
 .pill{
   border-radius:16px;
   padding:8px;
@@ -133,6 +164,7 @@ button{
 }
 .pill .k{font-size:11px;color:var(--muted);font-weight:950}
 .pill .v{font-size:18px;font-weight:1200}
+
 .err{color:#b00020;font-weight:1100;margin-top:6px}
 .ok{color:#166534;font-weight:1100;margin-top:6px}
 
@@ -194,6 +226,7 @@ button{
 }
 .acItem:last-child{border-bottom:none}
 .acItem:hover,.acItem.active{background:#eaf0ff}
+
 .emoji{
   font-size:18px;
   width:22px;
@@ -208,6 +241,7 @@ button{
   padding:8px;
   background:#fff;
 }
+
 .foodTable,.miniTable{
   width:100%;
   border-collapse:collapse;
@@ -220,7 +254,9 @@ button{
   font-size:14px;
 }
 .foodTable tr:last-child td,.miniTable tr:last-child td{border-bottom:none}
+
 .foodName{font-weight:1000}
+
 .rInline{
   width:72px;
   margin:0;
@@ -229,12 +265,14 @@ button{
   font-size:13px;
   text-align:center;
 }
+
 .gInline{
   font-size:13px;
   font-weight:900;
   white-space:nowrap;
   text-align:right;
 }
+
 .xBtn{
   width:auto;
   margin:0;
@@ -245,6 +283,7 @@ button{
   font-weight:1100;
   font-size:13px;
 }
+
 .miniBtn{
   width:auto;
   padding:6px 10px;
@@ -255,6 +294,7 @@ button{
   font-weight:1000;
   margin:0;
 }
+
 details{
   border:1px solid var(--border);
   border-radius:16px;
@@ -270,6 +310,7 @@ summary{
 }
 summary::-webkit-details-marker{display:none}
 .detailsBody{padding:10px}
+
 pre{
   background:#f3f6ff;
   border:1px solid var(--border);
@@ -362,9 +403,94 @@ pre{
   text-align:center;
   margin-top:8px;
 }
-.row > div {
-  flex: 1;
-  min-width: 120px;
+
+/* ===== Responsive iPhone vertical ===== */
+@media (max-width: 768px){
+
+  body{
+    margin:6px;
+    font-size:14px;
+  }
+
+  .topNav{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px;
+  }
+
+  .title{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:4px;
+    text-align:center;
+  }
+
+  .title h1{
+    justify-self:center;
+  }
+
+  .badge{
+    justify-self:center;
+  }
+
+  .row,
+  .row3{
+    grid-template-columns:1fr !important;
+  }
+
+  .catGrid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .catBtn{
+    min-height:92px;
+  }
+
+  .pickerField{
+    min-height:42px;
+    padding:10px 12px;
+  }
+
+  input,select,button,textarea{
+    font-size:16px;
+  }
+
+  .foodTable td,.miniTable td{
+    font-size:13px;
+  }
+
+  .pill .v{
+    font-size:16px;
+  }
+
+  .hcRowMobile{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:8px !important;
+  }
+
+  .calcSaveRow{
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:8px !important;
+  }
+
+  .insulinSummaryRow{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:10px !important;
+    align-items:stretch !important;
+  }
+
+  .insulinSummaryRow > div{
+    min-width:0 !important;
+  }
+
+  .menuActions{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:8px !important;
+  }
 }
 </style>
 </head>
@@ -378,13 +504,14 @@ pre{
 </div>
 
 <div class="card">
-<div class="title">
-  <h1>🧒 App Yago</h1>
-  <div id="todayLabel" class="muted" style="text-align:center;flex:1;"></div>
-  <div class="badge">Categorías editables</div>
+  <div class="title">
+    <h1>🧒 App Yago</h1>
+    <div id="todayLabel" class="muted" style="text-align:center;flex:1;"></div>
+    <div class="badge">Categorías editables</div>
+  </div>
+  <div id="specialEventLabel" class="muted" style="text-align:center;margin-top:2px;"></div>
+  <div class="muted">El buscador encuentra cualquier alimento aunque haya otra categoría activa.</div>
 </div>
-<div id="specialEventLabel" class="muted" style="text-align:center;margin-top:2px;"></div>
-<div class="muted">El buscador encuentra cualquier alimento aunque haya otra categoría activa.</div>
 
 <div class="card">
   <label>Franja</label>
@@ -399,15 +526,15 @@ pre{
       </div>
     </div>
 
-<div>
-  <label>Glucosa objetivo</label>
-  <div id="goalPickerBtn" class="pickerField">
-    <span id="goalDisplay">100</span>
-    <span class="hint">▾</span>
+    <div>
+      <label>Glucosa objetivo</label>
+      <div id="goalPickerBtn" class="pickerField">
+        <span id="goalDisplay">100</span>
+        <span class="hint">▾</span>
+      </div>
+      <div id="goalNote" class="muted" style="margin-top:4px;"></div>
+    </div>
   </div>
-  <div id="goalNote" class="muted" style="margin-top:4px;"></div>
-</div>
-
 
   <div style="margin-top:8px">
     <label>Categorías</label>
@@ -425,7 +552,7 @@ pre{
       <div id="acList" class="acList" style="display:none;"></div>
     </div>
 
-    <div style="margin-top:8px">
+    <div class="menuActions" style="margin-top:8px">
       <button id="clearMenu" class="btnGhost">🧼 Vaciar</button>
     </div>
 
@@ -434,58 +561,47 @@ pre{
 
       <div style="margin-top:8px">
         <label>HC totales (g)</label>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:5px;align-items:center;">
+        <div class="hcRowMobile" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:5px;align-items:center;">
           <input id="hc" class="userField" inputmode="decimal" placeholder="" />
           <button id="recalcHc" class="btnGhost" style="width:100%;padding:10px 12px;margin-top:0;">♻️ HC automático</button>
         </div>
       </div>
 
-      <div class="row3" style="margin-top:8px; display:flex; gap:8px">
-        <button id="calc" class="btnBlue" style="flex:1">🧮 Calcular</button>
-        <button id="saveHistory" class="btnGreen" style="flex:1">💾 Guardar</button>
+      <div class="calcSaveRow" style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <button id="calc" class="btnBlue">🧮 Calcular</button>
+        <button id="saveHistory" class="btnGreen">💾 Guardar</button>
       </div>
 
-<div class="row" style="margin-top:8px; display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap">
+      <div class="insulinSummaryRow" style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:flex-end;">
 
-  <div>
-    <label>Insulina sin redondeo</label>
-    <div class="pickerField">
-      <span id="bolusRaw">—</span>
-    </div>
-  </div>
+        <div>
+          <label>Insulina sin redondeo</label>
+          <div class="pickerField">
+            <span id="bolusRaw">—</span>
+          </div>
+        </div>
 
-  <div>
-    <label>Con redondeo</label>
-    <div class="pickerField">
-      <span id="bolusRounded">—</span>
-    </div>
-  </div>
+        <div>
+          <label>Con redondeo</label>
+          <div class="pickerField">
+            <span id="bolusRounded">—</span>
+          </div>
+        </div>
 
-  <div>
-    <label>Insulina puesta (U)</label>
-    <div id="insulinPickerBtn" class="pickerField">
-      <span id="insulinDisplay">0.0</span>
-      <span class="hint">▾</span>
-    </div>
-  </div>
+        <div>
+          <label>Insulina puesta (U)</label>
+          <div id="insulinPickerBtn" class="pickerField">
+            <span id="insulinDisplay">0.0</span>
+            <span class="hint">▾</span>
+          </div>
+        </div>
 
-  <div>
-    <label style="color:#888">HC/i (g/U)</label>
-    <input id="ratioEdit" class="userField" style="color:#888" inputmode="decimal" />
-  </div>
+        <div>
+          <label>HC/i (g/U)</label>
+          <input id="ratioEditTop" class="userField" inputmode="decimal" readonly />
+        </div>
 
-<!--
-  <div>
-    <label style="color:#888">InPen</label>
-    <div class="pickerField">
-      <span id="bolusRaw" style="color:#888">—</span>
-    </div>
-  </div>
--->
-
-</div>
-
-
+      </div>
 
       <div id="err" class="err"></div>
       <div id="ok" class="ok"></div>
@@ -726,11 +842,8 @@ function getTodayId(){
 
 function renderTodayLabel(){
   const days = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
-  const d = new Date();
-  const today = days[d.getDay()];
-  const date = d.getDate();
-
-  $("todayLabel").textContent = `${today} ${date}`;
+  const today = days[new Date().getDay()];
+  $("todayLabel").textContent = today;
 }
 
 function getWeeklyGoalForToday(meal){
@@ -745,16 +858,9 @@ function getWeeklyNoteForToday(meal){
   return week?.[today]?.[meal]?.note || "";
 }
 
-function renderTodayLabel(){
-  const days = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
-  const today = days[new Date().getDay()];
-  $("todayLabel").textContent = today;
-}
-
 function renderSpecialEventLabel(){
   const meal = currentMeal();
   const note = getWeeklyNoteForToday(meal);
-
   $("specialEventLabel").textContent = note ? `📝 ${note}` : "";
 }
 
@@ -766,10 +872,12 @@ function loadParams(meal){
     isf:(s!==null)?Number(s):DEFAULT_PARAMS[meal].isf
   };
 }
+
 function saveParams(meal, ratio, isf){
   localStorage.setItem("ratio_" + meal, String(ratio));
   localStorage.setItem("isf_" + meal, String(isf));
 }
+
 function resetParams(meal){
   localStorage.removeItem("ratio_" + meal);
   localStorage.removeItem("isf_" + meal);
@@ -780,11 +888,15 @@ function loadEntries(){
     const raw = localStorage.getItem(ENTRIES_KEY);
     const arr = raw ? JSON.parse(raw) : [];
     return Array.isArray(arr) ? arr : [];
-  }catch{return []}
+  }catch{
+    return [];
+  }
 }
+
 function saveEntries(arr){
   localStorage.setItem(ENTRIES_KEY, JSON.stringify(arr));
 }
+
 function saveEntry(entry){
   const arr = loadEntries();
   arr.push(entry);
@@ -796,8 +908,10 @@ function loadCategories(){
     const raw = localStorage.getItem(CATS_KEY);
     const custom = raw ? JSON.parse(raw) : [];
     if(!Array.isArray(custom) || !custom.length) return DEFAULT_CATEGORIES.slice();
+
     const merged = [...DEFAULT_CATEGORIES.filter(c=>c.id==="all")];
     const seen = new Set(["all"]);
+
     for(const c of [...DEFAULT_CATEGORIES.filter(c=>c.id!=="all"), ...custom]){
       if(c && c.id && !seen.has(c.id)){
         merged.push(c);
@@ -809,6 +923,7 @@ function loadCategories(){
     return DEFAULT_CATEGORIES.slice();
   }
 }
+
 function saveCategories(arr){
   localStorage.setItem(CATS_KEY, JSON.stringify(arr.filter(c=>c.id!=="all")));
 }
@@ -818,19 +933,23 @@ function loadFoods(){
     const raw = localStorage.getItem(FOODS_KEY);
     const custom = raw ? JSON.parse(raw) : [];
     const map = new Map();
+
     for(const f of DEFAULT_FOODS){
       map.set(norm(f.name), {name:f.name, r:Number(f.r), cat:f.cat});
     }
+
     for(const f of custom){
       if(f?.name){
         map.set(norm(f.name), {name:String(f.name), r:Number(f.r), cat:f.cat || "otros"});
       }
     }
+
     return Array.from(map.values()).sort((a,b)=>norm(a.name).localeCompare(norm(b.name)));
   }catch{
     return DEFAULT_FOODS.slice();
   }
 }
+
 function saveCustomFood(food){
   const raw = localStorage.getItem(FOODS_KEY);
   const arr = raw ? JSON.parse(raw) : [];
@@ -841,6 +960,7 @@ function saveCustomFood(food){
 function getCategoryById(id){
   return CATEGORIES.find(c => c.id === id);
 }
+
 function foodEmoji(food){
   return getCategoryById(food.cat)?.emoji || "🍽️";
 }
@@ -849,8 +969,7 @@ function calcInpen({bg, goal, hc, ratio, isf, iob}){
   const bolusHC = hc / ratio;
   const corr = (bg - goal) / isf;
   const corrEff = Math.max(0, corr - iob);
-  const bolusVal = bolusHC + corr;
-  return { bolusHC, corr, corrEff, bolus: bolusHC + corrEff, bolusVal };
+  return { bolusHC, corr, corrEff, bolus: bolusHC + corrEff };
 }
 
 function roundHalf(x){
@@ -974,6 +1093,7 @@ function totals(){
 
 function renderSelected(){
   const box = $("selectedList");
+
   if(selected.length === 0){
     box.className = "muted";
     box.textContent = "Aún no has añadido alimentos.";
@@ -1156,6 +1276,7 @@ function renderSuggestions(){
 function selectSuggestion(idx){
   const f = suggestions[idx];
   if(!f) return;
+
   selected.push({name:f.name, r:Number(f.r), cat:f.cat});
   activeIndex = -1;
   syncMenuTotalsToUI();
@@ -1211,6 +1332,9 @@ function updateParamsUI(){
   $("ratioNow").textContent = p.ratio.toFixed(2);
   $("isfNow").textContent = p.isf.toFixed(0);
   $("ratioEdit").value = p.ratio.toFixed(2);
+  if($("ratioEditTop")){
+    $("ratioEditTop").value = p.ratio.toFixed(2);
+  }
   $("isfEdit").value = p.isf.toFixed(0);
   renderNumberDisplays();
   updateOp();
@@ -1231,14 +1355,14 @@ function updateOp(){
     return;
   }
 
-const res = calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
+  const res = calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
 
-$("op").textContent =
+  $("op").textContent =
 `BolusHC = ${hc} / ${p.ratio.toFixed(2)} = ${res.bolusHC.toFixed(2)} U
 Corrección = (${bg}-${goal})/${p.isf} = ${res.corr.toFixed(2)} U
-BolusVal = ${res.bolusHC.toFixed(2)} + (${res.corr.toFixed(2)}) = ${res.bolusVal.toFixed(2)} U
 Corr. efectiva = max(0, ${res.corr.toFixed(2)} - ${iob.toFixed(1)}) = ${res.corrEff.toFixed(2)} U
-BolusInPen = ${res.bolus.toFixed(2)} U`;
+Insulina sin redondeo = ${res.bolus.toFixed(2)} U
+Con redondeo = ${roundHalf(res.bolus).toFixed(1)} U`;
 }
 
 function calculateOnly(){
@@ -1255,10 +1379,8 @@ function calculateOnly(){
 
   const res = calcInpen({bg, goal, hc, ratio:p.ratio, isf:p.isf, iob});
   lastBolus = res.bolus;
-
   $("bolusRaw").textContent = lastBolus.toFixed(2);
   $("bolusRounded").textContent = roundHalf(lastBolus).toFixed(1);
-
   updateOp();
   lastCalcSnapshot = snapshotState();
   return res;
@@ -1272,15 +1394,15 @@ function calculateOnly(){
     $("meal").appendChild(o);
   });
 
-renderNumberDisplays();
-renderTodayLabel();
-renderCategories();
-renderCategoryTable();
-updateParamsUI();
-renderSelected();
-$("hc").value = "";
-updateCloseFoodBtn();
-applyWeeklyGoalForCurrentMeal();
+  renderNumberDisplays();
+  renderTodayLabel();
+  renderCategories();
+  renderCategoryTable();
+  updateParamsUI();
+  renderSelected();
+  $("hc").value = "";
+  updateCloseFoodBtn();
+  applyWeeklyGoalForCurrentMeal();
 
   $("bgPickerBtn").addEventListener("click", ()=>{
     openPicker({
@@ -1322,7 +1444,7 @@ applyWeeklyGoalForCurrentMeal();
       current:formState.insulinPut,
       formatter:v=>Number(v).toFixed(1),
       target:"insulinPut",
-      sub:"Pasos de 0.1 U"
+      sub:"Pasos de 0.5 U"
     });
   });
 
@@ -1424,10 +1546,10 @@ applyWeeklyGoalForCurrentMeal();
     updateOp();
   });
 
-$("meal").addEventListener("change", ()=>{
-  updateParamsUI();
-  applyWeeklyGoalForCurrentMeal();
-});
+  $("meal").addEventListener("change", ()=>{
+    updateParamsUI();
+    applyWeeklyGoalForCurrentMeal();
+  });
 
   $("saveParams").addEventListener("click", ()=>{
     const r = num($("ratioEdit").value);
