@@ -363,7 +363,7 @@ pre{
   margin-top:8px;
 }
 
-/* ===== Layout compacto ===== */
+/* Layout compacto */
 .mainCompactLayout{
   display:grid;
   grid-template-columns:0.95fr 1.25fr;
@@ -435,7 +435,6 @@ pre{
   align-items:end;
 }
 
-/* ===== Responsive ===== */
 @media (max-width: 768px){
   body{
     margin:6px;
@@ -507,9 +506,9 @@ pre{
 
 <div class="topNav">
   <a href="index0.html"><button class="navBtn">⬅ Menú</button></a>
-  <a href="index1.html"><button class="navBtn">Método Val</button></a>
   <a href="index3_review.html"><button class="navBtn">Revisión</button></a>
   <a href="index4.html"><button class="navBtn">Histórico</button></a>
+  <a href="index_goal_week.html"><button class="navBtn">Objetivos semana</button></a>
 </div>
 
 <div class="card">
@@ -720,12 +719,28 @@ const FOODS_KEY = "foods_custom_v3";
 const CATS_KEY = "cats_custom_v2";
 
 const DEFAULT_PARAMS = {
-  "Desayuno":      { ratio: 3.75, isf: 25 },
-  "Snack":         { ratio: 5.36, isf: 25 },
-  "Comida":        { ratio: 7.14, isf: 30 },
-  "Merienda cole": { ratio: 8.06, isf: 30 },
-  "Cena":          { ratio: 8.65, isf: 30 }
+  "Desayuno":      { ratio: 3.9, isf: 25 },
+  "Snack":         { ratio: 5.4, isf: 25 },
+  "Comida":        { ratio: 7.9, isf: 30 },
+  "Merienda cole": { ratio: 6.8, isf: 30 },
+  "Cena":          { ratio: 7.2, isf: 30 }
 };
+
+const MEAL_OPTIONS = [
+  { value: "Desayuno", label: "Desayuno" },
+  { value: "Snack", label: "Snack" },
+  { value: "Comida", label: "Lunch" },
+  { value: "Merienda cole", label: "Merienda" },
+  { value: "Cena", label: "Cena" }
+];
+
+const MEAL_SCHEDULE = [
+  { meal: "Desayuno", start: "00:00", end: "10:29" },
+  { meal: "Snack", start: "10:30", end: "12:29" },
+  { meal: "Comida", start: "12:30", end: "16:29" },
+  { meal: "Merienda cole", start: "16:30", end: "19:29" },
+  { meal: "Cena", start: "19:30", end: "23:59" }
+];
 
 const GRAMS_PER_R = 10;
 
@@ -869,6 +884,32 @@ function renderSpecialEventLabel(){
   $("specialEventLabel").textContent = note ? `📝 ${note}` : "";
 }
 
+function timeToMinutes(hhmm){
+  const [h, m] = hhmm.split(":").map(Number);
+  return h * 60 + m;
+}
+
+function getCurrentMealByTime(){
+  const now = new Date();
+  const nowMinutes = now.getHours() * 60 + now.getMinutes();
+
+  for(const slot of MEAL_SCHEDULE){
+    const start = timeToMinutes(slot.start);
+    const end = timeToMinutes(slot.end);
+    if(nowMinutes >= start && nowMinutes <= end){
+      return slot.meal;
+    }
+  }
+  return "Desayuno";
+}
+
+function applyAutomaticMealByTime(){
+  const autoMeal = getCurrentMealByTime();
+  if($("meal") && autoMeal){
+    $("meal").value = autoMeal;
+  }
+}
+
 function loadParams(meal){
   const r = localStorage.getItem("ratio_" + meal);
   const s = localStorage.getItem("isf_" + meal);
@@ -959,7 +1000,8 @@ function foodEmoji(food){
 function calcInpen({bg, goal, hc, ratio, isf, iob}){
   const bolusHC = hc / ratio;
   const corr = (bg - goal) / isf;
-  const corrEff = Math.max(0, corr - iob);
+  //const corrEff = Math.max(0, corr - iob); así lo hacía el inPen pero Minimed no
+  const corrEff = corr - iob;
   return { bolusHC, corr, corrEff, bolus: bolusHC + corrEff };
 }
 function roundHalf(x){
@@ -1345,7 +1387,6 @@ function updateOp(){
   $("op").textContent =
 `BolusHC = ${hc} / ${p.ratio.toFixed(2)} = ${res.bolusHC.toFixed(2)} U
 Corrección = (${bg}-${goal})/${p.isf} = ${res.corr.toFixed(2)} U
-Corr. efectiva = max(0, ${res.corr.toFixed(2)} - ${iob.toFixed(1)}) = ${res.corrEff.toFixed(2)} U
 Insulina sin redondeo = ${res.bolus.toFixed(2)} U
 Con redondeo = ${roundHalf(res.bolus).toFixed(1)} U`;
 }
@@ -1372,13 +1413,14 @@ function calculateOnly(){
 }
 
 (function init(){
-  Object.keys(DEFAULT_PARAMS).forEach(m=>{
+  MEAL_OPTIONS.forEach(item=>{
     const o = document.createElement("option");
-    o.value = m;
-    o.textContent = m;
+    o.value = item.value;
+    o.textContent = item.label;
     $("meal").appendChild(o);
   });
 
+  applyAutomaticMealByTime();
   renderNumberDisplays();
   renderTodayLabel();
   renderCategories();
@@ -1574,6 +1616,11 @@ function calculateOnly(){
         $("err").textContent = "Primero calcula.";
         return;
       }
+    }
+
+    if(Number(formState.insulinPut) === 0){
+      const continueSave = confirm("Insulina puesta está en 0.0. ¿Quieres guardar igualmente?");
+      if(!continueSave) return;
     }
 
     const menuText = selected.map(s => `${s.name} ${Number(s.r).toFixed(2)}R`).join(" + ");
