@@ -228,6 +228,12 @@
   .hideFood th.col-food{
     display:none;
   }
+.noteArea{
+  height:auto;
+  min-height:40px;
+  resize:vertical;
+  line-height:1.2;
+}
 </style></head>
 <body>
 
@@ -438,7 +444,7 @@ function rowHtml(e, realIndex){
       <td><div class="calcBox" data-calc="hci_put">${fmt(hciPut,2)}</div></td>
 
       <td>
-        <input class="cellInput" data-field="notes" value="${esc(e.notes || "")}">
+        <textarea class="cellInput noteArea" data-field="insulin_note">${esc(e.insulin_note || "")}</textarea>
       </td>
 
       <td><input class="cellInput" data-field="i_good" inputmode="decimal" value="${esc(e.i_good ?? "")}"></td>
@@ -479,7 +485,7 @@ function updateEntry(realIndex, field, value, row){
   const entries = loadEntries();
   if(!entries[realIndex]) return;
 
-  if(["menu_text","notes","meal"].includes(field)){
+  if(["menu_text","notes","insulin_note","meal"].includes(field)){
     entries[realIndex][field] = value;
   }else{
     entries[realIndex][field] = value === "" ? "" : value.replace(",", ".");

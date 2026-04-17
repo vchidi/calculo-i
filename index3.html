@@ -500,6 +500,27 @@ pre{
     font-size:16px;
   }
 }
+/* Nota / comentario */
+.noteColor{
+  background: #ffe5e5;
+  border: 1px solid #f87171;
+  color: #b91c1c;
+  padding: 6px 10px;
+  border-radius: 10px;
+  display: inline-block;
+  margin-top: 4px;
+  font-weight: 800;
+}
+.goalNoteRed{
+  background: #ffe5e5;
+  border: 1px solid #dc2626;
+  color: #b91c1c;
+  padding: 6px 10px;
+  border-radius: 10px;
+  margin-top: 6px;
+  font-weight: 800;
+  display: inline-block;
+}
 </style>
 </head>
 <body>
@@ -517,7 +538,6 @@ pre{
     <div id="todayLabel" class="muted" style="text-align:center;flex:1;"></div>
     <div class="badge">Categorías editables</div>
   </div>
-  <div id="specialEventLabel" class="muted" style="text-align:center;margin-top:2px;"></div>
   <div class="muted">El buscador encuentra cualquier alimento aunque haya otra categoría activa.</div>
 </div>
 
@@ -540,14 +560,14 @@ pre{
         <div>
           <label>Glucosa (BG)</label>
           <div id="bgPickerBtn" class="pickerField">
-            <span id="bgDisplay">130</span>
+            <span id="bgDisplay">100</span>
             <span class="hint">▾</span>
           </div>
         </div>
 
         <div>
           <label>Glucosa objetivo</label>
-          <div id="goalPickerBtn" class="pickerField">
+          <div id="goalPickerBtn" class="pickerField goalColor">
             <span id="goalDisplay">100</span>
             <span class="hint">▾</span>
           </div>
@@ -609,6 +629,7 @@ pre{
               <span id="insulinDisplay">0.0</span>
               <span class="hint">▾</span>
             </div>
+	    <textarea id="insulinNote" class="userField" placeholder="Comentario (opcional)" style="margin-top:6px;"></textarea>
           </div>
 
           <div>
@@ -1047,20 +1068,38 @@ let formState = {
 
 function renderNumberDisplays(){
   $("bgDisplay").textContent = Math.round(formState.bg);
-  $("goalDisplay").textContent = Math.round(formState.goal);
+
+  const meal = currentMeal();
+  const note = getWeeklyNoteForToday(meal);
+  const goal = Math.round(formState.goal);
+
+  // 🔴 condición: distinto de 100 Y tiene comentario
+  if(goal !== 100 && note){
+    $("goalDisplay").innerHTML = `<span style="color:#dc2626;font-weight:900">${goal}</span>`;
+    $("goalNow").innerHTML = `<span style="color:#dc2626;font-weight:900">${goal}</span>`;
+  }else{
+    $("goalDisplay").textContent = goal;
+    $("goalNow").textContent = goal;
+  }
+
   $("iobDisplay").textContent = Number(formState.iob).toFixed(1);
   $("insulinDisplay").textContent = Number(formState.insulinPut).toFixed(1);
-  $("goalNow").textContent = Math.round(formState.goal);
 }
-
 function applyWeeklyGoalForCurrentMeal(){
   const meal = currentMeal();
   formState.goal = getWeeklyGoalForToday(meal);
   renderNumberDisplays();
 
   const note = getWeeklyNoteForToday(meal);
-  $("goalNote").textContent = note ? `📝 ${note}` : "";
-  renderSpecialEventLabel();
+  const goal = Math.round(formState.goal);
+
+  if(goal !== 100 && note){
+    $("goalNote").innerHTML = note;
+    $("goalNote").className = "goalNoteRed";
+  }else{
+    $("goalNote").textContent = "";
+    $("goalNote").className = "muted";
+  }
 }
 
 function openPicker({title, values, current, formatter, target, sub=""}){
@@ -1306,18 +1345,21 @@ function renderSuggestions(){
 function selectSuggestion(idx){
   const f = suggestions[idx];
   if(!f) return;
+
   selected.push({name:f.name, r:Number(f.r), cat:f.cat});
   activeIndex = -1;
   syncMenuTotalsToUI();
 
+  // borrar siempre lo escrito en el buscador al elegir un alimento
+  $("foodSearch").value = "";
+
   if(menuMode === "category"){
-    $("foodSearch").value = "";
     showSuggestions("");
     keepSuggestionsOpen();
   }else{
-    const q = $("foodSearch").value;
-    showSuggestions(q);
-    keepSuggestionsOpen();
+    menuMode = "search";
+    categoryDropdownPinned = false;
+    hideSuggestions();
   }
 
   $("foodSearch").focus();
@@ -1638,6 +1680,7 @@ function calculateOnly(){
       iob: Number(formState.iob),
       bolus_suggested: Number(lastBolus),
       insulin_put: Number(formState.insulinPut),
+      insulin_note: $("insulinNote").value || "",
       notes: "",
       i_good: null,
       ratio_good: null,
@@ -1645,6 +1688,7 @@ function calculateOnly(){
     });
 
     $("ok").textContent = "Entrada guardada en histórico ✅";
+    $("insulinNote").value = "";
   });
 
   $("addFood").addEventListener("click", ()=>{
